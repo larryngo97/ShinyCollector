@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black_transparent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_weight="7"
+            android:background="@drawable/circle_grid_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/game_list_entry_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/game_list_entry_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:text="Game: Pokemon Soulsilver"
+                android:textColor="@color/white"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeTextType="uniform"
+                android:autoSizeStepGranularity="4sp"
+                tools:layout_editor_absoluteX="110dp"
+                tools:layout_editor_absoluteY="13dp" />
+
+            <TextView
+                android:id="@+id/grid_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:text="025: Pikachu"
+                android:textColor="@color/white"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeTextType="uniform"
+                android:autoSizeStepGranularity="4sp"
+                tools:layout_editor_absoluteX="110dp"
+                tools:layout_editor_absoluteY="13dp" />
+
+            <TextView
+                android:id="@+id/grid_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:text="Attempts: 0"
+                android:textColor="@color/white"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="4sp"
+                app:autoSizeTextType="uniform"
+                tools:layout_editor_absoluteX="110dp"
+                tools:layout_editor_absoluteY="13dp" />
+
+            <TextView
+                android:id="@+id/grid_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:text="Since: 1/1/2020"
+                android:textColor="@color/white"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="4sp"
+                app:autoSizeTextType="uniform" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="red">#FF002B</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="dark_gray">#a9a9a9</color>
+    <color name="light_blue">#2CA7E0</color>
+    <color name="light_blue_transparent">#992CA7E0</color>
+    <color name="white">#ffffff</color>
+    <color name="white_transparent">#99ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black_transparent">#99000000</color>
+
+
+    <color name="color_normal">#A8A878</color>
+    <color name="color_fire">#F08030</color>
+    <color name="color_fighting">#C03028</color>
+    <color name="color_water">#6890F0</color>
+    <color name="color_flying">#A890F0</color>
+    <color name="color_grass">#78C850</color>
+    <color name="color_poison">#A040A0</color>
+    <color name="color_electric">#F8D030</color>
+    <color name="color_ground">#E0C068</color>
+    <color name="color_psychic">#F85888</color>
+    <color name="color_rock">#B8A038</color>
+    <color name="color_ice">#98D8D8</color>
+    <color name="color_bug">#A8B820</color>
+    <color name="color_dragon">#7038F8</color>
+    <color name="color_ghost">#705898</color>
+    <color name="color_dark">#705848</color>
+    <color name="color_steel">#B8B8D0</color>
+    <color name="color_fairy">#EE99AC</color>
+</resources>

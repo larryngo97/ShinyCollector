@@ -1,0 +1,158 @@
+<resources>
+    <string name="app_name">Shiny Hunter</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+
+    <string name="type_normal">Normal</string>
+    <string name="type_fire">Fire</string>
+    <string name="type_fighting">Fighting</string>
+    <string name="type_water">Water</string>
+    <string name="type_flying">Flying</string>
+    <string name="type_grass">Grass</string>
+    <string name="type_poison">Poison</string>
+    <string name="type_electric">Electric</string>
+    <string name="type_ground">Ground</string>
+    <string name="type_psychic">Psychic</string>
+    <string name="type_rock">Rock</string>
+    <string name="type_ice">Ice</string>
+    <string name="type_bug">Bug</string>
+    <string name="type_dragon">Dragon</string>
+    <string name="type_ghost">Ghost</string>
+    <string name="type_dark">Dark</string>
+    <string name="type_steel">Steel</string>
+    <string name="type_fairy">Fairy</string>
+
+    <string-array name="list_games_names">
+        <item>Pokemon Red</item>
+        <item>Pokemon Blue</item>
+        <item>Pokemon Green</item>
+        <item>Pokemon Yellow</item>
+        <item>Pokemon Gold</item>
+        <item>Pokemon Silver</item>
+        <item>Pokemon Crystal</item>
+        <item>Pokemon Ruby</item>
+        <item>Pokemon Sapphire</item>
+        <item>Pokemon Emerald</item>
+        <item>Pokemon Colosseum</item>
+        <item>Pokemon: XD Gale of Darkness</item>
+        <item>Pokemon FireRed</item>
+        <item>Pokemon LeafGreen</item>
+        <item>Pokemon Diamond</item>
+        <item>Pokemon Pearl</item>
+        <item>Pokemon Platinum</item>
+        <item>Pokemon HeartGold</item>
+        <item>Pokemon SoulSilver</item>
+        <item>Pokemon Rumble</item>
+        <item>Pokemon Black</item>
+        <item>Pokemon White</item>
+        <item>Pokemon Black 2</item>
+        <item>Pokemon White 2</item>
+        <item>Pokemon X</item>
+        <item>Pokemon Y</item>
+        <item>Pokemon Omega Ruby</item>
+        <item>Pokemon Alpha Sapphire</item>
+        <item>Pokemon Sun</item>
+        <item>Pokemon Moon</item>
+        <item>Pokemon Ultra Sun</item>
+        <item>Pokemon Ultra Moon</item>
+        <item>Pokemon Lets Go Pikachu</item>
+        <item>Pokemon Lets Go Eevee</item>
+        <item>Pokemon Sword</item>
+        <item>Pokemon Shield</item>
+    </string-array>
+
+    <string-array name="list_games_tokens">
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Gold</item>
+        <item>Silver</item>
+        <item>Crystal</item>
+        <item>Ruby</item>
+        <item>Sapphire</item>
+        <item>Emerald</item>
+        <item>Colosseum</item>
+        <item>XD-Gale-of-Darkness</item>
+        <item>FireRed</item>
+        <item>LeafGreen</item>
+        <item>Diamond</item>
+        <item>Pearl</item>
+        <item>Platinum</item>
+        <item>HeartGold</item>
+        <item>SoulSilver</item>
+        <item>Rumble</item>
+        <item>Black</item>
+        <item>White</item>
+        <item>Black-2</item>
+        <item>White-2</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Omega-Ruby</item>
+        <item>Alpha-Sapphire</item>
+        <item>Sun</item>
+        <item>Moon</item>
+        <item>Ultra-Sun</item>
+        <item>Ultra-Moon</item>
+        <item>Pikachu</item>
+        <item>Eevee</item>
+        <item>Sword</item>
+        <item>Shield</item>
+    </string-array>
+
+    <string-array name="list_platforms_names">
+        <item>Green Grass</item>
+        <item>Ugly Grass</item>
+        <item>Forest</item>
+        <item>Brown Path</item>
+        <item>Light Path</item>
+        <item>Metal Path</item>
+        <item>River</item>
+        <item>Cave Pool</item>
+        <item>Rocks A</item>
+        <item>Rocks B</item>
+        <item>Snow</item>
+        <item>Snowy Grass</item>
+        <item>Ice</item>
+        <item>Wood Bridge</item>
+    </string-array>
+
+    <string-array name="list_platforms_tokens">
+        <item>grass_green</item>
+        <item>grass_ugly</item>
+        <item>forest</item>
+        <item>path_brown</item>
+        <item>path_light</item>
+        <item>path_metal</item>
+        <item>water_river</item>
+        <item>water_cave</item>
+        <item>rocks_a</item>
+        <item>rocks_b</item>
+        <item>snow</item>
+        <item>snow_grass</item>
+        <item>ice</item>
+        <item>bridge_wood</item>
+    </string-array>
+
+    <string-array name="list_methods_names">
+        <item>DV Method (Gen 1)</item>
+        <item>Random Encounters</item>
+        <item>Soft Reset</item>
+        <item>Run Away</item>
+        <item>Egg Hatching</item>
+        <item>Masuda Method</item>
+        <item>Pokeradar</item>
+        <item>Chain Fishing</item>
+        <item>Friend Safari</item>
+        <item>Horde Hunting</item>
+        <item>Dexnav</item>
+        <item>SOS</item>
+        <item>Ultra Wormhole</item>
+        <item>Catch Combo</item>
+        <item>Island Scan</item>
+        <item>Fossil Restoration</item>
+        <item>Other</item>
+    </string-array>
+</resources>
