@@ -14,7 +14,6 @@ public class Pokemon {
     private String image_url;
     private Bitmap bitmap;
     private int weight;
-    private int iconType; //0 for png, 1 for gif
 
     public Pokemon() {
         id = 1;
@@ -24,7 +23,6 @@ public class Pokemon {
         types.add("poison");
         image_url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png";
         bitmap = null;
-        iconType = 0;
     }
 
     public Pokemon(int id, String name, ArrayList<String> types, String image_url) {
@@ -32,14 +30,6 @@ public class Pokemon {
         this.name = name;
         this.types = types;
         this.image_url = image_url;
-    }
-
-    public int getIconType() {
-        return iconType;
-    }
-
-    public void setIconType(int iconType) {
-        this.iconType = iconType;
     }
 
     public Bitmap getBitmap() {

@@ -1,6 +1,5 @@
 package com.larryngo.shinyhunter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Game_Pokemon;
 import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
@@ -47,8 +45,7 @@ public class PokemonViewFragment extends Fragment {
     private TextView tv_type2;
     private Button button_confirm;
 
-    private ArrayList<Game_Pokemon> game_list_static = new ArrayList<>();
-    private ArrayList<Game_Pokemon> game_list_anim = new ArrayList<>();
+    private ArrayList<Game_Pokemon> game_list = new ArrayList<>();
     private static String name = "NULL";
     ArrayList<String> typeList = new ArrayList<>();
     private Pokemon pokemon = new Pokemon();
@@ -102,6 +99,373 @@ public class PokemonViewFragment extends Fragment {
         }
     }
 
+    public void setOnClickListener() {
+        rv_listener = new PokemonViewAdapter.PokemonViewListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Glide.with(view.getContext())
+                        .load(adapter.getData().get(position).getImage_url())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.missingno)
+                        .into(image_pokemon);
+
+                pokemon.setImage_url(adapter.getData().get(position).getImage_url());
+            }
+        };
+    }
+
+    void collectData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection request = null;
+                try {
+                    System.out.println("Connecting to pokemon index " + pokemon.getId() + "...");
+                    URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + pokemon.getId());
+                    request = (HttpURLConnection)url.openConnection();
+                    request.connect();
+
+                    JsonParser jp = new JsonParser();
+                    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+                    JsonElement gameElement;
+                    Game_Pokemon game;
+
+                    int typesSize = root.getAsJsonObject()
+                            .getAsJsonArray("types")
+                            .size();
+
+                    for (int i = 0; i < typesSize; i++) {
+                        String type = root.getAsJsonObject()
+                                .getAsJsonArray("types")
+                                .get(i)
+                                .getAsJsonObject()
+                                .getAsJsonObject("type")
+                                .get("name")
+                                .getAsString();
+
+                        typeList.add(type);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Default", iconUrl);
+                        game_list.add(game);
+                    }
+
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-i")
+                            .getAsJsonObject("red-blue")
+                            .get("front_default");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Red/Blue", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-i")
+                            .getAsJsonObject("yellow")
+                            .get("front_default");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Yellow", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-ii")
+                            .getAsJsonObject("gold")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Gold", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-ii")
+                            .getAsJsonObject("silver")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Silver", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-ii")
+                            .getAsJsonObject("crystal")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Crystal", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iii")
+                            .getAsJsonObject("ruby-sapphire")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Ruby/Sapphire", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iii")
+                            .getAsJsonObject("emerald")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Emerald", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iii")
+                            .getAsJsonObject("firered-leafgreen")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("FR/LG", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iv")
+                            .getAsJsonObject("diamond-pearl")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("D/P", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iv")
+                            .getAsJsonObject("diamond-pearl")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("D/P Female", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iv")
+                            .getAsJsonObject("platinum")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Platinum", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iv")
+                            .getAsJsonObject("platinum")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Platinum Female", iconUrl);
+                        game_list.add(game);
+                    }
+
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iv")
+                            .getAsJsonObject("heartgold-soulsilver")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("HG/SS", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-iv")
+                            .getAsJsonObject("heartgold-soulsilver")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("HG/SS Female", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-v")
+                            .getAsJsonObject("black-white")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("B/W", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-v")
+                            .getAsJsonObject("black-white")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("B/W Female", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-v")
+                            .getAsJsonObject("black-white")
+                            .getAsJsonObject("animated")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("B/W Anim.", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-v")
+                            .getAsJsonObject("black-white")
+                            .getAsJsonObject("animated")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("B/W Female Anim.", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-vi")
+                            .getAsJsonObject("x-y")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("X/Y", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-vi")
+                            .getAsJsonObject("x-y")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("X/Y Female", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-vi")
+                            .getAsJsonObject("omegaruby-alphasapphire")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("OR/AS", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-vi")
+                            .getAsJsonObject("omegaruby-alphasapphire")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("OR/AS Female", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-vii")
+                            .getAsJsonObject("ultra-sun-ultra-moon")
+                            .get("front_shiny");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Sun/Moon", iconUrl);
+                        game_list.add(game);
+                    }
+
+                    gameElement = root.getAsJsonObject()
+                            .getAsJsonObject("sprites")
+                            .getAsJsonObject("versions")
+                            .getAsJsonObject("generation-vii")
+                            .getAsJsonObject("ultra-sun-ultra-moon")
+                            .get("front_shiny_female");
+                    if(!gameElement.isJsonNull()) {
+                        String iconUrl = gameElement.getAsString();
+                        game = new Game_Pokemon("Sun/Moon Female", iconUrl);
+                        game_list.add(game);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //updating the graphical interfaces
+                if(getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.clearDataList();
+                            adapter.addData(game_list);
+                            pokemon.setTypes(typeList);
+                            updateView();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -119,11 +483,6 @@ public class PokemonViewFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Pokemon newPokemon = new Pokemon(pokemon.getId(), pokemon.getName(), pokemon.getTypes(), pokemon.getImage_url());
-                    if(newPokemon.getImage_url().endsWith("gif")) {
-                        newPokemon.setIconType(1);
-                    } else {
-                        newPokemon.setIconType(0);
-                    }
                     try {
                         fragment_listener.onInputPokemonSent(newPokemon);
                         fm.popBackStack();
@@ -144,21 +503,6 @@ public class PokemonViewFragment extends Fragment {
 
         }
         return view;
-    }
-
-    public void setOnClickListener() {
-        rv_listener = new PokemonViewAdapter.PokemonViewListener() {
-            @Override
-            public void onClick(View v, int position) {
-                Glide.with(view.getContext())
-                        .load(adapter.getData().get(position).getImage_url())
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.missingno)
-                        .into(image_pokemon);
-
-                pokemon.setImage_url(adapter.getData().get(position).getImage_url());
-            }
-        };
     }
 
     public void setTypesHelper(TextView tv_type, String token) {
@@ -244,371 +588,13 @@ public class PokemonViewFragment extends Fragment {
         }
     }
 
-    private class AsyncTaskView extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            System.out.println("Getting data from server...");
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            HttpURLConnection request = null;
-            try {
-                System.out.println("Connecting to pokemon index " + pokemon.getId() + "...");
-                URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + pokemon.getId());
-                request = (HttpURLConnection)url.openConnection();
-                request.connect();
-
-                JsonParser jp = new JsonParser();
-                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-                JsonElement gameElement;
-                Game_Pokemon game;
-
-                int typesSize = root.getAsJsonObject()
-                        .getAsJsonArray("types")
-                        .size();
-
-                for (int i = 0; i < typesSize; i++) {
-                    String type = root.getAsJsonObject()
-                            .getAsJsonArray("types")
-                            .get(i)
-                            .getAsJsonObject()
-                            .getAsJsonObject("type")
-                            .get("name")
-                            .getAsString();
-
-                    typeList.add(type);
-                }
-
-                game_list_static.clear();
-                game_list_anim.clear();
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Default", iconUrl);
-                    game_list_static.add(game);
-                }
-
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-i")
-                        .getAsJsonObject("red-blue")
-                        .get("front_default");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Red/Blue", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-i")
-                        .getAsJsonObject("yellow")
-                        .get("front_default");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Yellow", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-ii")
-                        .getAsJsonObject("gold")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Gold", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-ii")
-                        .getAsJsonObject("silver")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Silver", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-ii")
-                        .getAsJsonObject("crystal")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Crystal", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iii")
-                        .getAsJsonObject("ruby-sapphire")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Ruby/Sapphire", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iii")
-                        .getAsJsonObject("emerald")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Emerald", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iii")
-                        .getAsJsonObject("firered-leafgreen")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("FR/LG", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iv")
-                        .getAsJsonObject("diamond-pearl")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("D/P", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iv")
-                        .getAsJsonObject("diamond-pearl")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("D/P Female", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iv")
-                        .getAsJsonObject("platinum")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Platinum", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iv")
-                        .getAsJsonObject("platinum")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Platinum Female", iconUrl);
-                    game_list_static.add(game);
-                }
-
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iv")
-                        .getAsJsonObject("heartgold-soulsilver")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("HG/SS", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-iv")
-                        .getAsJsonObject("heartgold-soulsilver")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("HG/SS Female", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-v")
-                        .getAsJsonObject("black-white")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("B/W", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-v")
-                        .getAsJsonObject("black-white")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("B/W Female", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-v")
-                        .getAsJsonObject("black-white")
-                        .getAsJsonObject("animated")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("B/W Anim.", iconUrl);
-                    game_list_anim.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-v")
-                        .getAsJsonObject("black-white")
-                        .getAsJsonObject("animated")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("B/W Female Anim.", iconUrl);
-                    game_list_anim.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-vi")
-                        .getAsJsonObject("x-y")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("X/Y", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-vi")
-                        .getAsJsonObject("x-y")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("X/Y Female", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-vi")
-                        .getAsJsonObject("omegaruby-alphasapphire")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("OR/AS", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-vi")
-                        .getAsJsonObject("omegaruby-alphasapphire")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("OR/AS Female", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-vii")
-                        .getAsJsonObject("ultra-sun-ultra-moon")
-                        .get("front_shiny");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Sun/Moon", iconUrl);
-                    game_list_static.add(game);
-                }
-
-                gameElement = root.getAsJsonObject()
-                        .getAsJsonObject("sprites")
-                        .getAsJsonObject("versions")
-                        .getAsJsonObject("generation-vii")
-                        .getAsJsonObject("ultra-sun-ultra-moon")
-                        .get("front_shiny_female");
-                if(!gameElement.isJsonNull()) {
-                    String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Sun/Moon Female", iconUrl);
-                    game_list_static.add(game);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void Voids) {
-            super.onPostExecute(Voids);
-            adapter.clearDataList();
-            adapter.addData(game_list_static);
-            adapter.addData(game_list_anim);
-            pokemon.setTypes(typeList);
-            updateView();
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         typeList.clear();
-        game_list_static.clear();
+        game_list.clear();
 
-        AsyncTaskView task = new AsyncTaskView();
-        task.execute();
+        collectData();
     }
 
     @Override

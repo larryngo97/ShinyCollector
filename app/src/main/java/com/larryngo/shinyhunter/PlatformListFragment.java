@@ -43,6 +43,42 @@ public class PlatformListFragment extends Fragment {
         void onInputPlatformSent(Platform platform) throws IOException;
     }
 
+    void collectData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list_platforms_tokens.size(); i++)
+                {
+                    try{
+                        if(getContext() != null)
+                        {
+                            String token = list_platforms_tokens.get(i);
+
+                            InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
+                            byte[] image = new byte[is.available()];
+                            is.read(image);
+                            is.close();
+
+                            Platform platform = new Platform(list_platforms_names.get(i), image);
+                            list_platforms.add(platform);
+                        }
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.addDataList(list_platforms);
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
 
     @Nullable
     @Override
@@ -61,8 +97,7 @@ public class PlatformListFragment extends Fragment {
             final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
             rv.setLayoutManager(layoutManager);
 
-            AsyncTaskPlatform task = new AsyncTaskPlatform();
-            task.execute();
+            collectData();
         }
         return view;
     }
@@ -79,50 +114,6 @@ public class PlatformListFragment extends Fragment {
                 fm.popBackStack();
             }
         };
-    }
-
-    private class AsyncTaskPlatform extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Loading games...");
-            progressDialog.setTitle("Please wait");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            for (int i = 0; i < list_platforms_tokens.size(); i++)
-            {
-                try{
-                    if(getContext() != null)
-                    {
-                        String token = list_platforms_tokens.get(i);
-
-                        InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
-                        byte[] image = new byte[is.available()];
-                        is.read(image);
-                        is.close();
-
-                        Platform platform = new Platform(list_platforms_names.get(i), image);
-                        list_platforms.add(platform);
-                    }
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void Voids) {
-            super.onPostExecute(Voids);
-            adapter.addDataList(list_platforms);
-            progressDialog.dismiss();
-        }
     }
 
     @Override

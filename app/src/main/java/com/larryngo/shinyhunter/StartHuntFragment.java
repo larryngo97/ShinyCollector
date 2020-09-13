@@ -56,16 +56,8 @@ public class StartHuntFragment extends Fragment {
         pokemon = input;
         button_pokemon.setText(pokemon.getName());
 
-        if(pokemon.getIconType() == 1) {
-            Glide.with(view.getContext())
-                    .load(pokemon.getImage_url())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.missingno)
-                    .into(image_pokemon);
-        } else {
-            AsyncTaskCrop task = new AsyncTaskCrop();
-            task.execute();
-        }
+        AsyncTaskCrop task = new AsyncTaskCrop();
+        task.execute();
 
         button_platform.setEnabled(true);
     }

@@ -36,14 +36,6 @@ public class HomeBaseFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent (getContext(), StartHuntActivity.class);
                 startActivity(intent);
-                /*
-                Fragment fragment = new StartHuntActivity();
-                fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
-                        .replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
-
-                 */
 
             }
         });
