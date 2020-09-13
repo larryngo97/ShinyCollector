@@ -1,8 +1,6 @@
 package com.larryngo.shinyhunter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SearchView;
 
@@ -30,9 +27,8 @@ public class GameListFragment extends Fragment {
     private List<String> list_games_tokens;
 
     private View view;
-    private SearchView searchbar;
+    private SearchView sv;
     private GridView gv;
-    private ProgressDialog progressDialog;
     private GameListAdapter adapter;
 
     private FragmentGameListener listener;
@@ -46,21 +42,18 @@ public class GameListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(view == null) {
             view = inflater.inflate(R.layout.game_list_layout, container, false);
-            searchbar = view.findViewById(R.id.game_list_search);
+            sv = view.findViewById(R.id.game_list_search);
             gv = view.findViewById(R.id.game_list_grid);
             list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names));
             list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens));
 
-            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    try {
-                        Game entry = list_games.get(position);
-                        listener.onInputGameSent(entry);
-                        fm.popBackStack();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            gv.setOnItemClickListener((parent, view, position, id) -> {
+                try {
+                    Game entry = list_games.get(position);
+                    listener.onInputGameSent(entry);
+                    fm.popBackStack();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
             adapter = new GameListAdapter(this.getContext(), list_games);
@@ -71,24 +64,7 @@ public class GameListFragment extends Fragment {
     }
 
     void setupGrid(){
-        AsyncTaskGrid task = new AsyncTaskGrid();
-        task.execute();
-    }
-
-    private class AsyncTaskGrid extends AsyncTask<String, String, ArrayList<Game>> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Loading games...");
-            progressDialog.setTitle("Please wait");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected ArrayList<Game> doInBackground(String... strings) {
+        new Thread(() -> {
             for (int i = 0; i < list_games_tokens.size(); i++)
             {
                 try{
@@ -108,15 +84,10 @@ public class GameListFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            return list_games;
-        }
 
-        @Override
-        protected void onPostExecute(ArrayList<Game> games) {
-            super.onPostExecute(games);
-            adapter.addDataList(games);
-            progressDialog.dismiss();
-        }
+            if(getActivity() == null) return;
+            getActivity().runOnUiThread(() -> adapter.addDataList(list_games));
+        }).start();
     }
 
     public int determineGeneration(String token) {
@@ -165,7 +136,7 @@ public class GameListFragment extends Fragment {
             case "Sword":
             case "Shield":
                 return 8;
-        };
+        }
         return -1;
     }
 

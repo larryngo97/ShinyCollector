@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.larryngo.shinyhunter.models.Method;
@@ -41,17 +40,14 @@ public class MethodListFragment extends Fragment {
             view = inflater.inflate(R.layout.method_list_layout, container, false);
             list_methods_names = Arrays.asList(getResources().getStringArray(R.array.list_methods_names));
             gv = view.findViewById(R.id.method_list_grid);
-            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Method entry = list_methods.get(position);
-                    try {
-                        listener.onInputMethodSent(entry);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    fm.popBackStack();
+            gv.setOnItemClickListener((adapterView, view, position, id) -> {
+                Method entry = list_methods.get(position);
+                try {
+                    listener.onInputMethodSent(entry);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                fm.popBackStack();
             });
         }
 

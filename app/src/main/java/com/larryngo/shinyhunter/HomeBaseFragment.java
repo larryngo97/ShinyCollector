@@ -31,18 +31,15 @@ public class HomeBaseFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
         FloatingActionButton fab = view.findViewById(R.id.home_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (getContext(), StartHuntActivity.class);
-                startActivity(intent);
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent (getContext(), StartHuntActivity.class);
+            startActivity(intent);
 
-            }
         });
         return view;
     }
 
-    public class SectionsPageAdapter extends FragmentPagerAdapter {
+    public static class SectionsPageAdapter extends FragmentPagerAdapter {
         public SectionsPageAdapter(FragmentManager fm) {
             super(fm);
         }

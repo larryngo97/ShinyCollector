@@ -12,7 +12,7 @@ public class Pokemon {
     private String name;
     private ArrayList<String> types;
     private String image_url;
-    private Bitmap bitmap;
+    private byte[] image;
     private int weight;
 
     public Pokemon() {
@@ -22,7 +22,6 @@ public class Pokemon {
         types.add("grass");
         types.add("poison");
         image_url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png";
-        bitmap = null;
     }
 
     public Pokemon(int id, String name, ArrayList<String> types, String image_url) {
@@ -32,12 +31,12 @@ public class Pokemon {
         this.image_url = image_url;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getImage_url() {

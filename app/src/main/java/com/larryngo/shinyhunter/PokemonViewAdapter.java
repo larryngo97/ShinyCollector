@@ -14,6 +14,7 @@ import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Game_Pokemon;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -55,12 +56,6 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
         data.clear();
     }
 
-    public void addDataList(ArrayList<Game_Pokemon> list) {
-        data.clear();
-        data.addAll(list);
-        notifyDataSetChanged();
-    }
-
     public void addData(ArrayList<Game_Pokemon> list) {
         data.addAll(list);
         notifyDataSetChanged();
@@ -91,11 +86,15 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 
         @Override
         public void onClick(View view) {
-            listener.onClick(view, getAdapterPosition());
+            try {
+                listener.onClick(view, getAdapterPosition());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public interface PokemonViewListener {
-        void onClick(View v, int position);
+        void onClick(View v, int position) throws ExecutionException, InterruptedException;
     }
 }

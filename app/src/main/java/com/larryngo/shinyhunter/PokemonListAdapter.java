@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -14,7 +13,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.larryngo.shinyhunter.models.PokemonList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -47,14 +45,18 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         holder.name.setText(name);
 
         int index = pokemon.getId();
+        String index_number;
         if(index < 10) {
-            holder.id.setText("#00" + index);
+            index_number = "#00" + index;
+            holder.id.setText(index_number);
         }
         else if (index < 100) {
-            holder.id.setText("#0" + index);
+            index_number = "#0" + index;
+            holder.id.setText(index_number);
         }
         else {
-            holder.id.setText("#" + index);
+            index_number = "#" + index;
+            holder.id.setText(index_number);
         }
 
         Glide.with(context)
@@ -69,11 +71,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     public void addDataList(ArrayList<PokemonList> list) {
         data.clear();
         data.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    public void addData(PokemonList pokemon) {
-        data.add(pokemon);
         notifyDataSetChanged();
     }
 

@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 
 public interface PokeAPIService {
     String baseURL = "https://pokeapi.co/api/v2/";
+    String baseURL_shiny = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/";
 
     @GET("pokemon")
     Call<PokemonList> obtainPokemonList(@Query("limit") int limit, @Query("offset") int offset);

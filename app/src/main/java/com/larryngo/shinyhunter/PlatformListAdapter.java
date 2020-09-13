@@ -11,14 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Platform;
 
 import java.util.ArrayList;
-
-import pl.droidsonroids.gif.GifImageView;
 
 public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapter.ViewHolder> {
     private View view;

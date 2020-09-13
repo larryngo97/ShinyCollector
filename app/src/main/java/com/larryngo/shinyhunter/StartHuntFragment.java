@@ -1,8 +1,6 @@
 package com.larryngo.shinyhunter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,10 +18,6 @@ import com.larryngo.shinyhunter.models.Method;
 import com.larryngo.shinyhunter.models.Platform;
 import com.larryngo.shinyhunter.models.Pokemon;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -52,12 +46,15 @@ public class StartHuntFragment extends Fragment {
         button_pokemon.setEnabled(true);
     }
 
-    public void updatePokemon(Pokemon input) throws IOException {
+    public void updatePokemon(Pokemon input) {
         pokemon = input;
         button_pokemon.setText(pokemon.getName());
 
-        AsyncTaskCrop task = new AsyncTaskCrop();
-        task.execute();
+        Glide.with(view.getContext())
+                .load(pokemon.getImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.missingno)
+                .into(image_pokemon);
 
         button_platform.setEnabled(true);
     }
@@ -88,7 +85,6 @@ public class StartHuntFragment extends Fragment {
         if(view == null)
         {
             view = inflater.inflate(R.layout.fragment_starthunt, container, false);
-
             button_game = view.findViewById(R.id.starthunt_button_selectgame);
             button_pokemon = view.findViewById(R.id.starthunt_button_selectpokemon);
             button_platform = view.findViewById(R.id.starthunt_button_selectplatform);
@@ -97,116 +93,29 @@ public class StartHuntFragment extends Fragment {
             image_platform = view.findViewById(R.id.starthunt_image_platform);
             button_start = view.findViewById(R.id.starthunt_button_start);
 
-            init();
+            button_game.setEnabled(true);
+            button_pokemon.setEnabled(false);
+            button_platform.setEnabled(false);
+            button_method.setEnabled(false);
+            button_start.setEnabled(false);
+
+            button_game.setOnClickListener(v -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+                    .replace(R.id.starthunt_fragment_container, new GameListFragment()).addToBackStack(null).commit());
+
+            button_pokemon.setOnClickListener(v -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+                    .replace(R.id.starthunt_fragment_container, new PokemonListFragment()).addToBackStack(null).commit());
+
+            button_platform.setOnClickListener(view -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+                    .replace(R.id.starthunt_fragment_container, new PlatformListFragment()).addToBackStack(null).commit());
+
+            button_method.setOnClickListener(view -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+                    .replace(R.id.starthunt_fragment_container, new MethodListFragment()).addToBackStack(null).commit());
+
+            button_start.setOnClickListener(view -> {
+                Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
+                startActivity(intent);
+            });
         }
         return view;
     }
-
-    Bitmap cropBitmapTransparency(Bitmap sourceBitmap)
-    {
-        if(sourceBitmap == null) { return null; }
-        int minX = sourceBitmap.getWidth();
-        int minY = sourceBitmap.getHeight();
-        int maxX = -1;
-        int maxY = -1;
-        for(int y = 0; y < sourceBitmap.getHeight(); y++)
-        {
-            for(int x = 0; x < sourceBitmap.getWidth(); x++)
-            {
-                int alpha = (sourceBitmap.getPixel(x, y) >> 24) & 255;
-                if(alpha > 0)   // pixel is not 100% transparent
-                {
-                    if(x < minX)
-                        minX = x;
-                    if(x > maxX)
-                        maxX = x;
-                    if(y < minY)
-                        minY = y;
-                    if(y > maxY)
-                        maxY = y;
-                }
-            }
-        }
-        if((maxX < minX) || (maxY < minY))
-            return null; // Bitmap is entirely transparent
-
-        // crop bitmap to non-transparent area and return:
-        return Bitmap.createBitmap(sourceBitmap, minX, minY, (maxX - minX) + 1, (maxY - minY) + 1);
-    }
-
-    public void init() {
-        button_game.setEnabled(true);
-        button_pokemon.setEnabled(false);
-        button_platform.setEnabled(false);
-        button_method.setEnabled(false);
-        button_start.setEnabled(false);
-
-        button_game.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
-                        .replace(R.id.starthunt_fragment_container, new GameListFragment()).addToBackStack(null).commit();
-            }
-        });
-
-        button_pokemon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
-                        .replace(R.id.starthunt_fragment_container, new PokemonListFragment()).addToBackStack(null).commit();
-            }
-        });
-
-        button_platform.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
-                        .replace(R.id.starthunt_fragment_container, new PlatformListFragment()).addToBackStack(null).commit();
-            }
-        });
-
-        button_method.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
-                        .replace(R.id.starthunt_fragment_container, new MethodListFragment()).addToBackStack(null).commit();
-            }
-        });
-    }
-
-    private class AsyncTaskCrop extends AsyncTask<Void, Void, Bitmap> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Bitmap doInBackground(Void... params) {
-            try {
-                URL url = new URL(pokemon.getImage_url());
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                InputStream input = null;
-                input = connection.getInputStream();
-                return BitmapFactory.decodeStream(input);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            Bitmap croppedBitmap = cropBitmapTransparency(bitmap);
-            pokemon.setBitmap(croppedBitmap);
-
-            Glide.with(view.getContext())
-                    .load(pokemon.getBitmap())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.missingno)
-                    .into(image_pokemon);
-
-        }
-    }
-
 }

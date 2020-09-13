@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/rse"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -24,7 +23,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -136,8 +136,7 @@
                             android:layout_height="100dp"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="30dp"
-                            android:layout_marginEnd="30dp"
-                            android:src="@drawable/platform" />
+                            android:layout_marginEnd="30dp"/>
 
                         <pl.droidsonroids.gif.GifImageView
                             android:id="@+id/starthunt_image_pokemon"
@@ -149,8 +148,7 @@
                             android:layout_marginStart="80dp"
                             android:layout_marginTop="90dp"
                             android:layout_marginEnd="80dp"
-                            android:layout_marginBottom="-50dp"
-                            android:src="@drawable/missingno">
+                            android:layout_marginBottom="-50dp">
 
                         </pl.droidsonroids.gif.GifImageView>
 

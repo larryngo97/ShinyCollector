@@ -1,8 +1,6 @@
 package com.larryngo.shinyhunter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,44 +35,34 @@ public class PlatformListFragment extends Fragment {
     private FragmentPlatformListListener fragment_listener;
     private PlatformListAdapter.PlatformListListener rv_listener;
 
-    private ProgressDialog progressDialog;
-
     public interface FragmentPlatformListListener {
         void onInputPlatformSent(Platform platform) throws IOException;
     }
 
     void collectData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < list_platforms_tokens.size(); i++)
-                {
-                    try{
-                        if(getContext() != null)
-                        {
-                            String token = list_platforms_tokens.get(i);
+        new Thread(() -> {
+            for (int i = 0; i < list_platforms_tokens.size(); i++)
+            {
+                try{
+                    if(getContext() != null)
+                    {
+                        String token = list_platforms_tokens.get(i);
 
-                            InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
-                            byte[] image = new byte[is.available()];
-                            is.read(image);
-                            is.close();
+                        InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
+                        byte[] image = new byte[is.available()];
+                        is.read(image);
+                        is.close();
 
-                            Platform platform = new Platform(list_platforms_names.get(i), image);
-                            list_platforms.add(platform);
-                        }
-                    }catch (IOException e) {
-                        e.printStackTrace();
+                        Platform platform = new Platform(list_platforms_names.get(i), image);
+                        list_platforms.add(platform);
                     }
+                }catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }
 
-                if(getActivity() != null) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.addDataList(list_platforms);
-                        }
-                    });
-                }
+            if(getActivity() != null) {
+                getActivity().runOnUiThread(() -> adapter.addDataList(list_platforms));
             }
         }).start();
     }
@@ -103,16 +91,13 @@ public class PlatformListFragment extends Fragment {
     }
 
     public void setOnClickListener() {
-        rv_listener = new PlatformListAdapter.PlatformListListener() {
-            @Override
-            public void onClick(View v, int position) {
-                try {
-                    fragment_listener.onInputPlatformSent(list_platforms.get(position));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                fm.popBackStack();
+        rv_listener = (v, position) -> {
+            try {
+                fragment_listener.onInputPlatformSent(list_platforms.get(position));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            fm.popBackStack();
         };
     }
 

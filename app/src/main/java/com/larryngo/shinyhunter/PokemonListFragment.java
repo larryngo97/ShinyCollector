@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -76,12 +77,7 @@ public class PokemonListFragment extends Fragment {
     }
 
     public void setOnClickListener() {
-        listener = new PokemonListAdapter.PokemonListListener() {
-            @Override
-            public void onClick(View v, int position) {
-                sendPokemonToView.sendPokemonToView(pokemonList.get(position));
-            }
-        };
+        listener = (v, position) -> sendPokemonToView.sendPokemonToView(pokemonList.get(position));
     }
 
     public void obtainData() {
@@ -92,9 +88,11 @@ public class PokemonListFragment extends Fragment {
             public void onResponse(Call<PokemonList> call, Response<PokemonList> response) {
                 if (response.isSuccessful()) {
                     PokemonList pokemonRequest = response.body();
-                    pokemonList = pokemonRequest.getResults();
 
-                    adapter.addDataList(pokemonList);
+                    if(pokemonRequest != null) {
+                        pokemonList = pokemonRequest.getResults();
+                        adapter.addDataList(pokemonList);
+                    }
 
                 } else {
                     Log.e(TAG, "onResponse: " + response.errorBody());
@@ -103,7 +101,7 @@ public class PokemonListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<PokemonList> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
+                Toast.makeText(getContext(), "Could not connect to PokeAPI", Toast.LENGTH_SHORT).show();
             }
         });
     }

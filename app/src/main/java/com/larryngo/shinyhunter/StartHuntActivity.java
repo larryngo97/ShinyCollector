@@ -12,8 +12,6 @@ import com.larryngo.shinyhunter.models.Platform;
 import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
 
-import java.io.IOException;
-
 public class StartHuntActivity extends AppCompatActivity implements
         GameListFragment.FragmentGameListener,
         PokemonViewFragment.FragmentPokemonViewListener,
@@ -39,22 +37,22 @@ public class StartHuntActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onInputGameSent(Game game) throws IOException {
+    public void onInputGameSent(Game game) {
         startHuntFragment.updateGame(game);
     }
 
     @Override
-    public void onInputPokemonSent(Pokemon pokemon) throws IOException {
+    public void onInputPokemonSent(Pokemon pokemon) {
         startHuntFragment.updatePokemon(pokemon);
     }
 
     @Override
-    public void onInputPlatformSent(Platform platform) throws IOException {
+    public void onInputPlatformSent(Platform platform) {
         startHuntFragment.updatePlatform(platform);
     }
 
     @Override
-    public void onInputMethodSent(Method method) throws IOException {
+    public void onInputMethodSent(Method method) {
         startHuntFragment.updateMethod(method);
     }
 

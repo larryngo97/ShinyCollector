@@ -1,13 +1,10 @@
 package com.larryngo.shinyhunter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.larryngo.shinyhunter.models.Method;
@@ -21,11 +18,6 @@ public class MethodListAdapter extends BaseAdapter {
     public MethodListAdapter(Context context, ArrayList<Method> list_methods) {
         this.context = context;
         this.list_methods = list_methods;
-    }
-
-    public void addDataList(ArrayList<Method> data) {
-        list_methods.addAll(data);
-        notifyDataSetChanged();
     }
 
     @Override
