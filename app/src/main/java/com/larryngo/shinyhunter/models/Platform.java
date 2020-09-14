@@ -1,8 +1,9 @@
 package com.larryngo.shinyhunter.models;
 
-import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Platform {
+public class Platform implements Parcelable {
     private String name;
     private byte[] image;
 
@@ -26,4 +27,33 @@ public class Platform {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+    protected Platform(Parcel in) {
+        name = in.readString();
+        image = in.createByteArray();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeByteArray(image);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Platform> CREATOR = new Parcelable.Creator<Platform>() {
+        @Override
+        public Platform createFromParcel(Parcel in) {
+            return new Platform(in);
+        }
+
+        @Override
+        public Platform[] newArray(int size) {
+            return new Platform[size];
+        }
+    };
 }

@@ -15,9 +15,14 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private Platform platform;
     private Method method;
 
+    private int count_increment;
+    private int count;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.counter_layout);
+
+        
     }
 }

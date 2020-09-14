@@ -1,13 +1,12 @@
 package com.larryngo.shinyhunter.models;
 
-import android.graphics.Bitmap;
-
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
 
-public class Pokemon {
+public class Pokemon implements Parcelable {
     private int id;
     private String name;
     private ArrayList<String> types;
@@ -78,4 +77,51 @@ public class Pokemon {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    protected Pokemon(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        if (in.readByte() == 0x01) {
+            types = new ArrayList<String>();
+            in.readList(types, String.class.getClassLoader());
+        } else {
+            types = null;
+        }
+        image_url = in.readString();
+        weight = in.readInt();
+        image = in.createByteArray();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        if (types == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(types);
+        }
+        dest.writeString(image_url);
+        dest.writeInt(weight);
+        dest.writeByteArray(image);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Pokemon> CREATOR = new Parcelable.Creator<Pokemon>() {
+        @Override
+        public Pokemon createFromParcel(Parcel in) {
+            return new Pokemon(in);
+        }
+
+        @Override
+        public Pokemon[] newArray(int size) {
+            return new Pokemon[size];
+        }
+    };
 }

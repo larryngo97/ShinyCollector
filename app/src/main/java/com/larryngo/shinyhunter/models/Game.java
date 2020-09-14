@@ -1,13 +1,9 @@
 package com.larryngo.shinyhunter.models;
 
-import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.larryngo.shinyhunter.R;
-
-import java.util.Arrays;
-import java.util.List;
-
-public class Game {
+public class Game implements Parcelable {
     private String game_title;
     private byte[] game_image;
     private int generation;
@@ -42,4 +38,35 @@ public class Game {
     public void setGeneration(int generation) {
         this.generation = generation;
     }
+
+    protected Game(Parcel in) {
+        game_title = in.readString();
+        game_image =in.createByteArray();
+        generation = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(game_title);
+        dest.writeInt(generation);
+        dest.writeByteArray(game_image);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
+        @Override
+        public Game createFromParcel(Parcel in) {
+            return new Game(in);
+        }
+
+        @Override
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
 }
