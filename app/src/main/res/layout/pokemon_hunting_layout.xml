@@ -97,4 +97,77 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/counter_image_frame" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_count">
+
+        <Button
+            android:id="@+id/button_undo"
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:foreground="@drawable/icon_undo"
+            android:background="@drawable/button_circle_green">
+
+        </Button>
+
+        <Button
+            android:id="@+id/button_increment"
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="+250"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowDx="1.2"
+            android:shadowDy="1.2"
+            android:shadowRadius="1"
+            app:autoSizeMaxTextSize="64sp"
+            app:autoSizeMinTextSize="16sp"
+            app:autoSizeTextType="uniform"
+            android:autoSizeStepGranularity="2sp"
+
+            android:background="@drawable/button_circle_green">
+
+        </Button>
+
+        <Button
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_circle_green">
+
+        </Button>
+
+        <Button
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_circle_green">
+
+        </Button>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:foreground="@drawable/shiny"
+        android:background="@drawable/button_circle_green"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
