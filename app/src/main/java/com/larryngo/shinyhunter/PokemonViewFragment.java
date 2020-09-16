@@ -157,11 +157,17 @@ public class PokemonViewFragment extends Fragment {
     }
 
     void updateView() {
-        Glide.with(view.getContext())
-                .load(pokemon.getImage_url())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.missingno)
-                .into(image_pokemon);
+        if(getActivity() == null) return;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.with(view.getContext())
+                        .load(pokemon.getImage_url())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.missingno)
+                        .into(image_pokemon);
+            }
+        });
 
         String index_number;
         if(pokemon.getId()< 10) {

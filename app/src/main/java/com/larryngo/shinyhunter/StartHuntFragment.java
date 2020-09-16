@@ -50,22 +50,19 @@ public class StartHuntFragment extends Fragment {
     public void updatePokemon(Pokemon input) {
         pokemon = input;
 
-        new Thread(() -> {
-            //Thread to make sure image is correct
-            if(getActivity() == null) return;
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    button_pokemon.setText(pokemon.getName());
+        if(getActivity() == null) return;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button_pokemon.setText(pokemon.getName());
 
-                    Glide.with(view.getContext())
-                            .load(pokemon.getImage())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.missingno)
-                            .into(image_pokemon);
-                }
-            });
-        }).start();
+                Glide.with(view.getContext())
+                        .load(pokemon.getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.missingno)
+                        .into(image_pokemon);
+            }
+        });
 
         button_platform.setEnabled(true);
     }
@@ -74,20 +71,17 @@ public class StartHuntFragment extends Fragment {
         platform = input;
         button_platform.setText(platform.getName());
 
-        new Thread(() -> {
-            //Thread to make sure image is correct
-            if(getActivity() == null) return;
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Glide.with(view.getContext())
-                            .load(platform.getImage())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.missingno)
-                            .into(image_platform);
-                }
-            });
-        }).start();
+        if(getActivity() == null) return;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.with(view.getContext())
+                        .load(platform.getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.missingno)
+                        .into(image_platform);
+            }
+        });
 
         button_method.setEnabled(true);
     }

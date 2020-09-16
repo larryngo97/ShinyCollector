@@ -1,10 +1,14 @@
 package com.larryngo.shinyhunter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,7 +88,43 @@ public class PokemonHuntActivity extends AppCompatActivity {
         counter_count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Count is currently: " + counter.getCount());
+                LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
+                View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
+                dialog.setView(dialogView);
+                EditText et_input = dialogView.findViewById(R.id.edit_count);
+                et_input.setText(String.valueOf(counter.getCount()));
+
+                //new dialog sequence
+                dialog.setTitle("Set Counter")
+                        .setMessage("Please enter a whole number")
+                        .setPositiveButton("SET", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(et_input.getText().toString().isEmpty())
+                                {
+                                    dialog.cancel();
+                                }
+
+                                int newCount = Integer.parseInt(et_input.getText().toString());
+
+                                if(newCount < 0) {
+                                    Toast.makeText(PokemonHuntActivity.this, "Number needs to be 0 or above!", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                } else
+                                {
+                                    counter.setCount(newCount);
+                                    counter_count.setText(String.valueOf(counter.getCount()));
+                                }
+                            }
+                        })
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel(); //goes back
+                            }
+                        });
+                dialog.show();
             }
         });
     }

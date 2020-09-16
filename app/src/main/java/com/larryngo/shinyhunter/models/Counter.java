@@ -29,6 +29,10 @@ public class Counter implements Parcelable {
         return count;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public int getIncrement_count() {
         return increment_count;
     }
