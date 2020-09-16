@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/counter_screen"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/rse"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/counter_pokemon_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoSizeStepGranularity="2sp"
+        android:fontFamily="@font/gelion"
+        android:gravity="center"
+        android:text="MISSINGNO"
+        android:textSize="48sp"
+        android:textColor="@color/white"
+        android:shadowColor="@color/black"
+        android:shadowDx="1.5"
+        android:shadowDy="1.5"
+        android:shadowRadius="5"
+        app:autoSizeMaxTextSize="64sp"
+        app:autoSizeMinTextSize="48sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <FrameLayout
+        android:id="@+id/counter_image_frame"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/box_query"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/counter_pokemon_name">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/counter_image_platform"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/platform" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/counter_image_pokemon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/counter_image_platform"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="-45dp"
+                android:src="@drawable/missingno">
+
+            </pl.droidsonroids.gif.GifImageView>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/pokemon_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:fontFamily="@font/gelion"
+        android:text="0"
+        android:textSize="64sp"
+        android:textColor="@color/white"
+        android:shadowColor="@color/black"
+        android:shadowDx="1.5"
+        android:shadowDy="1.5"
+        android:shadowRadius="5"
+        app:autoSizeMaxTextSize="128sp"
+        app:autoSizeMinTextSize="64sp"
+        app:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/counter_image_frame" />
+</android.support.constraint.ConstraintLayout>

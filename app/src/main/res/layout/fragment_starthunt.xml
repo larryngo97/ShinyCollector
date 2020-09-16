@@ -175,14 +175,14 @@
 
                 <Button
                     android:id="@+id/starthunt_button_start"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:background="@drawable/box_start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
                     android:layout_marginBottom="15dp"
                     android:autoSizeStepGranularity="4sp"
-                    android:background="@drawable/box_start"
-                    android:foreground="?attr/selectableItemBackground"
                     android:layout_gravity="center"
                     android:text="Start Hunt"
                     android:textColor="@color/white"

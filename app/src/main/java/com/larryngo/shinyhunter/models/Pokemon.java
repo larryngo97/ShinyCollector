@@ -88,8 +88,8 @@ public class Pokemon implements Parcelable {
             types = null;
         }
         image_url = in.readString();
-        weight = in.readInt();
         image = in.createByteArray();
+        weight = in.readInt();
     }
 
     @Override
@@ -108,8 +108,8 @@ public class Pokemon implements Parcelable {
             dest.writeList(types);
         }
         dest.writeString(image_url);
-        dest.writeInt(weight);
         dest.writeByteArray(image);
+        dest.writeInt(weight);
     }
 
     @SuppressWarnings("unused")

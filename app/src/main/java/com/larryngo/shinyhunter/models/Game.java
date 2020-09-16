@@ -41,7 +41,7 @@ public class Game implements Parcelable {
 
     protected Game(Parcel in) {
         game_title = in.readString();
-        game_image =in.createByteArray();
+        game_image = in.createByteArray();
         generation = in.readInt();
     }
 
@@ -53,8 +53,8 @@ public class Game implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(game_title);
-        dest.writeInt(generation);
         dest.writeByteArray(game_image);
+        dest.writeInt(generation);
     }
 
     @SuppressWarnings("unused")

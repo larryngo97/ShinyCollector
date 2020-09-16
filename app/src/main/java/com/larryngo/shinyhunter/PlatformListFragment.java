@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Platform;
 
 import java.io.IOException;
@@ -35,38 +36,11 @@ public class PlatformListFragment extends Fragment {
     private FragmentPlatformListListener fragment_listener;
     private PlatformListAdapter.PlatformListListener rv_listener;
 
+    private LoadingDialog loadingDialog;
+
     public interface FragmentPlatformListListener {
         void onInputPlatformSent(Platform platform) throws IOException;
     }
-
-    void collectData() {
-        new Thread(() -> {
-            for (int i = 0; i < list_platforms_tokens.size(); i++)
-            {
-                try{
-                    if(getContext() != null)
-                    {
-                        String token = list_platforms_tokens.get(i);
-
-                        InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
-                        byte[] image = new byte[is.available()];
-                        is.read(image);
-                        is.close();
-
-                        Platform platform = new Platform(list_platforms_names.get(i), image);
-                        list_platforms.add(platform);
-                    }
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(getActivity() != null) {
-                getActivity().runOnUiThread(() -> adapter.addDataList(list_platforms));
-            }
-        }).start();
-    }
-
 
     @Nullable
     @Override
@@ -78,16 +52,50 @@ public class PlatformListFragment extends Fragment {
             list_platforms_names = Arrays.asList(getResources().getStringArray(R.array.list_platforms_names));
             list_platforms_tokens = Arrays.asList(getResources().getStringArray(R.array.list_platforms_tokens));
 
+            loadingDialog = new LoadingDialog(getActivity());
+            loadingDialog.startLoadingDialog();
+            loadingDialog.setMessage("Loading platforms...");
+
             setOnClickListener();
-            adapter = new PlatformListAdapter(this.getContext(), new ArrayList<>(), rv_listener);
+            adapter = new PlatformListAdapter(getActivity(), new ArrayList<>(), rv_listener);
             rv.setAdapter(adapter);
 
-            final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
+            final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
             rv.setLayoutManager(layoutManager);
 
             collectData();
+
+            loadingDialog.dismissDialog();
+        } else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if(parent != null) {
+                parent.removeView(view);
+            }
         }
         return view;
+    }
+
+    void collectData() {
+        for (int i = 0; i < list_platforms_tokens.size(); i++)
+        {
+            try{
+                if(getContext() != null)
+                {
+                    String token = list_platforms_tokens.get(i);
+
+                    InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
+                    byte[] image = new byte[is.available()];
+                    is.read(image);
+                    is.close();
+
+                    Platform platform = new Platform(list_platforms_names.get(i), image);
+                    list_platforms.add(platform);
+                    adapter.addDataList(list_platforms);
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setOnClickListener() {

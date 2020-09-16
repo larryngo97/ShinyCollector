@@ -56,15 +56,25 @@ public class GameListFragment extends Fragment {
                     e.printStackTrace();
                 }
             });
+
             adapter = new GameListAdapter(this.getContext(), list_games);
             gv.setAdapter(adapter);
             setupGrid();
+        } else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if(parent != null) {
+                parent.removeView(view);
+            }
         }
         return view;
     }
 
     void setupGrid(){
-        new Thread(() -> {
+        if(getActivity() == null) return;
+        getActivity().runOnUiThread(() -> {
+            final LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+            loadingDialog.startLoadingDialog();
+            loadingDialog.setMessage("Loading games...");
             for (int i = 0; i < list_games_tokens.size(); i++)
             {
                 try{
@@ -84,10 +94,8 @@ public class GameListFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
-            if(getActivity() == null) return;
-            getActivity().runOnUiThread(() -> adapter.addDataList(list_games));
-        }).start();
+            loadingDialog.dismissDialog();
+        });
     }
 
     public int determineGeneration(String token) {

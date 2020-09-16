@@ -26,7 +26,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class PokemonListFragment extends Fragment {
     private final String TAG = "ShinyHunter";
@@ -40,9 +39,8 @@ public class PokemonListFragment extends Fragment {
 
     private ArrayList<PokemonList> pokemonList = new ArrayList<>();
     private PokemonListAdapter adapter;
-    private int totalPokemonLimit = 890;
+    private int totalPokemonLimit = 892;
 
-    private ProgressDialog progressDialog;
     private PokemonListAdapter.PokemonListListener listener;
 
     private SendPokemonToView sendPokemonToView;
@@ -71,7 +69,9 @@ public class PokemonListFragment extends Fragment {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             service = retrofit.create(PokeAPIService.class);
+
             obtainData();
+
         }
         return view;
     }
@@ -81,29 +81,38 @@ public class PokemonListFragment extends Fragment {
     }
 
     public void obtainData() {
-        Call<PokemonList> pokemonListCall = service.obtainPokemonList(totalPokemonLimit, 0);
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoadingDialog();
+        loadingDialog.setMessage("Loading data from PokeAPI server...");
 
-        pokemonListCall.enqueue(new Callback<PokemonList>() {
-            @Override
-            public void onResponse(Call<PokemonList> call, Response<PokemonList> response) {
-                if (response.isSuccessful()) {
-                    PokemonList pokemonRequest = response.body();
+        new Thread(() -> {
+            Call<PokemonList> pokemonListCall = service.obtainPokemonList(totalPokemonLimit, 0);
 
-                    if(pokemonRequest != null) {
-                        pokemonList = pokemonRequest.getResults();
-                        adapter.addDataList(pokemonList);
+            pokemonListCall.enqueue(new Callback<PokemonList>() {
+                @Override
+                public void onResponse(Call<PokemonList> call, Response<PokemonList> response) {
+                    if (response.isSuccessful()) {
+                        PokemonList pokemonRequest = response.body();
+
+                        if(pokemonRequest != null) {
+                            pokemonList = pokemonRequest.getResults();
+                            adapter.addDataList(pokemonList);
+                        }
+
+                    } else {
+                        Log.e(TAG, "onResponse: " + response.errorBody());
                     }
-
-                } else {
-                    Log.e(TAG, "onResponse: " + response.errorBody());
                 }
-            }
 
-            @Override
-            public void onFailure(Call<PokemonList> call, Throwable t) {
-                Toast.makeText(getContext(), "Could not connect to PokeAPI", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<PokemonList> call, Throwable t) {
+                    Toast.makeText(getContext(), "Could not connect to PokeAPI", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            if(getActivity() == null) return;
+            getActivity().runOnUiThread(loadingDialog::dismissDialog);
+        }).start();
     }
 
     @Override

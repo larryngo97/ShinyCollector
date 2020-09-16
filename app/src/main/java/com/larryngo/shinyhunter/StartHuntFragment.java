@@ -2,7 +2,6 @@ package com.larryngo.shinyhunter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Method;
 import com.larryngo.shinyhunter.models.Platform;
@@ -49,13 +49,23 @@ public class StartHuntFragment extends Fragment {
 
     public void updatePokemon(Pokemon input) {
         pokemon = input;
-        button_pokemon.setText(pokemon.getName());
 
-        Glide.with(view.getContext())
-                .load(pokemon.getImage())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.missingno)
-                .into(image_pokemon);
+        new Thread(() -> {
+            //Thread to make sure image is correct
+            if(getActivity() == null) return;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    button_pokemon.setText(pokemon.getName());
+
+                    Glide.with(view.getContext())
+                            .load(pokemon.getImage())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.missingno)
+                            .into(image_pokemon);
+                }
+            });
+        }).start();
 
         button_platform.setEnabled(true);
     }
@@ -64,11 +74,20 @@ public class StartHuntFragment extends Fragment {
         platform = input;
         button_platform.setText(platform.getName());
 
-        Glide.with(view.getContext())
-                .load(platform.getImage())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.missingno)
-                .into(image_platform);
+        new Thread(() -> {
+            //Thread to make sure image is correct
+            if(getActivity() == null) return;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.with(view.getContext())
+                            .load(platform.getImage())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.missingno)
+                            .into(image_platform);
+                }
+            });
+        }).start();
 
         button_method.setEnabled(true);
     }
@@ -77,6 +96,7 @@ public class StartHuntFragment extends Fragment {
         method = input;
         button_method.setText(method.getName());
 
+        button_start.setVisibility(View.VISIBLE);
         button_start.setEnabled(true);
     }
 
@@ -99,6 +119,7 @@ public class StartHuntFragment extends Fragment {
             button_platform.setEnabled(false);
             button_method.setEnabled(false);
             button_start.setEnabled(false);
+            button_start.setVisibility(View.INVISIBLE);
 
             button_game.setOnClickListener(v -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
                     .replace(R.id.starthunt_fragment_container, new GameListFragment()).addToBackStack(null).commit());
@@ -114,6 +135,9 @@ public class StartHuntFragment extends Fragment {
 
             button_start.setOnClickListener(view -> {
                 Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
+                Counter counter = new Counter(game, pokemon, platform, method, 0, 1);
+                System.out.println(counter.getIncrement_count());
+                intent.putExtra("counter", counter);
                 startActivity(intent);
             });
         }

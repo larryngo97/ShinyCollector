@@ -51,11 +51,12 @@ public class PokemonViewFragment extends Fragment {
 
     private ArrayList<Game_Pokemon> game_list = new ArrayList<>();
     private ArrayList<String> typeList = new ArrayList<>();
-    private Pokemon pokemon = new Pokemon();
+    private Pokemon pokemon;
 
     private FragmentPokemonViewListener fragment_listener;
     private PokemonViewAdapter.PokemonViewListener rv_listener;
 
+    private LoadingDialog loadingDialog;
 
     public interface FragmentPokemonViewListener {
         void onInputPokemonSent(Pokemon pokemon) throws IOException;
@@ -69,10 +70,7 @@ public class PokemonViewFragment extends Fragment {
 
         String image_url = PokeAPIService.baseURL_shiny + id + ".png";
 
-        pokemon.setName(name);
-        pokemon.setId(pokemonList.getId());
-        pokemon.setImage_url(image_url);
-
+        pokemon = new Pokemon(id, name, new ArrayList<>(), image_url);
     }
 
     public void setTypesHelper(TextView tv_type, String token) {
@@ -240,6 +238,8 @@ public class PokemonViewFragment extends Fragment {
                             .load(adapter.getData().get(position).getImage_url())
                             .submit()
                             .get();
+
+                    pokemon.setImage_url(adapter.getData().get(position).getImage_url());
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -252,13 +252,16 @@ public class PokemonViewFragment extends Fragment {
                             .placeholder(R.drawable.missingno)
                             .into(image_pokemon);
 
-                    pokemon.setImage_url(adapter.getData().get(position).getImage_url());
                 });
             }
         }).start();
     }
 
     void collectData() {
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoadingDialog();
+        loadingDialog.setMessage("Gathering icons from PokeAPI server...");
+
         new Thread(() -> {
             HttpURLConnection request;
             try {
@@ -604,6 +607,8 @@ public class PokemonViewFragment extends Fragment {
                     updateView();
                 });
             }
+
+            loadingDialog.dismissDialog();
         }).start();
     }
 
@@ -644,6 +649,11 @@ public class PokemonViewFragment extends Fragment {
 
             final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
             rv.setLayoutManager(layoutManager);
+        } else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if(parent != null) {
+                parent.removeView(view);
+            }
         }
         return view;
     }

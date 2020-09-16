@@ -28,6 +28,7 @@ public class MethodListFragment extends Fragment {
     private List<String> list_methods_names;
 
     private FragmentMethodListListener listener;
+    private LoadingDialog loadingDialog;
 
     public interface FragmentMethodListListener {
         void onInputMethodSent(Method entry) throws IOException;
@@ -40,6 +41,7 @@ public class MethodListFragment extends Fragment {
             view = inflater.inflate(R.layout.method_list_layout, container, false);
             list_methods_names = Arrays.asList(getResources().getStringArray(R.array.list_methods_names));
             gv = view.findViewById(R.id.method_list_grid);
+
             gv.setOnItemClickListener((adapterView, view, position, id) -> {
                 Method entry = list_methods.get(position);
                 try {
@@ -49,11 +51,23 @@ public class MethodListFragment extends Fragment {
                 }
                 fm.popBackStack();
             });
-        }
 
-        adapter = new MethodListAdapter(this.getContext(), list_methods);
-        gv.setAdapter(adapter);
-        setupGrid();
+            loadingDialog = new LoadingDialog(getActivity());
+            loadingDialog.startLoadingDialog();
+            loadingDialog.setMessage("Loading methods...");
+
+            adapter = new MethodListAdapter(this.getContext(), list_methods);
+            gv.setAdapter(adapter);
+            setupGrid();
+
+            loadingDialog.dismissDialog();
+
+        } else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if(parent != null) {
+                parent.removeView(view);
+            }
+        }
         return view;
     }
 
@@ -61,7 +75,6 @@ public class MethodListFragment extends Fragment {
         for(int i = 0; i < list_methods_names.size(); i++) {
             Method method = new Method(i, list_methods_names.get(i));
             list_methods.add(method);
-            System.out.println(list_methods.size());
         }
     }
 
