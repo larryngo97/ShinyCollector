@@ -34,6 +34,13 @@ public class MethodListFragment extends Fragment {
         void onInputMethodSent(Method entry) throws IOException;
     }
 
+    /*
+        OVERVIEW
+
+        A simple list of all the methods that are currently available. This is just to remind the user
+        what method they are using and doesn't provide much value.
+     */
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,14 +49,15 @@ public class MethodListFragment extends Fragment {
             list_methods_names = Arrays.asList(getResources().getStringArray(R.array.list_methods_names));
             gv = view.findViewById(R.id.method_list_grid);
 
+            //gridview clicks
             gv.setOnItemClickListener((adapterView, view, position, id) -> {
-                Method entry = list_methods.get(position);
+                Method entry = list_methods.get(position); //gets the current method clicked on
                 try {
-                    listener.onInputMethodSent(entry);
+                    listener.onInputMethodSent(entry); //sends that method to the main start hunt menu.
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                fm.popBackStack();
+                fm.popBackStack(); //go back
             });
 
             loadingDialog = new LoadingDialog(getActivity());
@@ -73,7 +81,7 @@ public class MethodListFragment extends Fragment {
 
     public void setupGrid() {
         for(int i = 0; i < list_methods_names.size(); i++) {
-            Method method = new Method(i, list_methods_names.get(i));
+            Method method = new Method(i, list_methods_names.get(i)); //creates the method based on the names and assigns them an id
             list_methods.add(method);
         }
     }

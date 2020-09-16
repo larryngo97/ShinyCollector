@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,52 +21,44 @@ import com.larryngo.shinyhunter.models.Counter;
 import pl.droidsonroids.gif.GifImageView;
 
 public class PokemonHuntActivity extends AppCompatActivity {
-    private ConstraintLayout counter_screen;
-    private TextView counter_name;
-    private GifImageView counter_pokemon_image;
-    private ImageView counter_platform_image;
+    private ConstraintLayout screen;
+    private TextView pokemon_name;
+    private GifImageView pokemon_image;
+    private ImageView platform_image;
     private TextView counter_count;
-
+    private Button button_undo;
+    private Button button_increment;
 
     private Counter counter;
-    /*
-
-    private Game game;
-    private Pokemon pokemon;
-    private Platform platform;
-    private Method method;
-
-     */
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon_hunting_layout);
-        counter_screen = findViewById(R.id.counter_screen);
-        counter_name = findViewById(R.id.counter_pokemon_name);
-        counter_pokemon_image = findViewById(R.id.counter_image_pokemon);
-        counter_platform_image = findViewById(R.id.counter_image_platform);
+        screen = findViewById(R.id.counter_screen);
+        pokemon_name = findViewById(R.id.counter_pokemon_name);
+        pokemon_image = findViewById(R.id.counter_image_pokemon);
+        platform_image = findViewById(R.id.counter_image_platform);
         counter_count = findViewById(R.id.pokemon_count);
+        button_undo = findViewById(R.id.button_undo);
+        button_increment = findViewById(R.id.button_increment);
 
         if(getIntent().hasExtra("counter")){
             counter = getIntent().getParcelableExtra("counter"); //receives object
             if(counter != null) {
-                counter_name.setText(counter.getPokemon().getName());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.with(getApplicationContext())
-                                .load(counter.getPokemon().getImage())
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .placeholder(R.drawable.missingno)
-                                .into(counter_pokemon_image);
+                pokemon_name.setText(counter.getPokemon().getName());
+                runOnUiThread(() -> {
+                    Glide.with(getApplicationContext())
+                            .load(counter.getPokemon().getImage())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.missingno)
+                            .into(pokemon_image);
 
-                        Glide.with(getApplicationContext())
-                                .load(counter.getPlatform().getImage())
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .placeholder(R.drawable.missingno)
-                                .into(counter_platform_image);
-                    }
+                    Glide.with(getApplicationContext())
+                            .load(counter.getPlatform().getImage())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.missingno)
+                            .into(platform_image);
                 });
                 counter_count.setText(String.valueOf(counter.getCount()));
 
@@ -77,55 +70,84 @@ public class PokemonHuntActivity extends AppCompatActivity {
     }
 
     public void setupButtons() {
-        counter_screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                counter.add(counter.getIncrement_count());
-                counter_count.setText(String.valueOf(counter.getCount()));
-            }
+        screen.setOnClickListener(view -> {
+            counter.add(counter.getIncrement());
+            counter_count.setText(String.valueOf(counter.getCount()));
         });
 
-        counter_count.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
-                View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
-                AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
-                dialog.setView(dialogView);
-                EditText et_input = dialogView.findViewById(R.id.edit_count);
-                et_input.setText(String.valueOf(counter.getCount()));
+        counter_count.setOnClickListener(view -> {
+            LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
+            View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
+            dialog.setView(dialogView);
+            EditText et_input = dialogView.findViewById(R.id.edit_count);
+            et_input.setText(String.valueOf(counter.getCount()));
 
-                //new dialog sequence
-                dialog.setTitle("Set Counter")
-                        .setMessage("Please enter a whole number")
-                        .setPositiveButton("SET", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if(et_input.getText().toString().isEmpty())
-                                {
-                                    dialog.cancel();
-                                }
+            //new dialog sequence
+            dialog.setTitle("Set Counter")
+                    .setMessage("Enter a number 0-99999. Changes the counter.")
+                    .setPositiveButton("SET", (dialog1, which) -> {
+                        if(et_input.getText().toString().isEmpty())
+                        {
+                            dialog1.cancel();
+                        }
 
-                                int newCount = Integer.parseInt(et_input.getText().toString());
+                        int newCount = Integer.parseInt(et_input.getText().toString());
 
-                                if(newCount < 0) {
-                                    Toast.makeText(PokemonHuntActivity.this, "Number needs to be 0 or above!", Toast.LENGTH_SHORT).show();
-                                    dialog.cancel();
-                                } else
-                                {
-                                    counter.setCount(newCount);
-                                    counter_count.setText(String.valueOf(counter.getCount()));
-                                }
-                            }
-                        })
-                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel(); //goes back
-                            }
-                        });
-                dialog.show();
-            }
+                        if(newCount >= 0 && newCount <= 99999) {
+                            counter.setCount(newCount);
+                            counter_count.setText(String.valueOf(counter.getCount()));
+                        } else
+                        {
+                            Toast.makeText(PokemonHuntActivity.this, "Number needs to be 0-99999!", Toast.LENGTH_SHORT).show();
+                            dialog1.cancel();
+                        }
+                    })
+                    .setNegativeButton("CANCEL", (dialog12, which) -> {
+                        dialog12.cancel(); //goes back
+                    });
+            dialog.show();
         });
+
+        button_undo.setOnClickListener(view -> {
+            counter.add(-counter.getIncrement());
+            counter_count.setText(String.valueOf(counter.getCount()));
+        });
+
+        String incrementText = "+" + counter.getIncrement();
+        button_increment.setText(incrementText);
+        button_increment.setOnClickListener(view -> {
+            LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
+            View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
+            dialog.setView(dialogView);
+            EditText et_input = dialogView.findViewById(R.id.edit_count);
+            et_input.setText(String.valueOf(counter.getIncrement()));
+
+            //new dialog sequence
+            dialog.setTitle("Set Incremental Value")
+                    .setMessage("Enter a number 1-99. Changes the value added/subtracted.")
+                    .setPositiveButton("SET", (dialog13, which) -> {
+                        if(et_input.getText().toString().isEmpty()) {
+                            dialog13.cancel();
+                        }
+
+                        int newCount = Integer.parseInt(et_input.getText().toString());
+
+                        if(newCount >= 1 && newCount <= 99) {
+                            counter.setIncrement(newCount);
+                            String incrementText1 = "+" + counter.getIncrement();
+                            button_increment.setText(incrementText1);
+                        } else {
+                            Toast.makeText(PokemonHuntActivity.this, "Number needs to be 1-99!", Toast.LENGTH_SHORT).show();
+                            dialog13.cancel();
+                        }
+                    })
+                    .setNegativeButton("CANCEL", (dialog14, which) -> {
+                        dialog14.cancel(); //goes back
+                    });
+            dialog.show();
+        });
+
     }
 }

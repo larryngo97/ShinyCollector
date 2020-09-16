@@ -42,6 +42,12 @@ public class PlatformListFragment extends Fragment {
         void onInputPlatformSent(Platform platform) throws IOException;
     }
 
+    /*
+        OVERVIEW
+
+        Shows up a list of platforms that can be selected and be sent to the main hunt menu. This is only
+        a graphical addition.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,14 +89,14 @@ public class PlatformListFragment extends Fragment {
                 {
                     String token = list_platforms_tokens.get(i);
 
-                    InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png");
-                    byte[] image = new byte[is.available()];
-                    is.read(image);
+                    InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png"); // uses token (file name) to get the image from assets
+                    byte[] image = new byte[is.available()]; //creates image
+                    is.read(image); //necessary for image to show up
                     is.close();
 
-                    Platform platform = new Platform(list_platforms_names.get(i), image);
-                    list_platforms.add(platform);
-                    adapter.addDataList(list_platforms);
+                    Platform platform = new Platform(list_platforms_names.get(i), image); //creates the platform
+                    list_platforms.add(platform); //adds platform to the list
+                    adapter.addDataList(list_platforms); //tells adapter to update the list based on the current list
                 }
             }catch (IOException e) {
                 e.printStackTrace();
@@ -98,10 +104,11 @@ public class PlatformListFragment extends Fragment {
         }
     }
 
+    //recyclerview that will update the main hunt menu when an item is clicked.
     public void setOnClickListener() {
         rv_listener = (v, position) -> {
             try {
-                fragment_listener.onInputPlatformSent(list_platforms.get(position));
+                fragment_listener.onInputPlatformSent(list_platforms.get(position)); //sends the platform to the main hunt menu
             } catch (IOException e) {
                 e.printStackTrace();
             }

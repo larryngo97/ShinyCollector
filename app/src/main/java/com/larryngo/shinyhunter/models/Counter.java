@@ -23,6 +23,10 @@ public class Counter implements Parcelable {
     public void add(int num)
     {
         count += num;
+        if(count < 0)
+            count = 0;
+        else if (count > 99999)
+            count = 99999;
     }
 
     public int getCount() {
@@ -33,8 +37,12 @@ public class Counter implements Parcelable {
         this.count = count;
     }
 
-    public int getIncrement_count() {
+    public int getIncrement() {
         return increment_count;
+    }
+
+    public void setIncrement(int increment_count) {
+        this.increment_count = increment_count;
     }
 
     public Game getGame() {

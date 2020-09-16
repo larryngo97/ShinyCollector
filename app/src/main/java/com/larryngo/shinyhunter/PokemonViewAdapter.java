@@ -10,14 +10,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Game_Pokemon;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import pl.droidsonroids.gif.GifImageView;
-
 
 public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.ViewHolder> {
     private View view;

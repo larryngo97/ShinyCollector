@@ -37,6 +37,13 @@ public class GameListFragment extends Fragment {
         void onInputGameSent(Game entry) throws IOException;
     }
 
+
+    /*
+        OVERVIEW
+
+        Creates a list of all the current games and puts it into a gridview with an image and the name
+        of the game.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,14 +51,15 @@ public class GameListFragment extends Fragment {
             view = inflater.inflate(R.layout.game_list_layout, container, false);
             sv = view.findViewById(R.id.game_list_search);
             gv = view.findViewById(R.id.game_list_grid);
-            list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names));
-            list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens));
+            list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names)); //names of the games
+            list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens)); //file names of the games
 
+            //gridview clicks
             gv.setOnItemClickListener((parent, view, position, id) -> {
                 try {
-                    Game entry = list_games.get(position);
-                    listener.onInputGameSent(entry);
-                    fm.popBackStack();
+                    Game entry = list_games.get(position); //gets the current game selected
+                    listener.onInputGameSent(entry); //sends the game to the main hunt menu
+                    fm.popBackStack(); //go back
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -82,13 +90,13 @@ public class GameListFragment extends Fragment {
                     {
                         String token = list_games_tokens.get(i);
 
-                        InputStream is = getContext().getAssets().open("icons/games/" + token + ".png");
-                        byte[] image = new byte[is.available()];
-                        is.read(image);
+                        InputStream is = getContext().getAssets().open("icons/games/" + token + ".png"); //searches the game based on the token (file name)
+                        byte[] image = new byte[is.available()]; //creates image
+                        is.read(image); //necessary in order for the image to appear
                         is.close();
 
-                        Game game = new Game(list_games_names.get(i), image, determineGeneration(token));
-                        list_games.add(game);
+                        Game game = new Game(list_games_names.get(i), image, determineGeneration(token)); //creates game
+                        list_games.add(game); //sets up the list of games
                     }
                 }catch (IOException e) {
                     e.printStackTrace();
@@ -98,6 +106,8 @@ public class GameListFragment extends Fragment {
         });
     }
 
+    //Determines the generation of the game. Can be used to determine what pokemon
+    //can be acquired. (Red/Blue/Yellow can go up to 151, G/S/C up to 251, etc.)
     public int determineGeneration(String token) {
         switch(token) {
             case "Red":

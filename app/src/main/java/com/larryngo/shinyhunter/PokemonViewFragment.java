@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.larryngo.shinyhunter.PokeAPI.PokeAPIService;
@@ -38,6 +37,13 @@ import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
+/*
+    OVERVIEW
+
+    This fragment contains all the available icons that can be selected from the PokeAPI servers.
+    User can see what icon they have selected and when they are satisfied with their icon, they can
+    confirm it to have it be the main pokemon image when hunting.
+ */
 public class PokemonViewFragment extends Fragment {
     private View view;
     private RecyclerView rv;
@@ -62,18 +68,23 @@ public class PokemonViewFragment extends Fragment {
         void onInputPokemonSent(Pokemon pokemon) throws IOException;
     }
 
+    //Receives the index from the PokemonListFragment class.
+    //This helps create the pokemon class and find information based on that.
     public void receiveIndex(PokemonList pokemonList) {
         String name = pokemonList.getName();
-        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        name = name.substring(0, 1).toUpperCase() + name.substring(1); //Uppercase the first letter
 
         int id = pokemonList.getId();
 
-        String image_url = PokeAPIService.baseURL_shiny + id + ".png";
+        String image_url = PokeAPIService.baseURL_shiny + id + ".png"; //Image for the DEFAULT shiny.
 
-        pokemon = new Pokemon(id, name, new ArrayList<>(), image_url);
+        pokemon = new Pokemon(id, name, new ArrayList<>(), image_url); //Creating the pokemon class.
     }
 
+    //Helper class to update the view of the pokemon current types. This has no relevancy to
+    //the overall goal of this application but it is a nice feature!
     public void setTypesHelper(TextView tv_type, String token) {
+        //Based on the token(type), it will set the current textview to show that type.
         if(getContext() != null) {
             switch (token) {
                 case "normal":
@@ -157,18 +168,14 @@ public class PokemonViewFragment extends Fragment {
     }
 
     void updateView() {
+        //Updates the image on the upper left, and is the pokemon image that will be sent to start the hunt.
         if(getActivity() == null) return;
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.with(view.getContext())
-                        .load(pokemon.getImage_url())
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.missingno)
-                        .into(image_pokemon);
-            }
-        });
+        getActivity().runOnUiThread(() -> Glide.with(view.getContext())
+                .load(pokemon.getImage_url())
+                .placeholder(R.drawable.missingno)
+                .into(image_pokemon));
 
+        //Index number that goes up to 999
         String index_number;
         if(pokemon.getId()< 10) {
             index_number = "#00" + pokemon.getId();
@@ -185,21 +192,23 @@ public class PokemonViewFragment extends Fragment {
 
         tv_name.setText(pokemon.getName());
 
+        //Both types are invisible until their types are revealed.
         tv_type1.setVisibility(View.INVISIBLE);
         tv_type2.setVisibility(View.INVISIBLE);
         if(!pokemon.getTypes().isEmpty()) {
             tv_type1.setVisibility(View.VISIBLE);
             String type = pokemon.getTypes().get(0);
-            setTypesHelper(tv_type1, type);
+            setTypesHelper(tv_type1, type); //Sets type 1
         }
         if(pokemon.getTypes().size() == 2) {
             tv_type2.setVisibility(View.VISIBLE);
             String type = pokemon.getTypes().get(1);
-            setTypesHelper(tv_type2, type);
+            setTypesHelper(tv_type2, type); //Sets type 2
         }
     }
 
     //https://stackoverflow.com/questions/27753634/android-bitmap-save-without-transparent-area
+    //Crops the image (as some will be shown as very small because of the image dimensions)
     Bitmap cropBitmapTransparency(Bitmap sourceBitmap)
     {
         if(sourceBitmap == null) { return null; }
@@ -232,6 +241,9 @@ public class PokemonViewFragment extends Fragment {
         return Bitmap.createBitmap(sourceBitmap, minX, minY, (maxX - minX) + 1, (maxY - minY) + 1);
     }
 
+    //Recycler onClick. This will generate a bitmap (from the image url) of the pokemon image
+    //that is selected from the recyclerview. Additionally, it will update the image on the top
+    //left corner.
     public void setOnClickListener() {
         rv_listener = (v, position) -> new Thread(new Runnable() {
             Bitmap bitmap;
@@ -251,18 +263,17 @@ public class PokemonViewFragment extends Fragment {
                 }
 
                 if(getActivity() == null) return;
-                getActivity().runOnUiThread(() -> {
-                    Glide.with(view.getContext())
-                            .load(adapter.getData().get(position).getImage_url())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.missingno)
-                            .into(image_pokemon);
-
-                });
+                getActivity().runOnUiThread(() ->
+                        Glide.with(view.getContext())
+                        .load(adapter.getData().get(position).getImage_url())
+                        .placeholder(R.drawable.missingno)
+                        .into(image_pokemon));
             }
         }).start();
     }
 
+    //Main function of the class. This will connect to the PokeAPI servers on that specific pokemon
+    //based on ID and generates icons (if available) for that pokemon.
     void collectData() {
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
@@ -631,24 +642,30 @@ public class PokemonViewFragment extends Fragment {
             button_confirm = view.findViewById(R.id.pokemon_view_button_confirm);
             rv = view.findViewById(R.id.pokemon_view_recycler);
 
-            button_confirm.setOnClickListener(view -> {
-                try {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap();
-                    bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] bytes = stream.toByteArray();
-                    pokemon.setImage(bytes);
+            //Confirming the selection will crop the image and send the image to
+            //StartHuntFragment to update
+            button_confirm.setOnClickListener(view -> new Thread(() -> {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap(); //gets the image from the top left
+                bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); //compressing to PNG
+                byte[] bytes = stream.toByteArray();
 
-                    fragment_listener.onInputPokemonSent(pokemon);
-                    fm.popBackStack();
-                    fm.popBackStack();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+                if(getActivity() == null) return;
+                getActivity().runOnUiThread(() -> {
+                    try {
+                        pokemon.setImage(bytes); //sets the image
 
-            setOnClickListener();
+                        fragment_listener.onInputPokemonSent(pokemon); //sends StartHuntFragment the data
+                        fm.popBackStack(); //go back
+                        fm.popBackStack(); //go back
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }).start());
+
+            setOnClickListener(); //recycler onclick setup
             adapter = new PokemonViewAdapter(this.getContext(), new ArrayList<>(), rv_listener);
             rv.setHasFixedSize(true);
             rv.setAdapter(adapter);
