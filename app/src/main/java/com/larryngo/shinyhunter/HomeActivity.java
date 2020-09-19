@@ -22,7 +22,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int backStackCount = fm.getBackStackEntryCount(); //gets count of the back stack
-        Toast.makeText(this, "Stack Count: " + backStackCount, Toast.LENGTH_SHORT).show();
         if (backStackCount != 0) //if theres a current back stack
         {
             fm.popBackStack(); //pops the stack, reformats the layout

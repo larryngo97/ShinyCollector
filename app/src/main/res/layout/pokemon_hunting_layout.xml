@@ -34,6 +34,29 @@
 
     </TextView>
 
+    <TextView
+        android:id="@+id/counter_game_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:autoSizeStepGranularity="2sp"
+        android:fontFamily="@font/gelion"
+        android:gravity="center"
+        android:shadowColor="@color/black"
+        android:shadowDx="1.5"
+        android:shadowDy="1.5"
+        android:shadowRadius="5"
+        android:text="GAME: UNKNOWN"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:autoSizeMaxTextSize="32sp"
+        app:autoSizeMinTextSize="18sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintTop_toBottomOf="@+id/counter_pokemon_name"
+        tools:layout_editor_absoluteX="165dp">
+
+    </TextView>
+
     <FrameLayout
         android:id="@+id/counter_image_frame"
         android:layout_width="200dp"
@@ -42,7 +65,7 @@
         android:background="@drawable/box_query"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/counter_pokemon_name">
+        app:layout_constraintTop_toBottomOf="@+id/counter_game_name">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -108,21 +131,25 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pokemon_count">
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_count"
+        style="?android:attr/buttonBarStyle">
 
-        <Button
+        <ImageButton
             android:id="@+id/button_undo"
             android:layout_margin="5dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:foreground="@drawable/icon_undo"
-            android:background="@drawable/button_circle_green">
-
-        </Button>
+            android:src="@drawable/icon_undo"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@drawable/button_circle_green"
+            style="?android:attr/buttonBarButtonStyle">
+        </ImageButton>
 
         <Button
             android:id="@+id/button_increment"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="+250"
@@ -136,26 +163,35 @@
             app:autoSizeMinTextSize="16sp"
             app:autoSizeTextType="uniform"
             android:autoSizeStepGranularity="2sp"
-
-            android:background="@drawable/button_circle_green">
-
+            android:background="@drawable/button_circle_green"
+            style="?android:attr/buttonBarButtonStyle">
         </Button>
 
-        <Button
-            android:layout_margin="5dp"
+        <ImageButton
+            android:id="@+id/button_edit"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_circle_green">
-
-        </Button>
-
-        <Button
             android:layout_margin="5dp"
+            android:src="@drawable/icon_edit"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:background="@drawable/button_circle_green"
+            style="?android:attr/buttonBarButtonStyle">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/button_options"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_circle_green">
-
-        </Button>
+            android:layout_margin="5dp"
+            android:src="@drawable/icon_settings"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:background="@drawable/button_circle_green"
+            style="?android:attr/buttonBarButtonStyle">
+        </ImageButton>
 
 
     </LinearLayout>
@@ -170,4 +206,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
