@@ -18,6 +18,10 @@ public class HomeBaseFragment extends Fragment {
     private ViewPager viewPager;
     private SectionsPageAdapter viewPagerAdapter;
 
+    private HomeHuntingFragment homeHuntingFragment = new HomeHuntingFragment();
+    private HomeCompletedFragment homeCompletedFragment = new HomeCompletedFragment();
+    private HomeStatisticsFragment homeStatisticsFragment = new HomeStatisticsFragment();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

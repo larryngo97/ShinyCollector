@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.larryngo.shinyhunter.models.Counter;
@@ -151,6 +152,8 @@ public class StartHuntFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
                 Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
                 intent.putExtra("counter", counter);
+
+                HomeHuntingFragment.addToGrid(counter);
                 startActivity(intent);
 
                 //Prevents the user from going back to the startup screen. When a hunt has been created

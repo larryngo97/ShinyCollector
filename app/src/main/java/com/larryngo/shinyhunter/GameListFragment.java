@@ -37,13 +37,13 @@ public class GameListFragment extends Fragment {
         void onInputGameSent(Game entry) throws IOException;
     }
 
-
     /*
         OVERVIEW
 
         Creates a list of all the current games and puts it into a gridview with an image and the name
         of the game.
      */
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

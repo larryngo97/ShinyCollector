@@ -31,14 +31,14 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:autoSizeStepGranularity="2sp"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="14sp"
-        app:autoSizeTextType="uniform">
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="2sp">
 
     </TextView>
 </LinearLayout>

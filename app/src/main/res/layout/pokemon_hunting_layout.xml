@@ -39,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:autoSizeStepGranularity="2sp"
         android:fontFamily="@font/gelion"
         android:gravity="center"
         android:shadowColor="@color/black"
@@ -52,6 +51,7 @@
         app:autoSizeMaxTextSize="32sp"
         app:autoSizeMinTextSize="18sp"
         app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="2sp"
         app:layout_constraintTop_toBottomOf="@+id/counter_pokemon_name"
         tools:layout_editor_absoluteX="165dp">
 
@@ -116,7 +116,7 @@
         app:autoSizeMaxTextSize="128sp"
         app:autoSizeMinTextSize="64sp"
         app:autoSizeTextType="uniform"
-        android:autoSizeStepGranularity="2sp"
+        app:autoSizeStepGranularity="2sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/counter_image_frame" />
@@ -162,7 +162,7 @@
             app:autoSizeMaxTextSize="64sp"
             app:autoSizeMinTextSize="16sp"
             app:autoSizeTextType="uniform"
-            android:autoSizeStepGranularity="2sp"
+            app:autoSizeStepGranularity="2sp"
             android:background="@drawable/button_circle_green"
             style="?android:attr/buttonBarButtonStyle">
         </Button>

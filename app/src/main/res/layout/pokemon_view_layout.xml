@@ -44,7 +44,7 @@
                 app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="20sp"
                 app:autoSizeTextType="uniform"
-                android:autoSizeStepGranularity="2sp"
+                app:autoSizeStepGranularity="2sp"
                 android:textColor="@color/dark_gray">
             </TextView>
 
@@ -61,7 +61,7 @@
                 app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="32sp"
                 app:autoSizeTextType="uniform"
-                android:autoSizeStepGranularity="2sp">
+                app:autoSizeStepGranularity="2sp">
 
             </TextView>
 
@@ -78,7 +78,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:autoSizeStepGranularity="2sp"
                     android:background="@drawable/type_fire"
                     android:gravity="center"
                     android:shadowColor="@color/black"
@@ -90,7 +89,8 @@
                     android:visibility="invisible"
                     app:autoSizeMaxTextSize="50sp"
                     app:autoSizeMinTextSize="16sp"
-                    app:autoSizeTextType="uniform">
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeStepGranularity="2sp">
 
                 </TextView>
 
@@ -99,7 +99,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:autoSizeStepGranularity="2sp"
                     android:background="@drawable/type_flying"
                     android:gravity="center"
                     android:shadowColor="@color/black"
@@ -111,7 +110,8 @@
                     android:visibility="invisible"
                     app:autoSizeMaxTextSize="50sp"
                     app:autoSizeMinTextSize="16sp"
-                    app:autoSizeTextType="uniform">
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeStepGranularity="2sp">
 
                 </TextView>
 
@@ -127,7 +127,6 @@
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="15dp"
-        android:autoSizeStepGranularity="4sp"
         android:background="@drawable/box_start"
         android:foreground="?attr/selectableItemBackground"
         android:layout_gravity="center"
@@ -135,7 +134,8 @@
         android:textColor="@color/white"
         app:autoSizeMaxTextSize="20sp"
         app:autoSizeMinTextSize="12sp"
-        app:autoSizeTextType="uniform" />
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="2sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -157,7 +157,7 @@
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="32sp"
         app:autoSizeTextType="uniform"
-        android:autoSizeStepGranularity="2sp" >
+        app:autoSizeStepGranularity="2sp" >
 
     </TextView>
 

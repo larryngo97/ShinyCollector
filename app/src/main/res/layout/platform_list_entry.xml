@@ -31,7 +31,7 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:autoSizeStepGranularity="2sp"
+        app:autoSizeStepGranularity="2sp"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="center"
         android:maxLines="1"

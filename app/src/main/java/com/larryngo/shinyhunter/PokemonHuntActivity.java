@@ -58,6 +58,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, "Did not receive data...", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         setupButtons();
@@ -72,13 +73,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
         runOnUiThread(() -> {
             Glide.with(getApplicationContext())
                     .load(counter.getPokemon().getImage())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.missingno)
                     .into(pokemon_image);
 
             Glide.with(getApplicationContext())
                     .load(counter.getPlatform().getImage())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.missingno)
                     .into(platform_image);
         });

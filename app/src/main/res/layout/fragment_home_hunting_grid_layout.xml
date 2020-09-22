@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rse"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <GridView
         android:id="@+id/home_hunting_grid"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:verticalSpacing="10dp"/>
 </RelativeLayout>

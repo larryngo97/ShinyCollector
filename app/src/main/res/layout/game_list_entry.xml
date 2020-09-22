@@ -49,7 +49,7 @@
                 app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="18sp"
                 app:autoSizeTextType="uniform"
-                android:autoSizeStepGranularity="4sp"/>
+                app:autoSizeStepGranularity="2sp"/>
         </LinearLayout>
     </LinearLayout>
 

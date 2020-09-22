@@ -29,7 +29,7 @@
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="16sp"
         app:autoSizeTextType="uniform"
-        android:autoSizeStepGranularity="2sp"
+        app:autoSizeStepGranularity="2sp"
         android:layout_width="120dp"
         android:layout_height="wrap_content">
     </TextView>
@@ -40,7 +40,6 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:autoSizeStepGranularity="2sp"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="start"
         android:text="Pikachu"
@@ -48,7 +47,8 @@
         android:maxLines="1"
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="14sp"
-        app:autoSizeTextType="uniform">
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="2sp">
 
     </TextView>
 </LinearLayout>
