@@ -3,8 +3,6 @@ package com.larryngo.shinyhunter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,9 @@ import android.widget.TextView;
 import com.larryngo.shinyhunter.models.Platform;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapter.ViewHolder> {
     private View view;

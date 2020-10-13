@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.larryngo.shinyhunter.R;
-
 public class LoadingDialog {
     private Activity activity;
     private AlertDialog dialog;
