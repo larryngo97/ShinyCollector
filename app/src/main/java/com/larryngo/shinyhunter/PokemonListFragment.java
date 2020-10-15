@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.larryngo.shinyhunter.PokeAPI.PokeAPIService;
+import com.larryngo.shinyhunter.adapters.PokemonListAdapter;
 import com.larryngo.shinyhunter.models.PokemonList;
 
 import androidx.annotation.NonNull;

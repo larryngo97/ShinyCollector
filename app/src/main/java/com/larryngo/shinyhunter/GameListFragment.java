@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.SearchView;
 
+import com.larryngo.shinyhunter.adapters.GameListAdapter;
 import com.larryngo.shinyhunter.models.Game;
 
 import java.io.IOException;

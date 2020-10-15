@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.larryngo.shinyhunter.adapters.MethodListAdapter;
 import com.larryngo.shinyhunter.models.Method;
 
 import java.io.IOException;

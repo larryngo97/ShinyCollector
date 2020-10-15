@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
+import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
 
 /*
     OVERVIEW
@@ -150,7 +151,7 @@ public class StartHuntFragment extends Fragment {
                 Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
                 intent.putExtra("counter", counter);
 
-                HomeHuntingFragment.addToGrid(counter);
+                huntingViewModel.addNewValue(counter);
                 startActivity(intent);
 
                 //Prevents the user from going back to the startup screen. When a hunt has been created

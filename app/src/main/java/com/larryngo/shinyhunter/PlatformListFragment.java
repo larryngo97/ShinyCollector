@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.larryngo.shinyhunter.models.Game;
+import com.larryngo.shinyhunter.adapters.PlatformListAdapter;
 import com.larryngo.shinyhunter.models.Platform;
 
 import java.io.IOException;

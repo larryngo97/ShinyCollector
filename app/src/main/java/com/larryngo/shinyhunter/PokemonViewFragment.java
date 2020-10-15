@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.larryngo.shinyhunter.PokeAPI.PokeAPIService;
+import com.larryngo.shinyhunter.adapters.PokemonViewAdapter;
 import com.larryngo.shinyhunter.models.Game_Pokemon;
 import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
