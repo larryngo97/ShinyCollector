@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Game_Pokemon;
 
 import java.util.ArrayList;

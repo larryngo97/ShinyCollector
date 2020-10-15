@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Platform;
 
 import java.util.ArrayList;

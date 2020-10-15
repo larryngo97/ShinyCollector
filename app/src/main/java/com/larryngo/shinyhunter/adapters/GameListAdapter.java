@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Game;
 
 public class GameListAdapter extends BaseAdapter {
