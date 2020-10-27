@@ -3,6 +3,8 @@ package com.larryngo.shinyhunter;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.larryngo.shinyhunter.activities.HomeActivity;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 

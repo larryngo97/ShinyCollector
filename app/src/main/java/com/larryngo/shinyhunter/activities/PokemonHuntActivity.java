@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.activities;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
 
 import androidx.annotation.Nullable;
@@ -87,16 +87,16 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
     public void setupButtons() {
         screen.setOnClickListener(view -> {
-            counter.add(counter.getIncrement());
+            counter.add(counter.getStep());
             counter_count.setText(String.valueOf(counter.getCount()));
         });
 
         button_undo.setOnClickListener(view -> {
-            counter.add(-counter.getIncrement());
+            counter.add(-counter.getStep());
             counter_count.setText(String.valueOf(counter.getCount()));
         });
 
-        String incrementText = "+" + counter.getIncrement();
+        String incrementText = "+" + counter.getStep();
         button_increment.setText(incrementText);
         button_increment.setOnClickListener(view -> {
             LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
@@ -104,7 +104,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
             AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
             dialog.setView(dialogView);
             EditText et_input = dialogView.findViewById(R.id.edit_count);
-            et_input.setText(String.valueOf(counter.getIncrement()));
+            et_input.setText(String.valueOf(counter.getStep()));
 
             //new dialog sequence
             dialog.setTitle("Set Incremental Value")
@@ -117,8 +117,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
                         int newCount = Integer.parseInt(et_input.getText().toString());
 
                         if(newCount >= 1 && newCount <= 99) {
-                            counter.setIncrement(newCount);
-                            String incrementText1 = "+" + counter.getIncrement();
+                            counter.setStep(newCount);
+                            String incrementText1 = "+" + counter.getStep();
                             button_increment.setText(incrementText1);
                         } else {
                             Toast.makeText(PokemonHuntActivity.this, "Number needs to be 1-99!", Toast.LENGTH_SHORT).show();

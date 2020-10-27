@@ -7,18 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.larryngo.shinyhunter.activities.PokemonHuntActivity;
 import com.larryngo.shinyhunter.adapters.HomeHuntingAdapter;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
+import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class HomeHuntingFragment extends Fragment {
@@ -36,8 +37,18 @@ public class HomeHuntingFragment extends Fragment {
         {
             view = inflater.inflate(R.layout.fragment_home_hunting_grid_layout, container, false);
             gv = view.findViewById(R.id.home_hunting_grid);
+            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
+                    Counter counter = adapter.getCounterObject(i);
+                    intent.putExtra("counter", counter);
 
-            huntingViewModel = new ViewModelProvider(this).get(HuntingViewModel.class);
+                    startActivity(intent);
+                }
+            });
+
+            /*
             huntingViewModel.init();
             huntingViewModel.getHuntingList().observe(getViewLifecycleOwner(), new Observer<List<Counter>>() {
                 @Override
@@ -57,7 +68,7 @@ public class HomeHuntingFragment extends Fragment {
                 }
             });
 
-            initList();
+             */
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
             if(parent != null) {
@@ -68,19 +79,23 @@ public class HomeHuntingFragment extends Fragment {
         return view;
     }
 
-    public void initList() {
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
-                Counter counter = adapter.getCounterObject(i);
-                intent.putExtra("counter", counter);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        HuntingViewModelFactory factory = new HuntingViewModelFactory(requireActivity().getApplication());
+        huntingViewModel = new ViewModelProvider(this, factory).get(HuntingViewModel.class);
+        huntingViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
+            if(counters != null) {
+                final int size = counters.size();
 
-                startActivity(intent);
+                if (size == 0) {
+                    Toast.makeText(getActivity(), "No list", Toast.LENGTH_SHORT).show();
+                }
             }
+
         });
 
-        adapter = new HomeHuntingAdapter(this.getContext(), huntingViewModel.getHuntingList().getValue());
+        adapter = new HomeHuntingAdapter(this.getContext(), huntingViewModel.getCounters().getValue());
         gv.setAdapter(adapter);
     }
 

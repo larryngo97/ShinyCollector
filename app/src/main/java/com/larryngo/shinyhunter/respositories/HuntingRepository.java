@@ -1,6 +1,7 @@
 package com.larryngo.shinyhunter.respositories;
 
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.models.CounterDao;
 import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Method;
 import com.larryngo.shinyhunter.models.Platform;
@@ -9,23 +10,69 @@ import com.larryngo.shinyhunter.models.Pokemon;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Completable;
 
-public class HuntingRepository {
+public class HuntingRepository  {
+    @NonNull
+    private final CounterDao counterDao;
+
+    public HuntingRepository(@NonNull CounterDao counterDao) {
+        this.counterDao = counterDao;
+    }
+
+    public Completable addCounter(Counter counter) {
+        return counterDao.insert(counter);
+    }
+
+    public Completable deleteCounter(Counter counter) {
+        return counterDao.deleteCounter(counter);
+    }
+
+    public Completable deleteAll() {
+        return counterDao.deleteAll();
+    }
+
+    public LiveData<List<Counter>> getCounters() {
+        return counterDao.loadAllCounters();
+    }
+
+    public LiveData<Counter> getCounter(int id) {
+        return counterDao.loadCounter(id);
+    }
+
+    public Completable modifyGame(int id, Game game) {
+        return counterDao.modifyGame(id, game);
+    }
+
+    public Completable modifyPokemon(int id, Pokemon pokemon) {
+        return counterDao.modifyPokemon(id, pokemon);
+    }
+
+    public Completable modifyPlatform (int id, Platform platform) {
+        return counterDao.modifyPlatform(id, platform);
+    }
+
+    public Completable modifyMethod(int id, Method method) {
+        return counterDao.modifyMethod(id, method);
+    }
+
+    public Completable setCount(int id, int value) {
+        return counterDao.setValue(id, value);
+    }
+
+    /*
     private static HuntingRepository instance;
     private ArrayList<Counter> dataSet = new ArrayList<>();
-    private Counter dummy = new Counter(
-            new Game("Pokemon Red", null, 1),
-            new Pokemon(0, "Missingno", null, "null"),
-            new Platform("none", null),
-            new Method(1, null),
-            127, 1);
 
     public static HuntingRepository getInstance() {
         if(instance == null) {
             instance = new HuntingRepository();
         } return instance;
     }
+
 
     public MutableLiveData<List<Counter>> getHuntingList() {
         setHuntingList();
@@ -36,6 +83,8 @@ public class HuntingRepository {
     }
 
     private void setHuntingList() {
-        dataSet.add(dummy);
+
     }
+
+     */
 }

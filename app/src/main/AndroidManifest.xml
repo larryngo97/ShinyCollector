@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"> </activity>
+        <activity android:name=".activities.HomeActivity"> </activity>
         <activity android:name=".StartHuntActivity"> </activity>
-        <activity android:name=".PokemonHuntActivity"> </activity>
+        <activity android:name=".activities.PokemonHuntActivity"> </activity>
 
         <meta-data
             android:name="preloaded_fonts"
