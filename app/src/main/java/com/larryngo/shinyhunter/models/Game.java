@@ -8,6 +8,12 @@ public class Game implements Parcelable {
     private byte[] game_image;
     private int generation;
 
+    public Game() {
+        this.game_title = "Pokemon Red";
+        this.game_image = null;
+        this.generation = 1;
+    }
+
     public Game(String text, byte[] image, int generation)
     {
         this.game_title = text;

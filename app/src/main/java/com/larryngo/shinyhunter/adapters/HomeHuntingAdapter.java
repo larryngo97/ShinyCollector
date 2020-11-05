@@ -12,12 +12,17 @@ import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import pl.droidsonroids.gif.GifImageView;
 
 public class HomeHuntingAdapter extends BaseAdapter {
     private Context mContext;
     private List<Counter> list_counters;
+
+    public HomeHuntingAdapter(Context c){
+        this.mContext = c;
+    }
 
     public HomeHuntingAdapter(Context c, List<Counter> list_counters){
         this.mContext = c;

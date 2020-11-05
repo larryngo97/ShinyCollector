@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter.activities;
+package com.larryngo.shinyhunter;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
 
 import androidx.annotation.Nullable;

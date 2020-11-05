@@ -17,6 +17,7 @@ public class Pokemon implements Parcelable {
     public Pokemon() {
         id = 1;
         name = "bulbasaur";
+        image = null;
         types = new ArrayList<>();
         types.add("grass");
         types.add("poison");

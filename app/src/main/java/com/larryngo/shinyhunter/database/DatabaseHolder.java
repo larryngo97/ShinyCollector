@@ -23,6 +23,7 @@ public abstract class DatabaseHolder extends RoomDatabase {
 
     private static DatabaseHolder database;
 
+    @NonNull
     public static DatabaseHolder database() {
         return database;
     }

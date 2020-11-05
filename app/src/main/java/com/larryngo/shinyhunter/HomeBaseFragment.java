@@ -36,12 +36,6 @@ public class HomeBaseFragment extends Fragment {
         TabLayout tabLayout = (TabLayout)view.findViewById(R.id.home_tabbar);
         tabLayout.setupWithViewPager(viewPager);
 
-        FloatingActionButton fab = view.findViewById(R.id.home_fab);
-        fab.setOnClickListener(v -> {
-            Intent intent = new Intent (getContext(), StartHuntActivity.class);
-            startActivity(intent);
-
-        });
         return view;
     }
 

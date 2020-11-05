@@ -14,6 +14,11 @@ public class Method implements Parcelable {
             "Masuda Method", "Pokeradar", "Chain Fishing", "Friend Safari", "Horde Hunting", "Dexnav", "SOS", "Ultra Wormhole", "Catch Combo",
             "Island Scan", "Fossil Restoration", "Other");
 
+    public Method() {
+        this.id = 1;
+        this.name = "Soft Reset";
+    }
+
     public Method(int id, String name) {
         this.id = id;
         this.name = name;

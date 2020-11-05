@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter.activities;
+package com.larryngo.shinyhunter.app;
 
 import android.app.Application;
 
@@ -15,17 +15,12 @@ public class App extends Application {
         }
         return tinyDB;
     }
-
-    public void init () {
-        App.instance = this;
-        DatabaseHolder.init(this);
-    }
-
     public static App getInstance() { return instance; }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        System.out.println("TEST");
         App.instance = this;
         DatabaseHolder.init(this);
     }

@@ -1,12 +1,11 @@
-package com.larryngo.shinyhunter.activities;
+package com.larryngo.shinyhunter.app;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.larryngo.shinyhunter.HomeBaseFragment;
 import com.larryngo.shinyhunter.R;
-import com.larryngo.shinyhunter.activities.App;
-import com.larryngo.shinyhunter.database.TinyDB;
+import com.larryngo.shinyhunter.app.App;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;

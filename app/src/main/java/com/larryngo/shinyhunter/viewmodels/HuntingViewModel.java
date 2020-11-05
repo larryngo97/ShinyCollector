@@ -19,7 +19,7 @@ public class HuntingViewModel extends AndroidViewModel {
     HuntingViewModel(Application application, HuntingRepository huntingRepository) {
         super(application);
         repository = huntingRepository;
-        counters = repository.getCounters();
+        counters = huntingRepository.getCounters();
     }
 
     public LiveData<List<Counter>> getCounters() {
@@ -32,7 +32,7 @@ public class HuntingViewModel extends AndroidViewModel {
             int size = currentList.size() + 1;
             entry.setPosition(size);
             repository.addCounter(entry);
-            Toast.makeText(getApplication(), "Created new entry!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), "Created new entry! Size: " + counters.getValue().size(), Toast.LENGTH_SHORT).show();
         }
     }
 

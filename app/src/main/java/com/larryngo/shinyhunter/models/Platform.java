@@ -7,6 +7,11 @@ public class Platform implements Parcelable {
     private String name;
     private byte[] image;
 
+    public Platform() {
+        this.name = "Grass";
+        this.image = null;
+    }
+
     public Platform (String name, byte[] image) {
         this.name = name;
         this.image = image;
