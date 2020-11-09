@@ -10,9 +10,6 @@ import java.util.List;
 public class Method implements Parcelable {
     private int id;
     private String name;
-    private List<String> list_methods_names = Arrays.asList("DV Method (Gen 1)", "Random Encounters", "Soft Reset", "Run Away", "Egg Hatching",
-            "Masuda Method", "Pokeradar", "Chain Fishing", "Friend Safari", "Horde Hunting", "Dexnav", "SOS", "Ultra Wormhole", "Catch Combo",
-            "Island Scan", "Fossil Restoration", "Other");
 
     public Method() {
         this.id = 1;
@@ -40,19 +37,10 @@ public class Method implements Parcelable {
         this.id = id;
     }
 
-    public List<String> getMethodList() {
-        return list_methods_names;
-    }
 
     protected Method(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        if (in.readByte() == 0x01) {
-            list_methods_names = new ArrayList<String>();
-            in.readList(list_methods_names, String.class.getClassLoader());
-        } else {
-            list_methods_names = null;
-        }
     }
 
     @Override
@@ -64,12 +52,6 @@ public class Method implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        if (list_methods_names == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(list_methods_names);
-        }
     }
 
     @SuppressWarnings("unused")

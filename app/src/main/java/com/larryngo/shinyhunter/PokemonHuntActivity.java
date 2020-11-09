@@ -1,6 +1,8 @@
 package com.larryngo.shinyhunter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import pl.droidsonroids.gif.GifImageView;
 
 public class PokemonHuntActivity extends AppCompatActivity {
+    private static String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
+    private static String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
+
     private ConstraintLayout screen;
     private TextView pokemon_name;
     private TextView game_name;
@@ -33,6 +38,13 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private ImageButton button_options;
 
     private Counter counter;
+
+    public static void start(Activity activity, Counter counter) {
+        Intent intent = new Intent(activity, PokemonHuntActivity.class);
+        intent.putExtra(ARGUMENT_COUNTER_ID, counter.getId());
+        intent.putExtra(ARGUMENT_COUNTER, counter);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,17 +61,22 @@ public class PokemonHuntActivity extends AppCompatActivity {
         button_edit = findViewById(R.id.button_edit);
         button_options = findViewById(R.id.button_options);
 
-        if(getIntent().hasExtra("counter")){
-            counter = getIntent().getParcelableExtra("counter"); //receives object
+        Bundle extras = getIntent().getExtras();
+
+        if(extras.containsKey("ARGUMENT_COUNTER")){
+            counter = getIntent().getParcelableExtra("ARGUMENT_COUNTER"); //receives object
             if(counter != null) {
                 updateView();
+                setupButtons();
+            } else {
+                Toast.makeText(this, "Error in creating view, counter not found", Toast.LENGTH_SHORT).show();
+                finish();
             }
         } else {
             Toast.makeText(this, "Did not receive data...", Toast.LENGTH_SHORT).show();
             finish();
         }
 
-        setupButtons();
     }
 
     public void updateView() {

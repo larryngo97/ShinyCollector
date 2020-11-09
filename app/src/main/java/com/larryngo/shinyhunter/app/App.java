@@ -20,7 +20,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        System.out.println("TEST");
         App.instance = this;
         DatabaseHolder.init(this);
     }

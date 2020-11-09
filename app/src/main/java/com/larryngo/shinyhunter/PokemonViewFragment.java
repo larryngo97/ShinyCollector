@@ -82,6 +82,89 @@ public class PokemonViewFragment extends Fragment {
         pokemon = new Pokemon(id, name, new ArrayList<>(), image_url); //Creating the pokemon class.
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(view == null) {
+            view = inflater.inflate(R.layout.pokemon_view_layout, container, false);
+            image_pokemon = view.findViewById(R.id.pokemon_view_image);
+            tv_dex = view.findViewById(R.id.pokemon_view_id);
+            tv_name = view.findViewById(R.id.pokemon_view_name);
+            tv_type1 = view.findViewById(R.id.pokemon_view_type1);
+            tv_type2 = view.findViewById(R.id.pokemon_view_type2);
+            button_confirm = view.findViewById(R.id.pokemon_view_button_confirm);
+            rv = view.findViewById(R.id.pokemon_view_recycler);
+
+            //Confirming the selection will crop the image and send the image to
+            //StartHuntFragment to update
+            button_confirm.setOnClickListener(view -> new Thread(() -> {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap(); //gets the image from the top left
+                bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); //compressing to PNG
+                byte[] bytes = stream.toByteArray();
+
+                if(getActivity() == null) return;
+                getActivity().runOnUiThread(() -> {
+                    try {
+                        pokemon.setImage(bytes); //sets the image
+
+                        fragment_listener.onInputPokemonSent(pokemon); //sends StartHuntFragment the data
+                        fm.popBackStack(); //go back
+                        fm.popBackStack(); //go back
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }).start());
+
+            setOnClickListener(); //recycler onclick setup
+            adapter = new PokemonViewAdapter(this.getContext(), new ArrayList<>(), rv_listener);
+            rv.setHasFixedSize(true);
+            rv.setAdapter(adapter);
+
+            final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
+            rv.setLayoutManager(layoutManager);
+        } else {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if(parent != null) {
+                parent.removeView(view);
+            }
+        }
+        return view;
+    }
+
+    //Recycler onClick. This will generate a bitmap (from the image url) of the pokemon image
+    //that is selected from the recyclerview. Additionally, it will update the image on the top
+    //left corner.
+    public void setOnClickListener() {
+        rv_listener = (v, position) -> new Thread(new Runnable() {
+            Bitmap bitmap;
+            @Override
+            public void run() {
+                try {
+                    if(getContext() == null) return;
+                    bitmap = Glide.with(getContext())
+                            .as(Bitmap.class)
+                            .load(adapter.getData().get(position).getImage_url())
+                            .submit()
+                            .get();
+
+                    pokemon.setImage_url(adapter.getData().get(position).getImage_url());
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if(getActivity() == null) return;
+                getActivity().runOnUiThread(() ->
+                        Glide.with(view.getContext())
+                                .load(adapter.getData().get(position).getImage_url())
+                                .placeholder(R.drawable.missingno)
+                                .into(image_pokemon));
+            }
+        }).start();
+    }
+
     //Helper class to update the view of the pokemon current types. This has no relevancy to
     //the overall goal of this application but it is a nice feature!
     public void setTypesHelper(TextView tv_type, String token) {
@@ -242,36 +325,6 @@ public class PokemonViewFragment extends Fragment {
         return Bitmap.createBitmap(sourceBitmap, minX, minY, (maxX - minX) + 1, (maxY - minY) + 1);
     }
 
-    //Recycler onClick. This will generate a bitmap (from the image url) of the pokemon image
-    //that is selected from the recyclerview. Additionally, it will update the image on the top
-    //left corner.
-    public void setOnClickListener() {
-        rv_listener = (v, position) -> new Thread(new Runnable() {
-            Bitmap bitmap;
-            @Override
-            public void run() {
-                try {
-                    if(getContext() == null) return;
-                    bitmap = Glide.with(getContext())
-                            .as(Bitmap.class)
-                            .load(adapter.getData().get(position).getImage_url())
-                            .submit()
-                            .get();
-
-                    pokemon.setImage_url(adapter.getData().get(position).getImage_url());
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                if(getActivity() == null) return;
-                getActivity().runOnUiThread(() ->
-                        Glide.with(view.getContext())
-                        .load(adapter.getData().get(position).getImage_url())
-                        .placeholder(R.drawable.missingno)
-                        .into(image_pokemon));
-            }
-        }).start();
-    }
 
     //Main function of the class. This will connect to the PokeAPI servers on that specific pokemon
     //based on ID and generates icons (if available) for that pokemon.
@@ -628,58 +681,6 @@ public class PokemonViewFragment extends Fragment {
 
             loadingDialog.dismissDialog();
         }).start();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null) {
-            view = inflater.inflate(R.layout.pokemon_view_layout, container, false);
-            image_pokemon = view.findViewById(R.id.pokemon_view_image);
-            tv_dex = view.findViewById(R.id.pokemon_view_id);
-            tv_name = view.findViewById(R.id.pokemon_view_name);
-            tv_type1 = view.findViewById(R.id.pokemon_view_type1);
-            tv_type2 = view.findViewById(R.id.pokemon_view_type2);
-            button_confirm = view.findViewById(R.id.pokemon_view_button_confirm);
-            rv = view.findViewById(R.id.pokemon_view_recycler);
-
-            //Confirming the selection will crop the image and send the image to
-            //StartHuntFragment to update
-            button_confirm.setOnClickListener(view -> new Thread(() -> {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap(); //gets the image from the top left
-                bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); //compressing to PNG
-                byte[] bytes = stream.toByteArray();
-
-                if(getActivity() == null) return;
-                getActivity().runOnUiThread(() -> {
-                    try {
-                        pokemon.setImage(bytes); //sets the image
-
-                        fragment_listener.onInputPokemonSent(pokemon); //sends StartHuntFragment the data
-                        fm.popBackStack(); //go back
-                        fm.popBackStack(); //go back
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }).start());
-
-            setOnClickListener(); //recycler onclick setup
-            adapter = new PokemonViewAdapter(this.getContext(), new ArrayList<>(), rv_listener);
-            rv.setHasFixedSize(true);
-            rv.setAdapter(adapter);
-
-            final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
-            rv.setLayoutManager(layoutManager);
-        } else {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view);
-            }
-        }
-        return view;
     }
 
     @Override

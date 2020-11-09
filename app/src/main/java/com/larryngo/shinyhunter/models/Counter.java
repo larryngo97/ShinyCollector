@@ -3,8 +3,11 @@ package com.larryngo.shinyhunter.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.larryngo.shinyhunter.ObjectTypeConverters;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 @Entity(tableName = "counters")
 public class Counter implements Parcelable {
@@ -28,7 +31,7 @@ public class Counter implements Parcelable {
         this.method = method;
         this.count = count;
         this.step = step;
-        this.nickname = pokemon.getName();
+        this.nickname = "Nickname";
     }
 
     public Counter(Counter counter) {
@@ -40,7 +43,7 @@ public class Counter implements Parcelable {
         this.count = counter.count;
         this.step = counter.step;
         this.position = counter.position;
-        this.nickname = counter.getPokemon().getName();
+        this.nickname = "Nickname";
     }
 
     public void add(int num)

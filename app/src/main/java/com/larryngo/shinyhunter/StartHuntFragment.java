@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import pl.droidsonroids.gif.GifImageView;
 
-//import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
+import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 /*
@@ -147,12 +147,10 @@ public class StartHuntFragment extends Fragment {
             //This will also create a new data entry onto the current hunts list so the user can come
             //back to it any time.
             button_start.setOnClickListener(view -> {
-                Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
                 Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
-                intent.putExtra("counter", counter);
 
-                //huntingViewModel.addCounter(counter);
-                startActivity(intent);
+                huntingViewModel.addCounter(counter);
+                PokemonHuntActivity.start(getActivity(), counter);
 
                 //Prevents the user from going back to the startup screen. When a hunt has been created
                 //it should bring the user back to the home page (where they can see their current hunts)

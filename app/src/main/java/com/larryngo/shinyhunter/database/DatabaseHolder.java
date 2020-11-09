@@ -6,6 +6,7 @@ import com.larryngo.shinyhunter.ObjectTypeConverters;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.models.CounterDao;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.DatabaseConfiguration;
@@ -30,6 +31,7 @@ public abstract class DatabaseHolder extends RoomDatabase {
 
     public abstract CounterDao counterDao();
 
+    @MainThread
     public static void init(Context context) {
         database = Room.databaseBuilder(context.getApplicationContext(), DatabaseHolder.class, "hunting-database")
                 .addMigrations(MIGRATION_1_2, MIGRATION_2_3)

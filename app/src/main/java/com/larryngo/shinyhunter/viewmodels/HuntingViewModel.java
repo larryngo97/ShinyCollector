@@ -6,11 +6,16 @@ import android.widget.Toast;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.respositories.HuntingRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.IntRange;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class HuntingViewModel extends AndroidViewModel {
     private final HuntingRepository repository;
@@ -31,8 +36,26 @@ public class HuntingViewModel extends AndroidViewModel {
         if(currentList != null) {
             int size = currentList.size() + 1;
             entry.setPosition(size);
-            repository.addCounter(entry);
-            Toast.makeText(getApplication(), "Created new entry! Size: " + counters.getValue().size(), Toast.LENGTH_SHORT).show();
+            repository.addCounter(entry)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new CompletableObserver() {
+                        @Override
+                        public void onComplete() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+                    });
+            Toast.makeText(getApplication(), "Created new entry! Size: " + size, Toast.LENGTH_SHORT).show();
         }
     }
 

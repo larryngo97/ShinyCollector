@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.larryngo.shinyhunter.adapters.HomeHuntingAdapter;
 import com.larryngo.shinyhunter.adapters.HuntingAdapter;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.models.Game;
@@ -21,93 +18,66 @@ import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeHuntingFragment extends Fragment {
     protected static ArrayList<Counter> list = new ArrayList<>();
     protected HuntingAdapter adapter;
-    private HuntingViewModel huntingViewModel;
+    protected static HuntingViewModel huntingViewModel;
 
     private View view;
-    private RecyclerView rv;
+    private RecyclerView recyclerView;
+    private HuntingAdapter.HuntingListener listener;
+
+    FloatingActionButton fab;
+    FloatingActionButton fab2;
+
 
     private boolean firstLoad = true;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null)
-        {
-            view = inflater.inflate(R.layout.fragment_home_hunting_grid_layout, container, false);
-            rv = view.findViewById(R.id.home_hunting_rv);
+        view = inflater.inflate(R.layout.fragment_home_hunting_grid_layout, container, false);
+        recyclerView = view.findViewById(R.id.home_hunting_rv);
 
-            FloatingActionButton fab = view.findViewById(R.id.home_fab);
-            fab.setOnClickListener(v -> {
-                Intent intent = new Intent (getContext(), StartHuntActivity.class);
-                startActivity(intent);
+        fab = view.findViewById(R.id.home_fab);
+        fab2 = view.findViewById(R.id.home_fab2);
 
-            });
-
-            FloatingActionButton fab2 = view.findViewById(R.id.home_fab2);
-            fab2.setOnClickListener(v -> {
-                Game game = new Game();
-                Pokemon pokemon = new Pokemon();
-                Platform platform = new Platform();
-                Method method = new Method();
-                Counter counter = new Counter(game, pokemon, platform, method, 0, 1);
-                huntingViewModel.addCounter(counter);
-
-            });
-            /*
-            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(getActivity(), PokemonHuntActivity.class);
-                    Counter counter = adapter.getCounterObject(i);
-                    intent.putExtra("counter", counter);
-
-                    startActivity(intent);
-                }
-            });
-
-             */
-
-            /*
-            huntingViewModel.init();
-            huntingViewModel.getHuntingList().observe(getViewLifecycleOwner(), new Observer<List<Counter>>() {
-                @Override
-                public void onChanged(List<Counter> counters) {
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            huntingViewModel.getIsUpdating().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-                    if(aBoolean) {
-                        System.out.println("Adding entry...");
-                    }
-                    else {
-                        System.out.println("Finished adding entry!");
-                    }
-                }
-            });
-
-             */
-        } else {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view);
-            }
-        }
+        setOnClickListener();
 
         return view;
+    }
+
+    public void setOnClickListener() {
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent (getContext(), StartHuntActivity.class);
+            startActivity(intent);
+
+        });
+
+        fab2.setOnClickListener(v -> {
+            Game game = new Game();
+            Pokemon pokemon = new Pokemon();
+            Platform platform = new Platform();
+            Method method = new Method();
+            Counter counter = new Counter(game, pokemon, platform, method, 0, 1);
+            huntingViewModel.addCounter(counter);
+        });
+
+        listener = new HuntingAdapter.HuntingListener() {
+            @Override
+            public void onClick(View v, int position) throws ExecutionException, InterruptedException {
+                PokemonHuntActivity.start(getActivity(), huntingViewModel.getCounters().getValue().get(position));
+            }
+        };
     }
 
     @Override
@@ -115,15 +85,19 @@ public class HomeHuntingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         HuntingViewModelFactory factory = new HuntingViewModelFactory(requireActivity().getApplication());
         huntingViewModel = new ViewModelProvider(this, factory).get(HuntingViewModel.class);
-        adapter = new HuntingAdapter(this.getContext());
+        adapter = new HuntingAdapter(this.getContext(), listener);
         huntingViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
-            Game game = new Game();
-            Pokemon pokemon = new Pokemon();
-            Platform platform = new Platform();
-            Method method = new Method();
-            Counter counter = new Counter(game, pokemon, platform, method, 0, 1);
-            huntingViewModel.addCounter(counter);
+            adapter.setCountersList(counters);
 
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(adapter);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setReverseLayout(true); //reverse the order from newest to oldest
+            layoutManager.setStackFromEnd(true); //list starts from the top
+            recyclerView.setLayoutManager(layoutManager);
+
+        /*
             if(counters != null) {
                 final int size = counters.size();
 
@@ -135,11 +109,17 @@ public class HomeHuntingFragment extends Fragment {
                 }
             }
 
+         */
+
         });
 
+        /*
         if(firstLoad) {
             firstLoad = false;
-            rv.post(() -> rv.setAdapter(adapter));
+            recyclerView.post(() -> recyclerView.setAdapter(adapter));
         }
+
+        */
+
     }
 }

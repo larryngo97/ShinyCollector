@@ -25,8 +25,9 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
     private List<Counter> counters;
     private HuntingListener listener;
 
-    public HuntingAdapter(Context c){
+    public HuntingAdapter(Context c, HuntingListener listener){
         this.mContext = c;
+        this.listener = listener;
     }
 
     @NonNull
@@ -55,7 +56,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return 0;
+        return counters.size();
     }
 
     public void setCountersList(final List<Counter> update) {
@@ -84,10 +85,10 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                     Counter oldCounter = counters.get(oldItemPosition);
                     Counter newCounter = counters.get(newItemPosition);
                     return newCounter.getId() == oldCounter.getId()
-                            && Objects.equals(newCounter.getGame(), oldCounter.getGame())
-                            && Objects.equals(newCounter.getPokemon(), oldCounter.getPokemon())
-                            && Objects.equals(newCounter.getPlatform(), oldCounter.getPlatform())
-                            && Objects.equals(newCounter.getMethod(), oldCounter.getMethod())
+                            //&& Objects.equals(newCounter.getGame(), oldCounter.getGame())
+                            //&& Objects.equals(newCounter.getPokemon(), oldCounter.getPokemon())
+                            //&& Objects.equals(newCounter.getPlatform(), oldCounter.getPlatform())
+                            //&& Objects.equals(newCounter.getMethod(), oldCounter.getMethod())
                             && newCounter.getCount() == oldCounter.getCount()
                             && newCounter.getStep() == oldCounter.getStep()
                             && Objects.equals(newCounter.getNickname(), oldCounter.getNickname());

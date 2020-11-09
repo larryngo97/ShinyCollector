@@ -18,45 +18,81 @@ public class ObjectTypeConverters {
 
     @TypeConverter
     public String gameToString(Game game) {
-        return gson.toJson(game);
+        if(game == null) {
+            return null;
+        }
+
+        Type type = new TypeToken<Game>() {}.getType();
+        return gson.toJson(game, type);
     }
 
     @TypeConverter
     public Game stringToGame(String data) {
-        Type typeList = new TypeToken<List<Game>>() {}.getType();
+        if(data == null) {
+            return null;
+        }
+
+        Type typeList = new TypeToken<Game>() {}.getType();
         return gson.fromJson(data, typeList);
     }
 
     @TypeConverter
     public String pokemonToString(Pokemon pokemon) {
-        return gson.toJson(pokemon);
+        if(pokemon == null) {
+            return null;
+        }
+
+        Type type = new TypeToken<Pokemon>() {}.getType();
+        return gson.toJson(pokemon, type);
     }
 
     @TypeConverter
     public Pokemon stringToPokemon(String data) {
-        Type typeList = new TypeToken<List<Pokemon>>() {}.getType();
+        if(data == null) {
+            return null;
+        }
+
+        Type typeList = new TypeToken<Pokemon>() {}.getType();
         return gson.fromJson(data, typeList);
     }
 
     @TypeConverter
     public String platformToString(Platform platform) {
-        return gson.toJson(platform);
+        if(platform == null) {
+            return null;
+        }
+
+        Type type = new TypeToken<Platform>() {}.getType();
+        return gson.toJson(platform, type);
     }
 
     @TypeConverter
     public Platform stringToPlatform(String data) {
-        Type typeList = new TypeToken<List<Platform>>() {}.getType();
+        if(data == null) {
+            return null;
+        }
+
+        Type typeList = new TypeToken<Platform>() {}.getType();
         return gson.fromJson(data, typeList);
     }
 
     @TypeConverter
     public String methodToString(Method method) {
-        return gson.toJson(method);
+        if(method == null) {
+            return null;
+        }
+
+        Type type = new TypeToken<Method>() {}.getType();
+        return gson.toJson(method, type);
     }
 
     @TypeConverter
     public Method stringToMethod(String data) {
-        Type typeList = new TypeToken<List<Method>>() {}.getType();
+        if(data == null) {
+            return null;
+        }
+
+        Type typeList = new TypeToken<Method>() {}.getType();
         return gson.fromJson(data, typeList);
     }
 }
