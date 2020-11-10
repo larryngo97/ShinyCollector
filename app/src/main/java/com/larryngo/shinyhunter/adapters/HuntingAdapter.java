@@ -85,10 +85,10 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                     Counter oldCounter = counters.get(oldItemPosition);
                     Counter newCounter = counters.get(newItemPosition);
                     return newCounter.getId() == oldCounter.getId()
-                            //&& Objects.equals(newCounter.getGame(), oldCounter.getGame())
-                            //&& Objects.equals(newCounter.getPokemon(), oldCounter.getPokemon())
-                            //&& Objects.equals(newCounter.getPlatform(), oldCounter.getPlatform())
-                            //&& Objects.equals(newCounter.getMethod(), oldCounter.getMethod())
+                            && Objects.equals(newCounter.getGame(), oldCounter.getGame())
+                            && Objects.equals(newCounter.getPokemon(), oldCounter.getPokemon())
+                            && Objects.equals(newCounter.getPlatform(), oldCounter.getPlatform())
+                            && Objects.equals(newCounter.getMethod(), oldCounter.getMethod())
                             && newCounter.getCount() == oldCounter.getCount()
                             && newCounter.getStep() == oldCounter.getStep()
                             && Objects.equals(newCounter.getNickname(), oldCounter.getNickname());

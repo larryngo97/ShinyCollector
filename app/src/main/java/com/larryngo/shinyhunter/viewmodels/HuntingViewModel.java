@@ -60,7 +60,48 @@ public class HuntingViewModel extends AndroidViewModel {
     }
 
     public void modifyCounter(Counter counter, @IntRange(from = 0, to = 99999) int amount) {
-        repository.setCount(counter.getId(), amount);
+        repository.setCount(counter.getId(), amount)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Modifying value for ID: " + counter.getId());
+                        System.out.println("Count: " + counter.getCount());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
+    }
+
+    public void modifyStep(Counter counter, @IntRange(from = 0, to = 99) int amount) {
+        repository.setStep(counter.getId(), amount)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Step: " + counter.getStep());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
     }
 
     /*

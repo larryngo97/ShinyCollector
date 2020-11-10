@@ -7,12 +7,10 @@ import com.larryngo.shinyhunter.models.Method;
 import com.larryngo.shinyhunter.models.Platform;
 import com.larryngo.shinyhunter.models.Pokemon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Completable;
 
 public class HuntingRepository  {
@@ -60,8 +58,10 @@ public class HuntingRepository  {
     }
 
     public Completable setCount(int id, int value) {
-        return counterDao.setValue(id, value);
+        return counterDao.modifyCount(id, value);
     }
+
+    public Completable setStep(int id, int value) { return counterDao.modifyStep(id, value); }
 
     /*
     private static HuntingRepository instance;

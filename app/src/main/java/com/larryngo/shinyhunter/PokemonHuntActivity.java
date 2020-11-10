@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import pl.droidsonroids.gif.GifImageView;
 
+import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
+
 public class PokemonHuntActivity extends AppCompatActivity {
     private static String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
     private static String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
@@ -68,6 +70,9 @@ public class PokemonHuntActivity extends AppCompatActivity {
             if(counter != null) {
                 updateView();
                 setupButtons();
+
+                int counter_id = getIntent().getIntExtra("ARGUMENT_COUNTER_ID", 0);
+                counter.setId(counter_id);
             } else {
                 Toast.makeText(this, "Error in creating view, counter not found", Toast.LENGTH_SHORT).show();
                 finish();
@@ -105,11 +110,15 @@ public class PokemonHuntActivity extends AppCompatActivity {
         screen.setOnClickListener(view -> {
             counter.add(counter.getStep());
             counter_count.setText(String.valueOf(counter.getCount()));
+
+            huntingViewModel.modifyCounter(counter, counter.getCount());
         });
 
         button_undo.setOnClickListener(view -> {
             counter.add(-counter.getStep());
             counter_count.setText(String.valueOf(counter.getCount()));
+
+            huntingViewModel.modifyCounter(counter, counter.getCount());
         });
 
         String incrementText = "+" + counter.getStep();
@@ -136,6 +145,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             counter.setStep(newCount);
                             String incrementText1 = "+" + counter.getStep();
                             button_increment.setText(incrementText1);
+
+                            huntingViewModel.modifyStep(counter, newCount);
                         } else {
                             Toast.makeText(PokemonHuntActivity.this, "Number needs to be 1-99!", Toast.LENGTH_SHORT).show();
                             dialog13.cancel();
@@ -169,6 +180,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
                         if(newCount >= 0 && newCount <= 99999) {
                             counter.setCount(newCount);
                             counter_count.setText(String.valueOf(counter.getCount()));
+
+                            huntingViewModel.modifyCounter(counter, counter.getCount());
                         } else
                         {
                             Toast.makeText(PokemonHuntActivity.this, "Number needs to be 0-99999!", Toast.LENGTH_SHORT).show();
