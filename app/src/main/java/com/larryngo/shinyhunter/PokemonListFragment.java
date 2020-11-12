@@ -105,7 +105,7 @@ public class PokemonListFragment extends Fragment {
     public void obtainData() {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
-        loadingDialog.setMessage("Loading data from PokeAPI server...");
+        loadingDialog.setMessage(R.string.pokeapi_loadingdata);
 
         new Thread(() -> {
             Call<PokemonList> pokemonListCall = service.obtainPokemonList(totalPokemonLimit, 0);
@@ -128,7 +128,7 @@ public class PokemonListFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<PokemonList> call, Throwable t) {
-                    Toast.makeText(getContext(), "Could not connect to PokeAPI", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.pokeapi_loadingdata_failure, Toast.LENGTH_SHORT).show();
                 }
             });
 

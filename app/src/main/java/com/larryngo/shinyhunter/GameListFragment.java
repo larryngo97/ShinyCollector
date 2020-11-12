@@ -102,7 +102,7 @@ public class GameListFragment extends Fragment {
     public void setupGrid(){
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
-        loadingDialog.setMessage("Loading games...");
+        loadingDialog.setMessage(R.string.dialog_loadingdata);
 
         if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> {

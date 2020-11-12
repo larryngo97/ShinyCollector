@@ -99,7 +99,7 @@ public class MethodListFragment extends Fragment {
     public void setupGrid() {
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
-        loadingDialog.setMessage("Loading methods...");
+        loadingDialog.setMessage(R.string.dialog_loadingdata);
 
         for(int i = 0; i < list_methods_names.size(); i++) {
             Method method = new Method(i, list_methods_names.get(i)); //creates the method based on the names and assigns them an id

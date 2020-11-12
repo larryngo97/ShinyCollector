@@ -1,10 +1,10 @@
 package com.larryngo.shinyhunter.models;
 
-public class Game_Pokemon {
+public class PokemonGameIcon {
     private String name;
     private String image_url;
 
-    public Game_Pokemon(String title, String iconUrl) {
+    public PokemonGameIcon(String title, String iconUrl) {
         this.name = title;
         this.image_url = iconUrl;
     }

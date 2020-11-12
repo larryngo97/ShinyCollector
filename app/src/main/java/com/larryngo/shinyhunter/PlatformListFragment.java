@@ -107,7 +107,7 @@ public class PlatformListFragment extends Fragment {
     void collectData() {
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
-        loadingDialog.setMessage("Loading platforms...");
+        loadingDialog.setMessage(R.string.dialog_loadingdata);
 
         for (int i = 0; i < list_platforms_tokens.size(); i++)
         {

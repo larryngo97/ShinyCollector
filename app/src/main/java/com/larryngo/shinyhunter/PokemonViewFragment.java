@@ -15,7 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.larryngo.shinyhunter.PokeAPI.PokeAPIService;
 import com.larryngo.shinyhunter.adapters.PokemonViewAdapter;
-import com.larryngo.shinyhunter.models.Game_Pokemon;
+import com.larryngo.shinyhunter.models.PokemonGameIcon;
 import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
 
@@ -56,7 +56,7 @@ public class PokemonViewFragment extends Fragment {
     private TextView tv_type2;
     private Button button_confirm;
 
-    private ArrayList<Game_Pokemon> game_list = new ArrayList<>();
+    private ArrayList<PokemonGameIcon> game_list = new ArrayList<>();
     private ArrayList<String> typeList = new ArrayList<>();
     private Pokemon pokemon;
 
@@ -331,7 +331,7 @@ public class PokemonViewFragment extends Fragment {
     void collectData() {
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
-        loadingDialog.setMessage("Gathering icons from PokeAPI server...");
+        loadingDialog.setMessage(R.string.pokeapi_loadingdata);
 
         new Thread(() -> {
             HttpURLConnection request;
@@ -344,7 +344,7 @@ public class PokemonViewFragment extends Fragment {
                 JsonParser jp = new JsonParser();
                 JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
                 JsonElement gameElement;
-                Game_Pokemon game;
+                PokemonGameIcon game;
 
                 int typesSize = root.getAsJsonObject()
                         .getAsJsonArray("types")
@@ -367,7 +367,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Default", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_default), iconUrl);
                     game_list.add(game);
                 }
 
@@ -380,7 +380,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_default");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Red/Blue", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_redblue), iconUrl);
                     game_list.add(game);
                 }
 
@@ -392,7 +392,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_default");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Yellow", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_yellow), iconUrl);
                     game_list.add(game);
                 }
 
@@ -404,7 +404,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Gold", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_gold), iconUrl);
                     game_list.add(game);
                 }
 
@@ -416,7 +416,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Silver", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_silver), iconUrl);
                     game_list.add(game);
                 }
 
@@ -428,7 +428,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Crystal", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_crystal), iconUrl);
                     game_list.add(game);
                 }
 
@@ -440,7 +440,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Ruby/Sapphire", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_rubysapphire), iconUrl);
                     game_list.add(game);
                 }
 
@@ -452,7 +452,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Emerald", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_emerald), iconUrl);
                     game_list.add(game);
                 }
 
@@ -464,7 +464,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("FR/LG", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_fireredleafgreen), iconUrl);
                     game_list.add(game);
                 }
 
@@ -476,7 +476,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("D/P", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_diamondpearl), iconUrl);
                     game_list.add(game);
                 }
 
@@ -488,7 +488,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("D/P Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_diamondpearl_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -500,7 +500,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Platinum", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_platinum), iconUrl);
                     game_list.add(game);
                 }
 
@@ -512,7 +512,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Platinum Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_platinum_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -525,7 +525,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("HG/SS", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_heartgoldsoulsilver), iconUrl);
                     game_list.add(game);
                 }
 
@@ -537,7 +537,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("HG/SS Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_heartgoldsoulsilver_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -549,7 +549,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("B/W", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_blackwhite), iconUrl);
                     game_list.add(game);
                 }
 
@@ -561,7 +561,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("B/W Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_blackwhite_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -602,7 +602,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("X/Y", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_xy), iconUrl);
                     game_list.add(game);
                 }
 
@@ -614,7 +614,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("X/Y Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_xy_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -626,7 +626,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("OR/AS", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_omegarubyalphasapphire), iconUrl);
                     game_list.add(game);
                 }
 
@@ -638,7 +638,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("OR/AS Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_omegarubyalphasapphire_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -650,7 +650,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Sun/Moon", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_sunmoon), iconUrl);
                     game_list.add(game);
                 }
 
@@ -662,7 +662,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new Game_Pokemon("Sun/Moon Female", iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_sunmoon_female), iconUrl);
                     game_list.add(game);
                 }
             } catch (IOException e) {

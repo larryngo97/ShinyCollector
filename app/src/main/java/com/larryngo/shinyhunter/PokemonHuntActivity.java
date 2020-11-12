@@ -74,11 +74,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
                 int counter_id = getIntent().getIntExtra("ARGUMENT_COUNTER_ID", 0);
                 counter.setId(counter_id);
             } else {
-                Toast.makeText(this, "Error in creating view, counter not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.pokemonhuntactivity_error_counternotfound, Toast.LENGTH_SHORT).show();
                 finish();
             }
         } else {
-            Toast.makeText(this, "Did not receive data...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.pokemonhuntactivity_error_datanotfound, Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -87,8 +87,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     public void updateView() {
         pokemon_name.setText(counter.getPokemon().getName());
 
-        String gameTitle = "GAME: " + counter.getGame().getName();
-        game_name.setText(gameTitle);
+        game_name.setText(counter.getGame().getName());
 
         runOnUiThread(() -> {
             Glide.with(getApplicationContext())
@@ -132,9 +131,9 @@ public class PokemonHuntActivity extends AppCompatActivity {
             et_input.setText(String.valueOf(counter.getStep()));
 
             //new dialog sequence
-            dialog.setTitle("Set Incremental Value")
-                    .setMessage("Enter a number 1-99. Changes the value added/subtracted.")
-                    .setPositiveButton("SET", (dialog13, which) -> {
+            dialog.setTitle(R.string.pokemonhuntactivity_dialog_increment_title)
+                    .setMessage(R.string.pokemonhuntactivity_dialog_increment_desc)
+                    .setPositiveButton(R.string.dialog_set, (dialog13, which) -> {
                         if(et_input.getText().toString().isEmpty()) {
                             dialog13.cancel();
                         }
@@ -148,11 +147,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
                             huntingViewModel.modifyStep(counter, newCount);
                         } else {
-                            Toast.makeText(PokemonHuntActivity.this, "Number needs to be 1-99!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PokemonHuntActivity.this, R.string.pokemonhuntactivity_dialog_increment_invalid, Toast.LENGTH_SHORT).show();
                             dialog13.cancel();
                         }
                     })
-                    .setNegativeButton("CANCEL", (dialog14, which) -> {
+                    .setNegativeButton(R.string.dialog_cancel, (dialog14, which) -> {
                         dialog14.cancel(); //goes back
                     });
             dialog.show();
@@ -167,9 +166,9 @@ public class PokemonHuntActivity extends AppCompatActivity {
             et_input.setText(String.valueOf(counter.getCount()));
 
             //new dialog sequence
-            dialog.setTitle("Set Counter")
-                    .setMessage("Enter a number 0-99999. Changes the counter.")
-                    .setPositiveButton("SET", (dialog1, which) -> {
+            dialog.setTitle(R.string.pokemonhuntactivity_dialog_count_title)
+                    .setMessage(R.string.pokemonhuntactivity_dialog_count_desc)
+                    .setPositiveButton(R.string.dialog_set, (dialog1, which) -> {
                         if(et_input.getText().toString().isEmpty())
                         {
                             dialog1.cancel();
@@ -184,11 +183,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             huntingViewModel.modifyCounter(counter, counter.getCount());
                         } else
                         {
-                            Toast.makeText(PokemonHuntActivity.this, "Number needs to be 0-99999!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PokemonHuntActivity.this, R.string.pokemonhuntactivity_dialog_count_invalid, Toast.LENGTH_SHORT).show();
                             dialog1.cancel();
                         }
                     })
-                    .setNegativeButton("CANCEL", (dialog12, which) -> {
+                    .setNegativeButton(R.string.dialog_cancel, (dialog12, which) -> {
                         dialog12.cancel(); //goes back
                     });
             dialog.show();

@@ -5,6 +5,68 @@
     <string name="title_notifications">Notifications</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
+    <string name="home_hunting_title">Hunting</string>
+    <string name="home_completed_title">Completed</string>
+    <string name="home_statistics_title">Statistics</string>
+
+    <!-- Utility -->
+    <string name="search_game_hint">Search game</string>
+    <string name="search_pokemon_hint">Search pokemon</string>
+    <string name="search_platform_hint">Search platform</string>
+    <string name="search_method_hint">Search method</string>
+
+    <string name="dialog_loadingdata">Loading data…</string>
+    <string name="dialog_set">Set</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <!-- PokeAPI -->
+    <string name="pokeapi_loadingdata">Loading data from PokeAPI server…</string>
+    <string name="pokeapi_loadingdata_failure">Failed to connect to PokeAPI!</string>
+
+    <!-- PokemonViewFragment -->
+    <string name="pokemonview_default">Default</string>
+    <string name="pokemonview_redblue">R/B</string>
+    <string name="pokemonview_yellow">Yellow</string>
+    <string name="pokemonview_gold">Gold</string>
+    <string name="pokemonview_silver">Silver</string>
+    <string name="pokemonview_crystal">Crystal</string>
+    <string name="pokemonview_rubysapphire">R/S</string>
+    <string name="pokemonview_emerald">Emerald</string>
+    <string name="pokemonview_fireredleafgreen">FR/LG</string>
+    <string name="pokemonview_diamondpearl">D/P</string>
+    <string name="pokemonview_diamondpearl_female">D/P ♀</string>
+    <string name="pokemonview_platinum">Platinum</string>
+    <string name="pokemonview_platinum_female">Platinum ♀</string>
+    <string name="pokemonview_heartgoldsoulsilver">HG/SS</string>
+    <string name="pokemonview_heartgoldsoulsilver_female">HG/SS ♀</string>
+    <string name="pokemonview_blackwhite">B/W</string>
+    <string name="pokemonview_blackwhite_female">B/W ♀</string>
+    <string name="pokemonview_xy">X/Y</string>
+    <string name="pokemonview_xy_female">X/Y ♀</string>
+    <string name="pokemonview_omegarubyalphasapphire">OR/AS</string>
+    <string name="pokemonview_omegarubyalphasapphire_female">OR/AS ♀</string>
+    <string name="pokemonview_sunmoon">S/M</string>
+    <string name="pokemonview_sunmoon_female">S/M ♀</string>
+    <string name="pokemonview_swordshield">S/S</string>
+    <string name="pokemonview_swordshield_female">S/S ♀</string>
+
+    <string name="pokemonview_text_selecticon">Select Icon</string>
+    <string name="pokemonview_button_confirm">Confirm</string>
+
+    <!-- PokemonHuntActivity -->
+    <string name="pokemonhuntactivity_error_counternotfound">Error in creating view, counter not found…</string>
+    <string name="pokemonhuntactivity_error_datanotfound">Error in creating view, did not receive data…</string>
+
+    <string name="pokemonhuntactivity_dialog_count_title">Set Counter</string>
+    <string name="pokemonhuntactivity_dialog_count_desc">Enter a number 0–99999. Changes the counter.</string>
+    <string name="pokemonhuntactivity_dialog_count_invalid">Number needs to be 0–99999!</string>
+
+    <string name="pokemonhuntactivity_dialog_increment_title">Set Incremental Value</string>
+    <string name="pokemonhuntactivity_dialog_increment_desc">Enter a number 1–99. Changes the value added/subtracted.</string>
+    <string name="pokemonhuntactivity_dialog_increment_invalid">Number needs to be 1–99!</string>
+
+    <!-- Pokemon Types -->
+
     <string name="type_normal">Normal</string>
     <string name="type_fire">Fire</string>
     <string name="type_fighting">Fighting</string>
@@ -23,6 +85,8 @@
     <string name="type_dark">Dark</string>
     <string name="type_steel">Steel</string>
     <string name="type_fairy">Fairy</string>
+
+    <!-- Name of games -->
 
     <string-array name="list_games_names">
         <item>Pokemon Red</item>
@@ -63,6 +127,49 @@
         <item>Pokemon Shield</item>
     </string-array>
 
+    <!-- Name of platforms -->
+
+    <string-array name="list_platforms_names">
+        <item>Green Grass</item>
+        <item>Ugly Grass</item>
+        <item>Forest</item>
+        <item>Brown Path</item>
+        <item>Light Path</item>
+        <item>Metal Path</item>
+        <item>River</item>
+        <item>Cave Pool</item>
+        <item>Rocks A</item>
+        <item>Rocks B</item>
+        <item>Snow</item>
+        <item>Snowy Grass</item>
+        <item>Ice</item>
+        <item>Wood Bridge</item>
+    </string-array>
+
+    <!-- Name of methods -->
+
+    <string-array name="list_methods_names">
+        <item>DV Method (Gen 1)</item>
+        <item>Random Encounters</item>
+        <item>Soft Reset</item>
+        <item>Run Away</item>
+        <item>Egg Hatching</item>
+        <item>Masuda Method</item>
+        <item>Pokeradar</item>
+        <item>Chain Fishing</item>
+        <item>Friend Safari</item>
+        <item>Horde Hunting</item>
+        <item>Dexnav</item>
+        <item>SOS</item>
+        <item>Ultra Wormhole</item>
+        <item>Catch Combo</item>
+        <item>Island Scan</item>
+        <item>Fossil Restoration</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- DO NOT RENAME BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
+
     <string-array name="list_games_tokens">
         <item>Red</item>
         <item>Blue</item>
@@ -102,23 +209,6 @@
         <item>Shield</item>
     </string-array>
 
-    <string-array name="list_platforms_names">
-        <item>Green Grass</item>
-        <item>Ugly Grass</item>
-        <item>Forest</item>
-        <item>Brown Path</item>
-        <item>Light Path</item>
-        <item>Metal Path</item>
-        <item>River</item>
-        <item>Cave Pool</item>
-        <item>Rocks A</item>
-        <item>Rocks B</item>
-        <item>Snow</item>
-        <item>Snowy Grass</item>
-        <item>Ice</item>
-        <item>Wood Bridge</item>
-    </string-array>
-
     <string-array name="list_platforms_tokens">
         <item>grass_green</item>
         <item>grass_ugly</item>
@@ -134,25 +224,5 @@
         <item>snow_grass</item>
         <item>ice</item>
         <item>bridge_wood</item>
-    </string-array>
-
-    <string-array name="list_methods_names">
-        <item>DV Method (Gen 1)</item>
-        <item>Random Encounters</item>
-        <item>Soft Reset</item>
-        <item>Run Away</item>
-        <item>Egg Hatching</item>
-        <item>Masuda Method</item>
-        <item>Pokeradar</item>
-        <item>Chain Fishing</item>
-        <item>Friend Safari</item>
-        <item>Horde Hunting</item>
-        <item>Dexnav</item>
-        <item>SOS</item>
-        <item>Ultra Wormhole</item>
-        <item>Catch Combo</item>
-        <item>Island Scan</item>
-        <item>Fossil Restoration</item>
-        <item>Other</item>
     </string-array>
 </resources>

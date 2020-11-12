@@ -1,5 +1,6 @@
 package com.larryngo.shinyhunter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class HomeBaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        viewPagerAdapter = new SectionsPageAdapter(getChildFragmentManager());
+        viewPagerAdapter = new SectionsPageAdapter(getChildFragmentManager(), getContext());
         viewPager = view.findViewById(R.id.home_viewPager);
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -40,8 +41,10 @@ public class HomeBaseFragment extends Fragment {
     }
 
     public static class SectionsPageAdapter extends FragmentPagerAdapter {
-        public SectionsPageAdapter(FragmentManager fm) {
+        Context context;
+        public SectionsPageAdapter(FragmentManager fm, Context context) {
             super(fm);
+            this.context = context;
         }
 
         @Override
@@ -66,11 +69,11 @@ public class HomeBaseFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch(position){
                 case 0:
-                    return "Hunting";
+                    return context.getResources().getString(R.string.home_hunting_title);
                 case 1:
-                    return "Completed";
+                    return context.getResources().getString(R.string.home_completed_title);
                 case 2:
-                    return "Statistics";
+                    return context.getResources().getString(R.string.home_statistics_title);
             }
             return null;
         }

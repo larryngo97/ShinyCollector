@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.larryngo.shinyhunter.R;
-import com.larryngo.shinyhunter.models.Game_Pokemon;
+import com.larryngo.shinyhunter.models.PokemonGameIcon;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -21,10 +21,10 @@ import pl.droidsonroids.gif.GifImageView;
 public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.ViewHolder> {
     private View view;
     private Context context;
-    private ArrayList<Game_Pokemon> data;
+    private ArrayList<PokemonGameIcon> data;
     private PokemonViewListener listener;
 
-    public PokemonViewAdapter(Context context, ArrayList<Game_Pokemon> data, PokemonViewListener listener) {
+    public PokemonViewAdapter(Context context, ArrayList<PokemonGameIcon> data, PokemonViewListener listener) {
         this.context = context;
         this.data = data;
         this.listener = listener;
@@ -39,7 +39,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Game_Pokemon game = data.get(position);
+        PokemonGameIcon game = data.get(position);
         String name = game.getName();
         holder.name.setText(name);
 
@@ -55,12 +55,12 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
         data.clear();
     }
 
-    public void addData(ArrayList<Game_Pokemon> list) {
+    public void addData(ArrayList<PokemonGameIcon> list) {
         data.addAll(list);
         notifyDataSetChanged();
     }
 
-    public ArrayList<Game_Pokemon> getData() {
+    public ArrayList<PokemonGameIcon> getData() {
         return data;
     }
 
