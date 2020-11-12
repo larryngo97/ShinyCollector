@@ -54,26 +54,13 @@ public class PokemonListFragment extends Fragment {
         if(view == null) {
             view = inflater.inflate(R.layout.pokemon_list_layout, container, false);
             recyclerView = view.findViewById(R.id.pokemon_list_recycler);
+            searchView = view.findViewById(R.id.pokemon_list_search);
 
-            setOnClickListener();
+            init();
             adapter = new PokemonListAdapter(this.getContext(), pokemonList, listener);
             adapter.setItemCount(totalPokemonLimit);
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(adapter);
-
-            searchView = view.findViewById(R.id.pokemon_list_search);
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String query) {
-                    adapter.getFilter().filter(query);
-                    return false;
-                }
-            });
 
             final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
@@ -90,8 +77,21 @@ public class PokemonListFragment extends Fragment {
         return view;
     }
 
-    public void setOnClickListener() {
+    public void init() {
         listener = (v, position) -> sendPokemonToView.sendPokemonToView(adapter.getList().get(position));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
     }
 
     public void obtainData() {

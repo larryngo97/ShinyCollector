@@ -56,30 +56,7 @@ public class GameListFragment extends Fragment {
             list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names)); //names of the games
             list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens)); //file names of the games
 
-            //gridview clicks
-            gridView.setOnItemClickListener((parent, view, position, id) -> {
-                try {
-                    Game entry = list_games.get(position); //gets the current game selected
-                    listener.onInputGameSent(entry); //sends the game to the main hunt menu
-                    fm.popBackStack(); //go back
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    adapter.getFilter().filter(newText);
-                    return false;
-                }
-            });
-
+            init();
             setupGrid();
             adapter = new GameListAdapter(this.getContext(), list_games);
             gridView.setAdapter(adapter);
@@ -92,7 +69,33 @@ public class GameListFragment extends Fragment {
         return view;
     }
 
-    void setupGrid(){
+    public void init() {
+        //gridview clicks
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
+            try {
+                Game entry = list_games.get(position); //gets the current game selected
+                listener.onInputGameSent(entry); //sends the game to the main hunt menu
+                fm.popBackStack(); //go back
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+    public void setupGrid(){
         if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
             final LoadingDialog loadingDialog = new LoadingDialog(getActivity());

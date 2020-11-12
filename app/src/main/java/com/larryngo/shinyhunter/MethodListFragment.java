@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.SearchView;
 
 import com.larryngo.shinyhunter.adapters.MethodListAdapter;
 import com.larryngo.shinyhunter.models.Method;
@@ -23,7 +24,8 @@ import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class MethodListFragment extends Fragment {
     private View view;
-    private GridView gv;
+    private GridView gridView;
+    private SearchView searchView;
     private MethodListAdapter adapter;
 
     private ArrayList<Method> list_methods = new ArrayList<>();
@@ -49,28 +51,13 @@ public class MethodListFragment extends Fragment {
         if(view == null) {
             view = inflater.inflate(R.layout.method_list_layout, container, false);
             list_methods_names = Arrays.asList(getResources().getStringArray(R.array.list_methods_names));
-            gv = view.findViewById(R.id.method_list_grid);
+            gridView = view.findViewById(R.id.method_list_grid);
+            searchView = view.findViewById(R.id.method_list_search);
 
-            //gridview clicks
-            gv.setOnItemClickListener((adapterView, view, position, id) -> {
-                Method entry = list_methods.get(position); //gets the current method clicked on
-                try {
-                    listener.onInputMethodSent(entry); //sends that method to the main start hunt menu.
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                fm.popBackStack(); //go back
-            });
-
-            loadingDialog = new LoadingDialog(getActivity());
-            loadingDialog.startLoadingDialog();
-            loadingDialog.setMessage("Loading methods...");
-
-            adapter = new MethodListAdapter(this.getContext(), list_methods);
-            gv.setAdapter(adapter);
+            init();
             setupGrid();
-
-            loadingDialog.dismissDialog();
+            adapter = new MethodListAdapter(this.getContext(), list_methods);
+            gridView.setAdapter(adapter);
 
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
@@ -81,11 +68,42 @@ public class MethodListFragment extends Fragment {
         return view;
     }
 
+    public void init() {
+        //gridview clicks
+        gridView.setOnItemClickListener((adapterView, view, position, id) -> {
+            try {
+                listener.onInputMethodSent(adapter.getList().get(position)); //sends that method to the main start hunt menu.
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fm.popBackStack(); //go back
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
+    }
+
     public void setupGrid() {
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoadingDialog();
+        loadingDialog.setMessage("Loading methods...");
+
         for(int i = 0; i < list_methods_names.size(); i++) {
             Method method = new Method(i, list_methods_names.get(i)); //creates the method based on the names and assigns them an id
             list_methods.add(method);
         }
+
+        loadingDialog.dismissDialog();
     }
 
     @Override

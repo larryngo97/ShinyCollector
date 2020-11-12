@@ -26,8 +26,8 @@ import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class PlatformListFragment extends Fragment {
     private View view;
-    private SearchView sv;
-    private RecyclerView rv;
+    private SearchView searchView;
+    private RecyclerView recyclerView;
 
     private PlatformListAdapter adapter;
     private ArrayList<Platform> list_platforms = new ArrayList<>();
@@ -54,25 +54,20 @@ public class PlatformListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(view == null) {
             view = inflater.inflate(R.layout.platform_list_layout, container, false);
-            rv = view.findViewById(R.id.platform_list_recycler);
+            recyclerView = view.findViewById(R.id.platform_list_recycler);
+            searchView = view.findViewById(R.id.platform_list_search);
 
             list_platforms_names = Arrays.asList(getResources().getStringArray(R.array.list_platforms_names));
             list_platforms_tokens = Arrays.asList(getResources().getStringArray(R.array.list_platforms_tokens));
 
-            loadingDialog = new LoadingDialog(getActivity());
-            loadingDialog.startLoadingDialog();
-            loadingDialog.setMessage("Loading platforms...");
-
-            setOnClickListener();
+            init();
             adapter = new PlatformListAdapter(getActivity(), new ArrayList<>(), rv_listener);
-            rv.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
 
             final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-            rv.setLayoutManager(layoutManager);
+            recyclerView.setLayoutManager(layoutManager);
 
             collectData();
-
-            loadingDialog.dismissDialog();
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
             if(parent != null) {
@@ -82,7 +77,36 @@ public class PlatformListFragment extends Fragment {
         return view;
     }
 
+    //recyclerview that will update the main hunt menu when an item is clicked.
+    public void init() {
+        rv_listener = (v, position) -> {
+            try {
+                fragment_listener.onInputPlatformSent(adapter.getList().get(position)); //sends the platform to the main hunt menu
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fm.popBackStack();
+        };
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
+    }
+
     void collectData() {
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoadingDialog();
+        loadingDialog.setMessage("Loading platforms...");
+
         for (int i = 0; i < list_platforms_tokens.size(); i++)
         {
             try{
@@ -103,18 +127,8 @@ public class PlatformListFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-    }
 
-    //recyclerview that will update the main hunt menu when an item is clicked.
-    public void setOnClickListener() {
-        rv_listener = (v, position) -> {
-            try {
-                fragment_listener.onInputPlatformSent(list_platforms.get(position)); //sends the platform to the main hunt menu
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            fm.popBackStack();
-        };
+        loadingDialog.dismissDialog();
     }
 
     @Override
