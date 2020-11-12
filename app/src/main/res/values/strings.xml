@@ -5,10 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
-    <string name="home_hunting_title">Hunting</string>
-    <string name="home_completed_title">Completed</string>
-    <string name="home_statistics_title">Statistics</string>
-
     <!-- Utility -->
     <string name="search_game_hint">Search game</string>
     <string name="search_pokemon_hint">Search pokemon</string>
@@ -18,6 +14,18 @@
     <string name="dialog_loadingdata">Loading data…</string>
     <string name="dialog_set">Set</string>
     <string name="dialog_cancel">Cancel</string>
+
+    <!-- Home -->
+    <string name="home_hunting_title">Hunting</string>
+    <string name="home_completed_title">Completed</string>
+    <string name="home_statistics_title">Statistics</string>
+
+    <!-- StartHunt -->
+    <string name="starthunt_button_selectgame">Select Game</string>
+    <string name="starthunt_button_selectpokemon">Select Pokemon</string>
+    <string name="starthunt_button_selectplatform">Select Platform</string>
+    <string name="starthunt_button_selectmethod">Select Method</string>
+    <string name="starthunt_button_starthunt">Start Hunt</string>
 
     <!-- PokeAPI -->
     <string name="pokeapi_loadingdata">Loading data from PokeAPI server…</string>
