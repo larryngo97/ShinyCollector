@@ -30,8 +30,14 @@ public class GameListAdapter extends BaseAdapter implements Filterable {
         this.list_games_all = new ArrayList<>(list_games);
     }
 
+    public List<Game> getList() {
+        return list_games;
+    }
+
     public void addDataList(ArrayList<Game> entry) {
+        list_games.clear();
         list_games = entry;
+        list_games_all = new ArrayList<>(list_games);
         notifyDataSetChanged();
     }
 

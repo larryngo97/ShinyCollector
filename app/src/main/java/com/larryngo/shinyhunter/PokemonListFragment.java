@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.larryngo.shinyhunter.PokeAPI.PokeAPIService;
@@ -25,6 +27,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
+import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 
 public class PokemonListFragment extends Fragment {
@@ -78,7 +83,10 @@ public class PokemonListFragment extends Fragment {
     }
 
     public void init() {
-        listener = (v, position) -> sendPokemonToView.sendPokemonToView(adapter.getList().get(position));
+        listener = (v, position) -> {
+            sendPokemonToView.sendPokemonToView(adapter.getList().get(position)); //sends the platform to the main hunt menu
+            closeKeyboard();
+        };
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -127,6 +135,15 @@ public class PokemonListFragment extends Fragment {
             if(getActivity() == null) return;
             getActivity().runOnUiThread(loadingDialog::dismissDialog);
         }).start();
+    }
+
+    public void closeKeyboard() {
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

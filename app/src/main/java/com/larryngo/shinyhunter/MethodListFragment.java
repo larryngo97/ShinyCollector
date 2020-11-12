@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.GridView;
 import android.widget.SearchView;
 
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class MethodListFragment extends Fragment {
@@ -73,10 +75,11 @@ public class MethodListFragment extends Fragment {
         gridView.setOnItemClickListener((adapterView, view, position, id) -> {
             try {
                 listener.onInputMethodSent(adapter.getList().get(position)); //sends that method to the main start hunt menu.
+                closeKeyboard();
+                fm.popBackStack(); //go back
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            fm.popBackStack(); //go back
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -105,6 +108,16 @@ public class MethodListFragment extends Fragment {
 
         loadingDialog.dismissDialog();
     }
+
+    public void closeKeyboard() {
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onAttach(Context context) {

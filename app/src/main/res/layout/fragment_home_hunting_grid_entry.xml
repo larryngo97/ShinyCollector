@@ -19,8 +19,8 @@
 
         <FrameLayout
             android:layout_gravity="center"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@drawable/circle_grid_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -53,7 +53,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:autoSizeMaxTextSize="36sp"
-                app:autoSizeMinTextSize="20sp"
+                app:autoSizeMinTextSize="12sp"
                 app:autoSizeTextType="uniform">
 
             </TextView>
@@ -67,8 +67,8 @@
                 android:text="Pokemon Red"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:autoSizeMaxTextSize="36sp"
-                app:autoSizeMinTextSize="16sp"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMinTextSize="8sp"
                 app:autoSizeTextType="uniform"
                 app:autoSizeStepGranularity="2sp">
 
@@ -95,14 +95,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:autoSizeStepGranularity="4sp"
+                android:autoSizeStepGranularity="2sp"
                 android:fontFamily="@font/electrolize"
                 android:gravity="center"
-                android:text="100"
+                android:maxLines="1"
+                android:text="99999"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                app:autoSizeMaxTextSize="50sp"
-                app:autoSizeMinTextSize="24sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="8sp"
                 app:autoSizeTextType="uniform">
 
             </TextView>

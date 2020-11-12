@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.GridView;
 import android.widget.SearchView;
 
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class GameListFragment extends Fragment {
@@ -34,6 +36,8 @@ public class GameListFragment extends Fragment {
     private GameListAdapter adapter;
 
     private FragmentGameListener listener;
+
+    private LoadingDialog loadingDialog;
 
     public interface FragmentGameListener {
         void onInputGameSent(Game entry) throws IOException;
@@ -73,8 +77,8 @@ public class GameListFragment extends Fragment {
         //gridview clicks
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             try {
-                Game entry = list_games.get(position); //gets the current game selected
-                listener.onInputGameSent(entry); //sends the game to the main hunt menu
+                listener.onInputGameSent(adapter.getList().get(position)); //sends the game to the main hunt menu
+                closeKeyboard();
                 fm.popBackStack(); //go back
             } catch (IOException e) {
                 e.printStackTrace();
@@ -96,13 +100,13 @@ public class GameListFragment extends Fragment {
     }
 
     public void setupGrid(){
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoadingDialog();
+        loadingDialog.setMessage("Loading games...");
+
         if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
-            final LoadingDialog loadingDialog = new LoadingDialog(getActivity());
-            loadingDialog.startLoadingDialog();
-            loadingDialog.setMessage("Loading games...");
-            for (int i = 0; i < list_games_tokens.size(); i++)
-            {
+            for (int i = 0; i < list_games_tokens.size(); i++) {
                 try{
                     if(getContext() != null)
                     {
@@ -120,8 +124,18 @@ public class GameListFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            loadingDialog.dismissDialog();
         });
+
+        loadingDialog.dismissDialog();
+    }
+
+    public void closeKeyboard() {
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //Determines the generation of the game. Can be used to determine what pokemon

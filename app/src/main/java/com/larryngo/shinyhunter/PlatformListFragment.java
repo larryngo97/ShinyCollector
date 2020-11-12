@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import com.larryngo.shinyhunter.adapters.PlatformListAdapter;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class PlatformListFragment extends Fragment {
@@ -77,15 +79,15 @@ public class PlatformListFragment extends Fragment {
         return view;
     }
 
-    //recyclerview that will update the main hunt menu when an item is clicked.
     public void init() {
         rv_listener = (v, position) -> {
             try {
                 fragment_listener.onInputPlatformSent(adapter.getList().get(position)); //sends the platform to the main hunt menu
+                closeKeyboard();
+                fm.popBackStack();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            fm.popBackStack();
         };
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -129,6 +131,15 @@ public class PlatformListFragment extends Fragment {
         }
 
         loadingDialog.dismissDialog();
+    }
+
+    public void closeKeyboard() {
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
