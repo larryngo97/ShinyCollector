@@ -4,23 +4,30 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.larryngo.shinyhunter.R;
+import com.larryngo.shinyhunter.models.Game;
+import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import pl.droidsonroids.gif.GifImageView;
 
 
-public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.ViewHolder> {
+public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.ViewHolder> implements Filterable {
     private View view;
-    private ArrayList<PokemonList> data;
+    private List<PokemonList> data;
+    private List<PokemonList> data_all;
     private PokemonListListener listener;
     private Context context;
     private int limit = 890;
@@ -28,6 +35,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     public PokemonListAdapter(Context context, ArrayList<PokemonList> data, PokemonListListener listener) {
         this.context = context;
         this.data = data;
+        this.data_all = new ArrayList<>(data);
         this.listener = listener;
     }
 
@@ -69,9 +77,14 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
     }
 
+    public List<PokemonList> getList() {
+        return data;
+    }
+
     public void addDataList(ArrayList<PokemonList> list) {
         data.clear();
         data.addAll(list);
+        data_all = new ArrayList<>(data);
         notifyDataSetChanged();
     }
 
@@ -83,6 +96,39 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     public int getItemCount() {
         return Math.min(data.size(), limit);
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<PokemonList> filteredList = new ArrayList<>();
+            if(constraint.toString().isEmpty()) {
+                filteredList.addAll(data_all);
+            } else {
+                for (PokemonList entry : data_all) {
+                    //System.out.println(game.getName() + constraint.toString().toLowerCase());
+                    if (entry.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filteredList.add(entry);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            data.clear();
+            data.addAll((Collection<? extends PokemonList>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private GifImageView image;

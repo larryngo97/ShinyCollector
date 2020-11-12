@@ -1,8 +1,10 @@
 package com.larryngo.shinyhunter.viewmodels;
 
+import android.app.Activity;
 import android.app.Application;
 import android.widget.Toast;
 
+import com.larryngo.shinyhunter.PokemonHuntActivity;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.respositories.HuntingRepository;
 
@@ -31,7 +33,7 @@ public class HuntingViewModel extends AndroidViewModel {
         return counters;
     }
 
-    public void addCounter(final Counter entry) {
+    public void addCounter(Activity activity, final Counter entry) {
         List<Counter> currentList = counters.getValue();
         if(currentList != null) {
             int size = currentList.size() + 1;
@@ -42,7 +44,8 @@ public class HuntingViewModel extends AndroidViewModel {
                     .subscribe(new CompletableObserver() {
                         @Override
                         public void onComplete() {
-
+                            entry.setId(counters.getValue().size() + 1);
+                            PokemonHuntActivity.start(activity, entry);
                         }
 
                         @Override
@@ -55,7 +58,6 @@ public class HuntingViewModel extends AndroidViewModel {
 
                         }
                     });
-            Toast.makeText(getApplication(), "Created new entry! Size: " + size, Toast.LENGTH_SHORT).show();
         }
     }
 

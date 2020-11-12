@@ -149,8 +149,7 @@ public class StartHuntFragment extends Fragment {
             button_start.setOnClickListener(view -> {
                 Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
 
-                huntingViewModel.addCounter(counter);
-                PokemonHuntActivity.start(getActivity(), counter);
+                huntingViewModel.addCounter(getActivity(), counter);
 
                 //Prevents the user from going back to the startup screen. When a hunt has been created
                 //it should bring the user back to the home page (where they can see their current hunts)

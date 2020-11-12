@@ -34,8 +34,8 @@ public class PokemonListFragment extends Fragment {
     private PokeAPIService service;
 
     private View view;
-    private SearchView searchbar;
-    private RecyclerView rv;
+    private SearchView searchView;
+    private RecyclerView recyclerView;
 
     private ArrayList<PokemonList> pokemonList = new ArrayList<>();
     private PokemonListAdapter adapter;
@@ -53,16 +53,30 @@ public class PokemonListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(view == null) {
             view = inflater.inflate(R.layout.pokemon_list_layout, container, false);
-            rv = view.findViewById(R.id.pokemon_list_recycler);
+            recyclerView = view.findViewById(R.id.pokemon_list_recycler);
 
             setOnClickListener();
             adapter = new PokemonListAdapter(this.getContext(), pokemonList, listener);
             adapter.setItemCount(totalPokemonLimit);
-            rv.setHasFixedSize(true);
-            rv.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(adapter);
+
+            searchView = view.findViewById(R.id.pokemon_list_search);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String query) {
+                    adapter.getFilter().filter(query);
+                    return false;
+                }
+            });
 
             final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
-            rv.setLayoutManager(layoutManager);
+            recyclerView.setLayoutManager(layoutManager);
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(PokeAPIService.baseURL)
@@ -77,7 +91,7 @@ public class PokemonListFragment extends Fragment {
     }
 
     public void setOnClickListener() {
-        listener = (v, position) -> sendPokemonToView.sendPokemonToView(pokemonList.get(position));
+        listener = (v, position) -> sendPokemonToView.sendPokemonToView(adapter.getList().get(position));
     }
 
     public void obtainData() {

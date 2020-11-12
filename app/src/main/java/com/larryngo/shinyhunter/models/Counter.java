@@ -46,6 +46,7 @@ public class Counter implements Parcelable {
         this.nickname = "Nickname";
     }
 
+
     public void add(int num)
     {
         count += num;

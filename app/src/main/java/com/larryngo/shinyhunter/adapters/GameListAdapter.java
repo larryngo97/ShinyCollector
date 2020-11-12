@@ -7,22 +7,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Game;
 
-public class GameListAdapter extends BaseAdapter {
+public class GameListAdapter extends BaseAdapter implements Filterable {
     private Context mContext;
     private List<Game> list_games;
+    private List<Game> list_games_all;
 
     public GameListAdapter(Context c, List<Game> list_games){
         this.mContext = c;
         this.list_games = list_games;
+        this.list_games_all = new ArrayList<>(list_games);
     }
 
     public void addDataList(ArrayList<Game> entry) {
@@ -63,4 +68,36 @@ public class GameListAdapter extends BaseAdapter {
         return gridView;
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Game> filteredList = new ArrayList<>();
+            if(constraint.toString().isEmpty()) {
+                filteredList.addAll(list_games_all);
+            } else {
+                for (Game game : list_games_all) {
+                    //System.out.println(game.getName() + constraint.toString().toLowerCase());
+                    if (game.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filteredList.add(game);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            list_games.clear();
+            list_games.addAll((Collection<? extends Game>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

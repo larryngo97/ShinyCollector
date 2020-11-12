@@ -29,8 +29,8 @@ public class GameListFragment extends Fragment {
     private List<String> list_games_tokens;
 
     private View view;
-    private SearchView sv;
-    private GridView gv;
+    private SearchView searchView;
+    private GridView gridView;
     private GameListAdapter adapter;
 
     private FragmentGameListener listener;
@@ -51,13 +51,13 @@ public class GameListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(view == null) {
             view = inflater.inflate(R.layout.game_list_layout, container, false);
-            sv = view.findViewById(R.id.game_list_search);
-            gv = view.findViewById(R.id.game_list_grid);
+            searchView = view.findViewById(R.id.game_list_search);
+            gridView = view.findViewById(R.id.game_list_grid);
             list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names)); //names of the games
             list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens)); //file names of the games
 
             //gridview clicks
-            gv.setOnItemClickListener((parent, view, position, id) -> {
+            gridView.setOnItemClickListener((parent, view, position, id) -> {
                 try {
                     Game entry = list_games.get(position); //gets the current game selected
                     listener.onInputGameSent(entry); //sends the game to the main hunt menu
@@ -67,9 +67,22 @@ public class GameListFragment extends Fragment {
                 }
             });
 
-            adapter = new GameListAdapter(this.getContext(), list_games);
-            gv.setAdapter(adapter);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.getFilter().filter(newText);
+                    return false;
+                }
+            });
+
             setupGrid();
+            adapter = new GameListAdapter(this.getContext(), list_games);
+            gridView.setAdapter(adapter);
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
             if(parent != null) {

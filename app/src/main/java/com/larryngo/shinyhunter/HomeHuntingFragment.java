@@ -70,7 +70,7 @@ public class HomeHuntingFragment extends Fragment {
             Platform platform = new Platform();
             Method method = new Method();
             Counter counter = new Counter(game, pokemon, platform, method, 0, 1);
-            huntingViewModel.addCounter(counter);
+            huntingViewModel.addCounter(getActivity(), counter);
         });
 
         listener = new HuntingAdapter.HuntingListener() {
