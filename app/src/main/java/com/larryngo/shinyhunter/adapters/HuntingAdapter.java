@@ -1,9 +1,16 @@
 package com.larryngo.shinyhunter.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import pl.droidsonroids.gif.GifImageView;
+
+import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
 
 public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHolder>{
     private View view;
@@ -52,6 +61,37 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
         holder.nameView.setText(pokemon_name);
         holder.gameView.setText(game_name);
         holder.countView.setText(String.valueOf(count));
+        holder.optionsMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu menu = new PopupMenu(mContext, v);
+                menu.getMenuInflater().inflate(R.menu.hunting_entry, menu.getMenu());
+                menu.show();
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.hunting_menu_delete) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setMessage(mContext.getResources().getString(R.string.dialog_deleteconfirmation))
+                                    .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            huntingViewModel.deleteCounter(counters.get(position));
+                                        }
+                                    })
+                                    .setNegativeButton(mContext.getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            builder.create().show();
+                        }
+                        return true;
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -90,8 +130,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                             && Objects.equals(newCounter.getPlatform(), oldCounter.getPlatform())
                             && Objects.equals(newCounter.getMethod(), oldCounter.getMethod())
                             && newCounter.getCount() == oldCounter.getCount()
-                            && newCounter.getStep() == oldCounter.getStep()
-                            && Objects.equals(newCounter.getNickname(), oldCounter.getNickname());
+                            && newCounter.getStep() == oldCounter.getStep();
                 }
             });
             counters = update;
@@ -108,7 +147,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
         TextView nameView;
         TextView gameView;
         TextView countView;
-
+        ImageView optionsMenu;
 
         public ViewHolder(View view) {
             super(view);
@@ -117,6 +156,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
             nameView = view.findViewById(R.id.hunting_list_entry_name);
             gameView = view.findViewById(R.id.hunting_list_entry_game);
             countView = view.findViewById(R.id.hunting_list_entry_count);
+            optionsMenu = view.findViewById(R.id.hunting_list_options);
 
             view.setOnClickListener(this);
 
