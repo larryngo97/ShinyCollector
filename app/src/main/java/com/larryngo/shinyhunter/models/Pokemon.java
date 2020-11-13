@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Pokemon implements Parcelable {
     private int id;
     private String name;
+    private String nickname;
     private ArrayList<String> types;
     private String image_url;
     private byte[] image;
@@ -16,7 +17,8 @@ public class Pokemon implements Parcelable {
 
     public Pokemon() {
         id = 1;
-        name = "bulbasaur";
+        name = "Bulbasaur";
+        nickname = "Bulbasaur";
         image = null;
         types = new ArrayList<>();
         types.add("grass");
@@ -27,8 +29,17 @@ public class Pokemon implements Parcelable {
     public Pokemon(int id, String name, ArrayList<String> types, String image_url) {
         this.id = id;
         this.name = name;
+        this.nickname = name;
         this.types = types;
         this.image_url = image_url;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public byte[] getImage() {
@@ -82,6 +93,7 @@ public class Pokemon implements Parcelable {
     protected Pokemon(Parcel in) {
         id = in.readInt();
         name = in.readString();
+        nickname = in.readString();
         if (in.readByte() == 0x01) {
             types = new ArrayList<String>();
             in.readList(types, String.class.getClassLoader());
@@ -102,6 +114,7 @@ public class Pokemon implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
+        dest.writeString(nickname);
         if (types == null) {
             dest.writeByte((byte) (0x00));
         } else {
