@@ -10,12 +10,15 @@ import com.larryngo.shinyhunter.respositories.HuntingRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 
 import androidx.annotation.IntRange;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import io.reactivex.CompletableObserver;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -36,16 +39,16 @@ public class HuntingViewModel extends AndroidViewModel {
     public void addCounter(Activity activity, final Counter entry) {
         List<Counter> currentList = counters.getValue();
         if(currentList != null) {
-            int size = currentList.size() + 1;
-            entry.setPosition(size);
+            int size = currentList.size();
             repository.addCounter(entry)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new CompletableObserver() {
                         @Override
                         public void onComplete() {
-                            entry.setId(counters.getValue().size() + 1);
-                            PokemonHuntActivity.start(activity, entry);
+                            //int lastId = currentList.get(size - 1).getId();
+                            //entry.setId(lastId + 1);
+                            //PokemonHuntActivity.start(activity, entry);
                         }
 
                         @Override
@@ -57,19 +60,44 @@ public class HuntingViewModel extends AndroidViewModel {
                         public void onSubscribe(Disposable d) {
 
                         }
+
+
                     });
         }
     }
 
+    public void deleteCounter(final Counter entry) {
+        repository.deleteCounter(entry)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
+
     public void modifyCounter(Counter counter, @IntRange(from = 0, to = 99999) int amount) {
+        System.out.println("Changing counter ID: " + counter.getId());
+        System.out.println("Current Count: " + counter.getCount());
         repository.setCount(counter.getId(), amount)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new CompletableObserver() {
                     @Override
                     public void onComplete() {
-                        System.out.println("Modifying value for ID: " + counter.getId());
-                        System.out.println("Count: " + counter.getCount());
+
                     }
 
                     @Override
