@@ -15,10 +15,22 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 
 ## Screenshots 
 
-
 ### Starting a hunt
 To start a hunt, you have to fill out the necessary parameters(can be changed later if you use more than 1 game or get a pitybreaker!): 
 The game you're hunting on, the pokemon, the platform, and the method that you wish to use!
 
 ![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_game.png?raw=true) 
 ![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_pokemon.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_pokemon_filter.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_pokemon_icon.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_platform.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_method.png?raw=true) 
+
+After selecting the necessary parameters, you get a preview of what your hunt will look like: 
+
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/hunt_preview.png?raw=true) 
+
+After confirming, it is added to the list of current hunts. You can click any to start/resume a hunt anytime:
+
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/home_hunting_screen.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/hunting_count.png?raw=true) 
