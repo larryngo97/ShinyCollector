@@ -120,7 +120,7 @@ public class HomeHuntingFragment extends Fragment {
                 adapter.setCountersList(counters);
 
                 counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
-                counters.sort(Counter.COMPARE_BY_GAME_DESC);
+                //counters.sort(Counter.COMPARE_BY_GAME_DESC);
 
                 recyclerView.setAdapter(adapter);
             }
