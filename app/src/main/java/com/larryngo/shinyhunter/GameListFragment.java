@@ -117,7 +117,7 @@ public class GameListFragment extends Fragment {
                         is.read(image); //necessary in order for the image to appear
                         is.close();
 
-                        Game game = new Game(list_games_names.get(i), image, determineGeneration(token)); //creates game
+                        Game game = new Game(i, list_games_names.get(i), image, determineGeneration(token)); //creates game
                         list_games.add(game); //sets up the list of games
                     }
                 }catch (IOException e) {

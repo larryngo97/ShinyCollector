@@ -38,7 +38,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:autoSizeStepGranularity="2sp"
-                android:fontFamily="@font/electrolize"
+                android:fontFamily="@font/mazzard"
                 android:text="Missingno"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -63,12 +63,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:fontFamily="@font/electrolize"
+                android:fontFamily="@font/mazzard"
                 android:text="Pokemon Red"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:autoSizeMaxTextSize="24sp"
-                app:autoSizeMinTextSize="8sp"
+                app:autoSizeMinTextSize="12sp"
                 app:autoSizeTextType="uniform"
                 app:autoSizeStepGranularity="2sp">
 
@@ -96,10 +96,10 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:autoSizeStepGranularity="2sp"
-                android:fontFamily="@font/electrolize"
+                android:fontFamily="@font/mazzard_light"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="99999"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:autoSizeMaxTextSize="36sp"
@@ -108,5 +108,20 @@
 
             </TextView>
         </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2.3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/hunting_list_options"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_more_vert">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+        </FrameLayout>
+
     </LinearLayout>
 </RelativeLayout>

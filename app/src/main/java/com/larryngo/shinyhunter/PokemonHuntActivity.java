@@ -27,6 +27,9 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private static String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
     private static String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
 
+    public static int MAX_COUNT_VALUE = 999999;
+    private final int MAX_STEP_VALUE = 99;
+
     private ConstraintLayout screen;
     private TextView pokemon_name;
     private TextView game_name;
@@ -85,7 +88,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     }
 
     public void updateView() {
-        pokemon_name.setText(counter.getPokemon().getName());
+        pokemon_name.setText(counter.getPokemon().getNickname());
 
         game_name.setText(counter.getGame().getName());
 
@@ -140,7 +143,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
                         int newCount = Integer.parseInt(et_input.getText().toString());
 
-                        if(newCount >= 1 && newCount <= 99) {
+                        if(newCount >= 1 && newCount <= MAX_STEP_VALUE) {
                             counter.setStep(newCount);
                             String incrementText1 = "+" + counter.getStep();
                             button_increment.setText(incrementText1);
@@ -176,7 +179,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
                         int newCount = Integer.parseInt(et_input.getText().toString());
 
-                        if(newCount >= 0 && newCount <= 99999) {
+                        if(newCount >= 0 && newCount <= MAX_COUNT_VALUE) {
                             counter.setCount(newCount);
                             counter_count.setText(String.valueOf(counter.getCount()));
 

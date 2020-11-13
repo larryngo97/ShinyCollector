@@ -16,7 +16,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/platform_list_recycler"
-        android:background="@drawable/box_blue"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

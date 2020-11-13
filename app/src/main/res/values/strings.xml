@@ -7,18 +7,26 @@
 
     <!-- Utility -->
     <string name="search_game_hint">Search game</string>
-    <string name="search_pokemon_hint">Search pokemon</string>
+    <string name="search_pokemon_hint">Search pokemon by name or ID</string>
     <string name="search_platform_hint">Search platform</string>
     <string name="search_method_hint">Search method</string>
 
     <string name="dialog_loadingdata">Loading data…</string>
+
+    <string name="dialog_deleteconfirmation">Are you sure you want to delete this?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
     <string name="dialog_set">Set</string>
     <string name="dialog_cancel">Cancel</string>
+
+    <string name="menu_delete">Delete</string>
 
     <!-- Home -->
     <string name="home_hunting_title">Hunting</string>
     <string name="home_completed_title">Completed</string>
     <string name="home_statistics_title">Statistics</string>
+
+    <string name="home_no_hunts">Start a hunt by clicking the button below!</string>
 
     <!-- StartHunt -->
     <string name="starthunt_button_selectgame">Select Game</string>
@@ -66,8 +74,8 @@
     <string name="pokemonhuntactivity_error_datanotfound">Error in creating view, did not receive data…</string>
 
     <string name="pokemonhuntactivity_dialog_count_title">Set Counter</string>
-    <string name="pokemonhuntactivity_dialog_count_desc">Enter a number 0–99999. Changes the counter.</string>
-    <string name="pokemonhuntactivity_dialog_count_invalid">Number needs to be 0–99999!</string>
+    <string name="pokemonhuntactivity_dialog_count_desc">Enter a number 0–999999. Changes the counter.</string>
+    <string name="pokemonhuntactivity_dialog_count_invalid">Number needs to be 0–999999!</string>
 
     <string name="pokemonhuntactivity_dialog_increment_title">Set Incremental Value</string>
     <string name="pokemonhuntactivity_dialog_increment_desc">Enter a number 1–99. Changes the value added/subtracted.</string>
@@ -97,42 +105,42 @@
     <!-- Name of games -->
 
     <string-array name="list_games_names">
-        <item>Pokemon Red</item>
-        <item>Pokemon Blue</item>
-        <item>Pokemon Green</item>
-        <item>Pokemon Yellow</item>
-        <item>Pokemon Gold</item>
-        <item>Pokemon Silver</item>
-        <item>Pokemon Crystal</item>
-        <item>Pokemon Ruby</item>
-        <item>Pokemon Sapphire</item>
-        <item>Pokemon Emerald</item>
-        <item>Pokemon Colosseum</item>
-        <item>Pokemon: XD Gale of Darkness</item>
-        <item>Pokemon FireRed</item>
-        <item>Pokemon LeafGreen</item>
-        <item>Pokemon Diamond</item>
-        <item>Pokemon Pearl</item>
-        <item>Pokemon Platinum</item>
-        <item>Pokemon HeartGold</item>
-        <item>Pokemon SoulSilver</item>
-        <item>Pokemon Rumble</item>
-        <item>Pokemon Black</item>
-        <item>Pokemon White</item>
-        <item>Pokemon Black 2</item>
-        <item>Pokemon White 2</item>
-        <item>Pokemon X</item>
-        <item>Pokemon Y</item>
-        <item>Pokemon Omega Ruby</item>
-        <item>Pokemon Alpha Sapphire</item>
-        <item>Pokemon Sun</item>
-        <item>Pokemon Moon</item>
-        <item>Pokemon Ultra Sun</item>
-        <item>Pokemon Ultra Moon</item>
-        <item>Pokemon Lets Go Pikachu</item>
-        <item>Pokemon Lets Go Eevee</item>
-        <item>Pokemon Sword</item>
-        <item>Pokemon Shield</item>
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Gold</item>
+        <item>Silver</item>
+        <item>Crystal</item>
+        <item>Ruby</item>
+        <item>Sapphire</item>
+        <item>Emerald</item>
+        <item>Colosseum</item>
+        <item>XD Gale of Darkness</item>
+        <item>FireRed</item>
+        <item>LeafGreen</item>
+        <item>Diamond</item>
+        <item>Pearl</item>
+        <item>Platinum</item>
+        <item>HeartGold</item>
+        <item>SoulSilver</item>
+        <item>Rumble</item>
+        <item>Black</item>
+        <item>White</item>
+        <item>Black 2</item>
+        <item>White 2</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Omega Ruby</item>
+        <item>Alpha Sapphire</item>
+        <item>Sun</item>
+        <item>Moon</item>
+        <item>Ultra Sun</item>
+        <item>Ultra Moon</item>
+        <item>Lets Go Pikachu</item>
+        <item>Lets Go Eevee</item>
+        <item>Sword</item>
+        <item>Shield</item>
     </string-array>
 
     <!-- Name of platforms -->
@@ -176,7 +184,7 @@
         <item>Other</item>
     </string-array>
 
-    <!-- DO NOT RENAME BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
+    <!-- DO NOT RENAME/TRANSLATE BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
 
     <string-array name="list_games_tokens">
         <item>Red</item>
