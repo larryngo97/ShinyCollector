@@ -1,5 +1,7 @@
 package com.larryngo.shinyhunter.models;
 
+import android.util.SparseIntArray;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -8,6 +10,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import io.reactivex.Completable;
 
 @Dao
@@ -22,7 +25,7 @@ public abstract class CounterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract Completable insert(Counter counter);
 
-    @Query("SELECT * FROM counters ORDER BY position")
+    @Query("SELECT * FROM counters ORDER BY id")
     public abstract LiveData<List<Counter>> loadAllCounters();
 
     @Query("SELECT COUNT(*) FROM counters")
@@ -52,10 +55,9 @@ public abstract class CounterDao {
     @Query("UPDATE counters " + "SET step = :step WHERE id = :counterId")
     public abstract Completable modifyStep(int counterId, int step);
 
-    @Query("UPDATE counters " + "SET position = :position WHERE id = :counterId")
-    public abstract void modifyPosition(int counterId, int position);
 
     @Query("UPDATE counters " + "SET count = 0")
     public abstract Completable resetValues();
+
 
 }
