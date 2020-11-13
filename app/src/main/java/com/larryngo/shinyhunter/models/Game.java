@@ -4,37 +4,48 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Game implements Parcelable {
-    private String game_title;
-    private byte[] game_image;
+    private int id;
+    private String name;
+    private byte[] image;
     private int generation;
 
     public Game() {
-        this.game_title = "Pokemon Red";
-        this.game_image = null;
+        this.id = 0;
+        this.name = "Pokemon Red";
+        this.image = null;
         this.generation = 1;
     }
 
-    public Game(String text, byte[] image, int generation)
+    public Game(int id, String text, byte[] image, int generation)
     {
-        this.game_title = text;
-        this.game_image = image;
+        this.id = id;
+        this.name = text;
+        this.image = image;
         this.generation = generation;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
-        return game_title;
+        return name;
     }
 
     public void setName(String game_title) {
-        this.game_title = game_title;
+        this.name = game_title;
     }
 
     public byte[] getImage() {
-        return game_image;
+        return image;
     }
 
     public void setImage(byte[] game_image) {
-        this.game_image = game_image;
+        this.image = game_image;
     }
 
     public int getGeneration() {
@@ -46,8 +57,9 @@ public class Game implements Parcelable {
     }
 
     protected Game(Parcel in) {
-        game_title = in.readString();
-        game_image = in.createByteArray();
+        id = in.readInt();
+        name = in.readString();
+        image = in.createByteArray();
         generation = in.readInt();
     }
 
@@ -58,8 +70,9 @@ public class Game implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(game_title);
-        dest.writeByteArray(game_image);
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeByteArray(image);
         dest.writeInt(generation);
     }
 
