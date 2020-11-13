@@ -10,6 +10,7 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 
 * ALL 893 Pokemon available (Alolan + Other forms support released later)
 * Individual icons for each pokemon that is currently supported by PokeAPI
+* Support for female pokemon
 * Sorting between newest/oldest, pokemon names/id, game, and count
 * Redo a count, set up your own increment number per click, editing pokemon mid-hunt (soon), and options (soon)
 
