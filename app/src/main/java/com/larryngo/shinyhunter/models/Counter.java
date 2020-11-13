@@ -4,10 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.larryngo.shinyhunter.ObjectTypeConverters;
+import com.larryngo.shinyhunter.PokemonHuntActivity;
+
+import java.util.Comparator;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
+
+import static com.larryngo.shinyhunter.PokemonHuntActivity.MAX_COUNT_VALUE;
 
 @Entity(tableName = "counters")
 public class Counter implements Parcelable {
@@ -19,10 +24,8 @@ public class Counter implements Parcelable {
     private Pokemon pokemon;
     private Platform platform;
     private Method method;
-    private String nickname;
     private int count;
     private int step;
-    private int position;
 
     public Counter(Game game, Pokemon pokemon, Platform platform, Method method, int count, int step) {
         this.game = game;
@@ -31,7 +34,6 @@ public class Counter implements Parcelable {
         this.method = method;
         this.count = count;
         this.step = step;
-        this.nickname = "Nickname";
     }
 
     public Counter(Counter counter) {
@@ -42,18 +44,69 @@ public class Counter implements Parcelable {
         this.method = counter.method;
         this.count = counter.count;
         this.step = counter.step;
-        this.position = counter.position;
-        this.nickname = "Nickname";
     }
 
+    public static Comparator<Counter> COMPARE_BY_LISTID_DESC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj2.id- obj1.id;
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_GAME_DESC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj2.getGame().getId()- obj1.getGame().getId();
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_GAME_ASC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj1.getGame().getId()- obj2.getGame().getId();
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_POKEMONID_DESC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj2.getPokemon().getId() - obj1.getPokemon().getId();
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_POKEMONID_ASC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj1.getPokemon().getId() - obj2.getPokemon().getId();
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_COUNT_DESC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj2.count - obj1.count;
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_COUNT_ASC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj1.count - obj2.count;
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_NICKNAME_DESC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj2.getPokemon().getNickname().compareTo(obj1.getPokemon().getNickname());
+        }
+    };
+
+    public static Comparator<Counter> COMPARE_BY_NICKNAME_ASC = new Comparator<Counter>() {
+        public int compare(Counter obj1, Counter obj2) {
+            return obj1.getPokemon().getNickname().compareTo(obj2.getPokemon().getNickname());
+        }
+    };
 
     public void add(int num)
     {
         count += num;
         if(count < 0)
             count = 0;
-        else if (count > 99999)
-            count = 99999;
+        else if (count > MAX_COUNT_VALUE)
+            count = MAX_COUNT_VALUE;
     }
 
     public int getId() {
@@ -96,14 +149,6 @@ public class Counter implements Parcelable {
         this.method = method;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public int getCount() {
         return count;
     }
@@ -118,14 +163,6 @@ public class Counter implements Parcelable {
 
     public void setStep(int step) {
         this.step = step;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     protected Counter(Parcel in) {
