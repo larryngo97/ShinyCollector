@@ -20,4 +20,4 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 To start a hunt, you have to fill out the necessary parameters(can be changed later if you use more than 1 game or get a pitybreaker!): 
 The game you're hunting on, the pokemon, the platform, and the method that you wish to use!
 
-![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_game.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/select_pokemon.png?raw=true) 
