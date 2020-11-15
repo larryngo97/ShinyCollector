@@ -97,11 +97,23 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                                     Date date2 = new Date();
 
                                     long difference = date2.getTime() - date1.getTime();
-                                    System.out.println (difference);
-                                    int days = (int) (difference / (1000 * 60 * 60 * 24));
-                                    int hours = (int) (difference / (1000 * 60 * 60));
-                                    int minutes = (int) (difference / (1000 * 60));
-                                    int seconds = (int) (difference / (1000 * 100));
+
+                                    long secondsInMilli = 1000;
+                                    long minutesInMilli = secondsInMilli * 60;
+                                    long hoursInMilli = minutesInMilli * 60;
+                                    long daysInMilli = hoursInMilli * 24;
+
+                                    long days = difference / daysInMilli;
+                                    difference = difference % daysInMilli;
+
+                                    long hours = difference / hoursInMilli;
+                                    difference = difference % hoursInMilli;
+
+                                    long minutes = difference / minutesInMilli;
+                                    difference = difference % minutesInMilli;
+
+                                    long seconds = difference / secondsInMilli;
+
 
                                     System.out.println(days + " " + hours + " " + minutes + " " + seconds);
                                     String timeElapsed = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
