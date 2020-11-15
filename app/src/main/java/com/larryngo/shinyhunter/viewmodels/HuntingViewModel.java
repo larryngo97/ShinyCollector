@@ -46,9 +46,16 @@ public class HuntingViewModel extends AndroidViewModel {
                     .subscribe(new CompletableObserver() {
                         @Override
                         public void onComplete() {
-                            //int lastId = currentList.get(size - 1).getId();
-                            //entry.setId(lastId + 1);
-                            //PokemonHuntActivity.start(activity, entry);
+                            /*
+                            //Automatically goes to hunting right after adding a counter
+                            if(currentList.get(size - 1) != null) {
+                                int lastId = currentList.get(size - 1).getId();
+                                entry.setId(lastId + 1);
+                                PokemonHuntActivity.start(activity, entry);
+                            }
+
+                             */
+
                         }
 
                         @Override

@@ -7,6 +7,7 @@ import com.larryngo.shinyhunter.ObjectTypeConverters;
 import com.larryngo.shinyhunter.PokemonHuntActivity;
 
 import java.util.Comparator;
+import java.util.Date;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -20,12 +21,16 @@ public class Counter implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private String dateCreated;
+    private String dateFinished;
+
+    private int count;
+    private int step;
+
     private Game game;
     private Pokemon pokemon;
     private Platform platform;
     private Method method;
-    private int count;
-    private int step;
 
     public Counter(Game game, Pokemon pokemon, Platform platform, Method method, int count, int step) {
         this.game = game;
@@ -38,12 +43,14 @@ public class Counter implements Parcelable {
 
     public Counter(Counter counter) {
         this.id = counter.id;
+        this.dateCreated = counter.dateCreated;
+        this.dateFinished = counter.dateFinished;
+        this.count = counter.count;
+        this.step = counter.step;
         this.game = counter.game;
         this.pokemon = counter.pokemon;
         this.platform = counter.platform;
         this.method = counter.method;
-        this.count = counter.count;
-        this.step = counter.step;
     }
 
     public static Comparator<Counter> COMPARE_BY_LISTID_DESC = new Comparator<Counter>() {
@@ -117,6 +124,22 @@ public class Counter implements Parcelable {
         this.id = id;
     }
 
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getDateFinished() {
+        return dateFinished;
+    }
+
+    public void setDateFinished(String dateFinished) {
+        this.dateFinished = dateFinished;
+    }
+
     public Game getGame() {
         return game;
     }
@@ -170,6 +193,8 @@ public class Counter implements Parcelable {
         pokemon = (Pokemon) in.readParcelable(Pokemon.class.getClassLoader());
         platform = (Platform) in.readParcelable(Platform.class.getClassLoader());
         method = (Method) in.readParcelable(Method.class.getClassLoader());
+        dateCreated = in.readString();
+        dateFinished = in.readString();
         count = in.readInt();
         step = in.readInt();
     }
@@ -185,6 +210,8 @@ public class Counter implements Parcelable {
         dest.writeParcelable(pokemon, flags);
         dest.writeParcelable(platform, flags);
         dest.writeParcelable(method, flags);
+        dest.writeString(dateCreated);
+        dest.writeString(dateFinished);
         dest.writeInt(count);
         dest.writeInt(step);
     }

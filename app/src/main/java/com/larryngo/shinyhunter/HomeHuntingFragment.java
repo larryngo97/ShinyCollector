@@ -1,6 +1,5 @@
 package com.larryngo.shinyhunter;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -15,15 +14,10 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HuntingAdapter;
 import com.larryngo.shinyhunter.models.Counter;
-import com.larryngo.shinyhunter.models.Game;
-import com.larryngo.shinyhunter.models.Method;
-import com.larryngo.shinyhunter.models.Platform;
-import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -62,8 +56,6 @@ public class HomeHuntingFragment extends Fragment {
         text_nohunts = view.findViewById(R.id.home_text_nohunts);
         image_arrow_down = view.findViewById(R.id.home_arrow_down);
         fab = view.findViewById(R.id.home_fab);
-        fab2 = view.findViewById(R.id.home_fab2);
-        fab2.setVisibility(View.GONE); // testing purposes
 
         setOnClickListener();
 
@@ -75,15 +67,6 @@ public class HomeHuntingFragment extends Fragment {
             Intent intent = new Intent (getContext(), StartHuntActivity.class);
             startActivity(intent);
 
-        });
-
-        fab2.setOnClickListener(v -> {
-            Game game = new Game();
-            Pokemon pokemon = new Pokemon();
-            Platform platform = new Platform();
-            Method method = new Method();
-            Counter counter = new Counter(game, pokemon, platform, method, 0, 1);
-            huntingViewModel.addCounter(getActivity(), counter);
         });
 
         listener = new HuntingAdapter.HuntingListener() {
@@ -145,7 +128,7 @@ public class HomeHuntingFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.hunting_menu_delete) {
+        if (item.getItemId() == R.id.menu_delete) {
             Toast.makeText(getContext(), "Option 1 selected", Toast.LENGTH_SHORT).show();
             return true;
         }

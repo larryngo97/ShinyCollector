@@ -3,9 +3,7 @@ package com.larryngo.shinyhunter.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,12 @@ import com.bumptech.glide.Glide;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -70,7 +73,66 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.hunting_menu_delete) {
+                        if (item.getItemId() == R.id.menu_details) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+                            final View popupDialog = inflater.inflate(R.layout.popup_details, null);
+                            ImageView iv_image = popupDialog.findViewById(R.id.details_image_pokemon);
+                            TextView tv_nickname = popupDialog.findViewById(R.id.details_name_pokemon);
+                            TextView tv_encounters = popupDialog.findViewById(R.id.details_encounters);
+                            TextView tv_timeElapsed = popupDialog.findViewById(R.id.details_timeelapsed);
+                            TextView tv_startDate = popupDialog.findViewById(R.id.details_startdate);
+                            TextView tv_captureDate = popupDialog.findViewById(R.id.details_capturedate);
+                            TextView tv_game = popupDialog.findViewById(R.id.details_game);
+                            TextView tv_generation = popupDialog.findViewById(R.id.details_generation);
+                            TextView tv_pokemon = popupDialog.findViewById(R.id.details_pokemon);
+                            TextView tv_method = popupDialog.findViewById(R.id.details_method);
+
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US);
+                            if(counters.get(position).getDateCreated() != null) {
+                                tv_startDate.setText(counters.get(position).getDateCreated());
+
+                                try {
+                                    Date date1 = simpleDateFormat.parse(counters.get(position).getDateCreated());
+                                    Date date2 = new Date();
+
+                                    long difference = date2.getTime() - date1.getTime();
+                                    System.out.println (difference);
+                                    int days = (int) (difference / (1000 * 60 * 60 * 24));
+                                    int hours = (int) (difference / (1000 * 60 * 60));
+                                    int minutes = (int) (difference / (1000 * 60));
+                                    int seconds = (int) (difference / (1000 * 100));
+
+                                    System.out.println(days + " " + hours + " " + minutes + " " + seconds);
+                                    String timeElapsed = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                                    tv_timeElapsed.setText(timeElapsed);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            Glide.with(mContext)
+                                    .load(counters.get(position).getPokemon().getImage())
+                                    .placeholder(R.drawable.missingno)
+                                    .into(iv_image);
+                            if(counters.get(position).getPokemon().getNickname() != null)
+                                tv_nickname.setText(counters.get(position).getPokemon().getNickname());
+
+                            tv_encounters.setText(String.valueOf(counters.get(position).getCount()));
+                            if(counters.get(position).getGame().getName() != null)
+                                tv_game.setText(counters.get(position).getGame().getName());
+                            tv_generation.setText(String.valueOf(counters.get(position).getGame().getGeneration()));
+                            if(counters.get(position).getPokemon().getName() != null)
+                                tv_pokemon.setText(counters.get(position).getPokemon().getName());
+                            if(counters.get(position).getMethod().getName() != null)
+                                tv_method.setText(counters.get(position).getMethod().getName());
+
+
+                            builder.setView(popupDialog);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                        else if (item.getItemId() == R.id.menu_delete) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                             builder.setMessage(mContext.getResources().getString(R.string.dialog_deleteconfirmation))
                                     .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {

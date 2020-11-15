@@ -27,8 +27,8 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/hunting_list_entry_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:src="@drawable/missingno" />
         </FrameLayout>
@@ -54,7 +54,8 @@
                 android:textSize="20sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
-                app:autoSizeTextType="uniform">
+                app:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="2sp">
 
             </TextView>
 

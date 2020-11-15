@@ -9,7 +9,7 @@
 
     <FrameLayout
         android:layout_gravity="center"
-        android:background="@drawable/box_recycler"
+        android:background="@drawable/box_bluegray"
         android:layout_width="120dp"
         android:layout_height="120dp">
 

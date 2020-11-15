@@ -20,8 +20,9 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/pokemon_view_image"
-                android:background="@drawable/box_recycler"
+                android:background="@drawable/box_bluegray"
                 android:padding="10dp"
+                android:src="@drawable/missingno"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -52,16 +53,17 @@
                 android:id="@+id/pokemon_view_name"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginEnd="10dp"
                 android:layout_gravity="start"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="sans-serif-condensed-light"
                 android:gravity="start"
-                android:textColor="@color/black"
                 android:maxLines="1"
+                android:text="Missingno"
+                android:textColor="@color/black"
                 app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="32sp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeStepGranularity="2sp">
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
 
             </TextView>
 

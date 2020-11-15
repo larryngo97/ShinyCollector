@@ -18,7 +18,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@Database(entities = {Counter.class}, version = 3, exportSchema = false)
+@Database(entities = {Counter.class}, version = 1)
 @TypeConverters(ObjectTypeConverters.class)
 public abstract class DatabaseHolder extends RoomDatabase {
 
@@ -35,7 +35,7 @@ public abstract class DatabaseHolder extends RoomDatabase {
     public static void init(Context context) {
         database = Room.databaseBuilder(context.getApplicationContext(), DatabaseHolder.class, "hunting-database")
                 .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
-                .fallbackToDestructiveMigration()
+                //.fallbackToDestructiveMigration()
                 .build();
     }
 

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/box_bluegray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/details_image_pokemon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:src="@drawable/missingno" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/details_name_pokemon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mazzard"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Missingno"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:autoSizeMaxTextSize="50sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform" />
+
+    <View
+        android:id="@+id/details_divider"
+        android:background="@color/light_blue"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp">
+
+    </View>
+
+    <LinearLayout
+        android:id="@+id/details_frame"
+        android:background="@drawable/box_blue"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_encounters"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_encounters"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_timeelapsed"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_timeelapsed"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_startdate"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_startdate"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_capturedate"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_capturedate"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_game"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_game"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_generation"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_generation"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_pokemon"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_pokemon"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard_light"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@string/details_method"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_method"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

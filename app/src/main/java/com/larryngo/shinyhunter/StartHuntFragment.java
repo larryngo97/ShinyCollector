@@ -16,6 +16,11 @@ import com.larryngo.shinyhunter.models.Platform;
 import com.larryngo.shinyhunter.models.Pokemon;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -148,6 +153,9 @@ public class StartHuntFragment extends Fragment {
             //back to it any time.
             button_start.setOnClickListener(view -> {
                 Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
+                Date date = new Date();
+                String stringDate = DateFormat.getDateTimeInstance().format(date);
+                counter.setDateCreated(stringDate);
 
                 huntingViewModel.addCounter(getActivity(), counter);
 
