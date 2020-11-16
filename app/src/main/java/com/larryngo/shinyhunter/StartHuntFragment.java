@@ -24,6 +24,7 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
@@ -52,6 +53,7 @@ public class StartHuntFragment extends Fragment {
     private Method method;
 
     public void updateGame(Game input){
+        if(input == null) return;
         game = input;
         button_game.setText(game.getName());
 
@@ -60,6 +62,7 @@ public class StartHuntFragment extends Fragment {
     }
 
     public void updatePokemon(Pokemon input) {
+        if(input == null) return;
         pokemon = input;
 
         //Changes the image of the platform preview.
@@ -78,6 +81,7 @@ public class StartHuntFragment extends Fragment {
     }
 
     public void updatePlatform(Platform input) {
+        if(input == null) return;
         platform = input;
         button_platform.setText(platform.getName());
 
@@ -93,6 +97,7 @@ public class StartHuntFragment extends Fragment {
     }
 
     public void updateMethod(Method input) {
+        if(input == null) return;
         method = input;
         button_method.setText(method.getName());
 
@@ -124,6 +129,57 @@ public class StartHuntFragment extends Fragment {
             button_start.setEnabled(false);
             button_start.setVisibility(View.INVISIBLE);
 
+            Bundle extras = getArguments();
+            if(extras != null) {
+                int active_hunt_id = getArguments().getInt("ARGUMENT_ACTIVE_HUNT");
+                LiveData<Counter> counterLiveData = huntingViewModel.getCounter(active_hunt_id);
+                counterLiveData.observe(getViewLifecycleOwner(), counter -> {
+                  game = counter.getGame();
+                  pokemon = counter.getPokemon();
+                  platform = counter.getPlatform();
+                  method = counter.getMethod();
+
+                  updateGame(game);
+                  updatePokemon(pokemon);
+                  updatePlatform(platform);
+                  updateMethod(method);
+
+                  button_start.setText("RESUME HUNT");
+                  button_start.setOnClickListener(v -> {
+                      Counter modifiedCounter = new Counter(game, pokemon, platform, method, counter.getCount(), counter.getStep());
+                      modifiedCounter.setId(active_hunt_id);
+
+                      huntingViewModel.modifyGame(modifiedCounter);
+                      huntingViewModel.modifyPokemon(modifiedCounter);
+                      huntingViewModel.modifyPlatform(modifiedCounter);
+                      huntingViewModel.modifyMethod(modifiedCounter);
+
+                      PokemonHuntActivity.start(getActivity(), modifiedCounter);
+
+                      if(getActivity() == null) return;
+                      getActivity().finish();
+                  });
+                });
+            } else {
+                //START BUTTON
+                //Packages up the entire content of this fragment and pushes them towards the next activity.
+                //This will also create a new data entry onto the current hunts list so the user can come
+                //back to it any time.
+                button_start.setOnClickListener(view -> {
+                    Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
+                    Date date = new Date();
+                    String stringDate = DateFormat.getDateTimeInstance().format(date);
+                    counter.setDateCreated(stringDate);
+
+                    huntingViewModel.addCounter(getActivity(), counter);
+
+                    //Prevents the user from going back to the startup screen. When a hunt has been created
+                    //it should bring the user back to the home page (where they can see their current hunts)
+                    if(getActivity() == null) return;
+                    getActivity().finish();
+                });
+            }
+
             //GAME BUTTON
             //Selecting a game which will filter out which pokemon can be caught (it determines
             //the current generation of that game)
@@ -147,23 +203,6 @@ public class StartHuntFragment extends Fragment {
             button_method.setOnClickListener(view -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
                     .replace(R.id.starthunt_fragment_container, new MethodListFragment()).addToBackStack(null).commit());
 
-            //START BUTTON
-            //Packages up the entire content of this fragment and pushes them towards the next activity.
-            //This will also create a new data entry onto the current hunts list so the user can come
-            //back to it any time.
-            button_start.setOnClickListener(view -> {
-                Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
-                Date date = new Date();
-                String stringDate = DateFormat.getDateTimeInstance().format(date);
-                counter.setDateCreated(stringDate);
-
-                huntingViewModel.addCounter(getActivity(), counter);
-
-                //Prevents the user from going back to the startup screen. When a hunt has been created
-                //it should bring the user back to the home page (where they can see their current hunts)
-                if(getActivity() == null) return;
-                getActivity().finish();
-            });
         }
         return view;
     }

@@ -112,7 +112,7 @@ public class PokemonListFragment extends Fragment {
 
             pokemonListCall.enqueue(new Callback<PokemonList>() {
                 @Override
-                public void onResponse(Call<PokemonList> call, Response<PokemonList> response) {
+                public void onResponse(@NonNull Call<PokemonList> call, @NonNull Response<PokemonList> response) {
                     if (response.isSuccessful()) {
                         PokemonList pokemonRequest = response.body();
 
@@ -127,7 +127,7 @@ public class PokemonListFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<PokemonList> call, Throwable t) {
+                public void onFailure(@NonNull Call<PokemonList> call, @NonNull Throwable t) {
                     Toast.makeText(getContext(), R.string.pokeapi_loadingdata_failure, Toast.LENGTH_SHORT).show();
                 }
             });
@@ -140,14 +140,17 @@ public class PokemonListFragment extends Fragment {
     public void closeKeyboard() {
         try {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            View keyboardView = getActivity().getCurrentFocus();
+            if(keyboardView != null) {
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
             sendPokemonToView = (SendPokemonToView) getActivity();

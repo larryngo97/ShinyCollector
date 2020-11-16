@@ -19,7 +19,6 @@ import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,12 +68,7 @@ public class HomeHuntingFragment extends Fragment {
 
         });
 
-        listener = new HuntingAdapter.HuntingListener() {
-            @Override
-            public void onClick(View v, int position) throws ExecutionException, InterruptedException {
-                PokemonHuntActivity.start(getActivity(), Objects.requireNonNull(huntingViewModel.getCounters().getValue()).get(position));
-            }
-        };
+        listener = (v, position) -> PokemonHuntActivity.start(getActivity(), Objects.requireNonNull(huntingViewModel.getCounters().getValue()).get(position));
     }
 
     @Override

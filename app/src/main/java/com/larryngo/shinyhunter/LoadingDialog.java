@@ -32,10 +32,6 @@ public class LoadingDialog {
         dialog.dismiss();
     }
 
-    public void setMessage(String message) {
-        tv_text.setText(message);
-    }
-
     public void setMessage(int message) {
         tv_text.setText(message);
     }

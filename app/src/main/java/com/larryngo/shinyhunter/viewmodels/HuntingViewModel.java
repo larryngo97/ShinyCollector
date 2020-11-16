@@ -36,6 +36,10 @@ public class HuntingViewModel extends AndroidViewModel {
         return counters;
     }
 
+    public LiveData<Counter> getCounter(int id) {
+        return repository.getCounter(id);
+    }
+
     public void addCounter(Activity activity, final Counter entry) {
         List<Counter> currentList = counters.getValue();
         if(currentList != null) {
@@ -127,6 +131,94 @@ public class HuntingViewModel extends AndroidViewModel {
                     @Override
                     public void onComplete() {
                         System.out.println("Step: " + counter.getStep());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
+    }
+
+    public void modifyGame(Counter counter) {
+        repository.modifyGame(counter.getId(), counter.getGame())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Modified Game for ID: " + counter.getId() + " to " + counter.getGame().getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
+    }
+
+    public void modifyPokemon(Counter counter) {
+        repository.modifyPokemon(counter.getId(), counter.getPokemon())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Modified Pokemon for ID: " + counter.getId() + " to " + counter.getPokemon().getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
+    }
+
+    public void modifyPlatform(Counter counter) {
+        repository.modifyPlatform(counter.getId(), counter.getPlatform())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Modified Platform for ID: " + counter.getId() + " to " + counter.getPlatform().getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
+    }
+
+    public void modifyMethod(Counter counter) {
+        repository.modifyMethod(counter.getId(), counter.getMethod())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        System.out.println("Modified Method for ID: " + counter.getId() + " to " + counter.getMethod().getName());
                     }
 
                     @Override

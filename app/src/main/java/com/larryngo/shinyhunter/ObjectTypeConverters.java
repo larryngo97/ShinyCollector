@@ -8,10 +8,8 @@ import com.larryngo.shinyhunter.models.Platform;
 import com.larryngo.shinyhunter.models.Pokemon;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 public class ObjectTypeConverters {
     Gson gson = new Gson();

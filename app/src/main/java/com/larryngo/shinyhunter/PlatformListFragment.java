@@ -136,14 +136,17 @@ public class PlatformListFragment extends Fragment {
     public void closeKeyboard() {
         try {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            View keyboardView = getActivity().getCurrentFocus();
+            if(keyboardView != null) {
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof FragmentPlatformListListener) {
             fragment_listener = (FragmentPlatformListListener) context;

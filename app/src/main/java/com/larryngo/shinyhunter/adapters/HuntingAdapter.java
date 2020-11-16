@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,9 +31,9 @@ import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
 
 public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHolder>{
     private View view;
-    private Context mContext;
+    private final Context mContext;
     private List<Counter> counters;
-    private HuntingListener listener;
+    private final HuntingListener listener;
 
     public HuntingAdapter(Context c, HuntingListener listener){
         this.mContext = c;
@@ -45,7 +43,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_hunting_grid_entry, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_grid_entry, parent, false);
         return new HuntingAdapter.ViewHolder(view);
     }
 
@@ -64,107 +62,114 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
         holder.nameView.setText(pokemon_name);
         holder.gameView.setText(game_name);
         holder.countView.setText(String.valueOf(count));
-        holder.optionsMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu menu = new PopupMenu(mContext, v);
-                menu.getMenuInflater().inflate(R.menu.hunting_entry, menu.getMenu());
-                menu.show();
-                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.menu_details) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-                            final View popupDialog = inflater.inflate(R.layout.popup_details, null);
-                            ImageView iv_image = popupDialog.findViewById(R.id.details_image_pokemon);
-                            TextView tv_nickname = popupDialog.findViewById(R.id.details_name_pokemon);
-                            TextView tv_encounters = popupDialog.findViewById(R.id.details_encounters);
-                            TextView tv_timeElapsed = popupDialog.findViewById(R.id.details_timeelapsed);
-                            TextView tv_startDate = popupDialog.findViewById(R.id.details_startdate);
-                            TextView tv_captureDate = popupDialog.findViewById(R.id.details_capturedate);
-                            TextView tv_game = popupDialog.findViewById(R.id.details_game);
-                            TextView tv_generation = popupDialog.findViewById(R.id.details_generation);
-                            TextView tv_pokemon = popupDialog.findViewById(R.id.details_pokemon);
-                            TextView tv_method = popupDialog.findViewById(R.id.details_method);
+        holder.optionsMenu.setOnClickListener(v -> {
+            PopupMenu menu = new PopupMenu(mContext, v);
+            menu.getMenuInflater().inflate(R.menu.hunting_entry, menu.getMenu());
+            menu.show();
+            menu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.menu_details) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+                    final View popupDialog = inflater.inflate(R.layout.popup_details, null);
+                    ImageView iv_image = popupDialog.findViewById(R.id.details_image_pokemon);
+                    TextView tv_nickname = popupDialog.findViewById(R.id.details_name_pokemon);
+                    TextView tv_encounters = popupDialog.findViewById(R.id.details_encounters);
+                    TextView tv_timeElapsed = popupDialog.findViewById(R.id.details_timeelapsed);
+                    TextView tv_startDate = popupDialog.findViewById(R.id.details_startdate);
+                    TextView tv_captureDate = popupDialog.findViewById(R.id.details_capturedate);
+                    TextView tv_game = popupDialog.findViewById(R.id.details_game);
+                    TextView tv_generation = popupDialog.findViewById(R.id.details_generation);
+                    TextView tv_pokemon = popupDialog.findViewById(R.id.details_pokemon);
+                    TextView tv_method = popupDialog.findViewById(R.id.details_method);
 
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US);
-                            if(counters.get(position).getDateCreated() != null) {
-                                tv_startDate.setText(counters.get(position).getDateCreated());
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US);
+                    if(counters.get(position).getDateCreated() != null) {
+                        tv_startDate.setText(counters.get(position).getDateCreated());
 
-                                try {
-                                    Date date1 = simpleDateFormat.parse(counters.get(position).getDateCreated());
-                                    Date date2 = new Date();
+                        long secondsInMilli = 1000;
+                        long minutesInMilli = secondsInMilli * 60;
+                        long hoursInMilli = minutesInMilli * 60;
+                        long daysInMilli = hoursInMilli * 24;
 
-                                    long difference = date2.getTime() - date1.getTime();
+                        //get current date in case somehow there is no data
+                        Date date1 = new Date();
+                        Date date2 = new Date();
 
-                                    long secondsInMilli = 1000;
-                                    long minutesInMilli = secondsInMilli * 60;
-                                    long hoursInMilli = minutesInMilli * 60;
-                                    long daysInMilli = hoursInMilli * 24;
-
-                                    long days = difference / daysInMilli;
-                                    difference = difference % daysInMilli;
-
-                                    long hours = difference / hoursInMilli;
-                                    difference = difference % hoursInMilli;
-
-                                    long minutes = difference / minutesInMilli;
-                                    difference = difference % minutesInMilli;
-
-                                    long seconds = difference / secondsInMilli;
+                        try {
+                            date1 = simpleDateFormat.parse(counters.get(position).getDateCreated()); //get start date
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
 
-                                    System.out.println(days + " " + hours + " " + minutes + " " + seconds);
-                                    String timeElapsed = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-                                    tv_timeElapsed.setText(timeElapsed);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
+                        if(counters.get(position).getDateFinished() != null) {
+                            tv_captureDate.setText(counters.get(position).getDateFinished());
+                            try {
+                                date2 = simpleDateFormat.parse(counters.get(position).getDateFinished()); //get captured date
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-
-                            Glide.with(mContext)
-                                    .load(counters.get(position).getPokemon().getImage())
-                                    .placeholder(R.drawable.missingno)
-                                    .into(iv_image);
-                            if(counters.get(position).getPokemon().getNickname() != null)
-                                tv_nickname.setText(counters.get(position).getPokemon().getNickname());
-
-                            tv_encounters.setText(String.valueOf(counters.get(position).getCount()));
-                            if(counters.get(position).getGame().getName() != null)
-                                tv_game.setText(counters.get(position).getGame().getName());
-                            tv_generation.setText(String.valueOf(counters.get(position).getGame().getGeneration()));
-                            if(counters.get(position).getPokemon().getName() != null)
-                                tv_pokemon.setText(counters.get(position).getPokemon().getName());
-                            if(counters.get(position).getMethod().getName() != null)
-                                tv_method.setText(counters.get(position).getMethod().getName());
-
-
-                            builder.setView(popupDialog);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
                         }
-                        else if (item.getItemId() == R.id.menu_delete) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                            builder.setMessage(mContext.getResources().getString(R.string.dialog_deleteconfirmation))
-                                    .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            huntingViewModel.deleteCounter(counters.get(position));
-                                        }
-                                    })
-                                    .setNegativeButton(mContext.getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            builder.create().show();
-                        }
-                        return true;
+
+                        long difference = date2.getTime() - date1.getTime(); // calculates time elapsed in milliseconds
+
+                        //conversions to D,H,M,S
+                        long days = difference / daysInMilli;
+                        difference = difference % daysInMilli;
+
+                        long hours = difference / hoursInMilli;
+                        difference = difference % hoursInMilli;
+
+                        long minutes = difference / minutesInMilli;
+                        difference = difference % minutesInMilli;
+
+                        long seconds = difference / secondsInMilli;
+
+
+                        String timeElapsed = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                        tv_timeElapsed.setText(timeElapsed);
                     }
-                });
-            }
+
+                    Glide.with(mContext)
+                            .load(counters.get(position).getPokemon().getImage())
+                            .placeholder(R.drawable.missingno)
+                            .into(iv_image);
+                    if(counters.get(position).getPokemon().getNickname() != null)
+                        tv_nickname.setText(counters.get(position).getPokemon().getNickname());
+
+                    tv_encounters.setText(String.valueOf(counters.get(position).getCount()));
+                    if(counters.get(position).getGame().getName() != null)
+                        tv_game.setText(counters.get(position).getGame().getName());
+                    tv_generation.setText(String.valueOf(counters.get(position).getGame().getGeneration()));
+                    if(counters.get(position).getPokemon().getName() != null)
+                        tv_pokemon.setText(counters.get(position).getPokemon().getName());
+                    if(counters.get(position).getMethod().getName() != null)
+                        tv_method.setText(counters.get(position).getMethod().getName());
+
+
+                    builder.setView(popupDialog);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                else if (item.getItemId() == R.id.menu_delete) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setMessage(mContext.getResources().getString(R.string.dialog_deleteconfirmation))
+                            .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    huntingViewModel.deleteCounter(counters.get(position));
+                                }
+                            })
+                            .setNegativeButton(mContext.getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                }
+                return true;
+            });
         });
     }
 

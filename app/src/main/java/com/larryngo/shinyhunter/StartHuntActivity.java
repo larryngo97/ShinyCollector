@@ -24,7 +24,10 @@ public class StartHuntActivity extends AppCompatActivity implements
     protected GameListFragment gameListFragment;
     protected PokemonListFragment pokemonListFragment;
     protected PokemonViewFragment pokemonViewFragment;
+    protected PlatformListFragment platformListFragment;
     protected MethodListFragment methodListFragment;
+
+    private static String ARGUMENT_ACTIVE_HUNT = "ARGUMENT_ACTIVE_HUNT";
 
     @Override
     public void sendPokemonToView(PokemonList pokemonData) {
@@ -58,6 +61,7 @@ public class StartHuntActivity extends AppCompatActivity implements
 
     public void startFragment(Fragment fragment)
     {
+
         fm.beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
                 .replace(R.id.starthunt_fragment_container, fragment)
@@ -75,8 +79,15 @@ public class StartHuntActivity extends AppCompatActivity implements
         gameListFragment = new GameListFragment();
         pokemonListFragment = new PokemonListFragment();
         pokemonViewFragment = new PokemonViewFragment();
+        platformListFragment = new PlatformListFragment();
         methodListFragment = new MethodListFragment();
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            if(extras.containsKey("ARGUMENT_ACTIVE_HUNT")) {
+                startHuntFragment.setArguments(extras);
+            }
+        }
         startFragment(startHuntFragment);
     }
 

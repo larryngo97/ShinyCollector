@@ -30,17 +30,19 @@ public class PokemonHuntActivity extends AppCompatActivity {
     public static int MAX_COUNT_VALUE = 999999;
     private final int MAX_STEP_VALUE = 99;
 
+    private ImageButton button_back;
     private ConstraintLayout screen;
     private TextView pokemon_name;
     private TextView game_name;
+    private TextView method_name;
     private GifImageView pokemon_image;
     private ImageView platform_image;
     private TextView counter_count;
 
     private ImageButton button_undo;
     private Button button_increment;
-    private ImageButton button_edit;
-    private ImageButton button_options;
+    private ImageButton button_editCount;
+    private ImageButton button_editHunt;
 
     private Counter counter;
 
@@ -48,6 +50,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, PokemonHuntActivity.class);
         intent.putExtra(ARGUMENT_COUNTER_ID, counter.getId());
         intent.putExtra(ARGUMENT_COUNTER, counter);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 
@@ -58,13 +61,15 @@ public class PokemonHuntActivity extends AppCompatActivity {
         screen = findViewById(R.id.counter_screen);
         pokemon_name = findViewById(R.id.counter_pokemon_name);
         game_name = findViewById(R.id.counter_game_name);
+        method_name = findViewById(R.id.counter_method_name);
         pokemon_image = findViewById(R.id.counter_image_pokemon);
         platform_image = findViewById(R.id.counter_image_platform);
         counter_count = findViewById(R.id.pokemon_count);
+        button_back = findViewById(R.id.button_back);
         button_undo = findViewById(R.id.button_undo);
         button_increment = findViewById(R.id.button_increment);
-        button_edit = findViewById(R.id.button_edit);
-        button_options = findViewById(R.id.button_options);
+        button_editCount = findViewById(R.id.button_editcount);
+        button_editHunt = findViewById(R.id.button_edithunt);
 
         Bundle extras = getIntent().getExtras();
 
@@ -89,20 +94,18 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
     public void updateView() {
         pokemon_name.setText(counter.getPokemon().getNickname());
+        game_name.setText(counter.getGame().getName().toUpperCase());
+        method_name.setText(counter.getMethod().getName().toUpperCase());
 
-        game_name.setText(counter.getGame().getName());
+        Glide.with(getApplicationContext())
+                .load(counter.getPokemon().getImage())
+                .placeholder(R.drawable.missingno)
+                .into(pokemon_image);
 
-        runOnUiThread(() -> {
-            Glide.with(getApplicationContext())
-                    .load(counter.getPokemon().getImage())
-                    .placeholder(R.drawable.missingno)
-                    .into(pokemon_image);
-
-            Glide.with(getApplicationContext())
-                    .load(counter.getPlatform().getImage())
-                    .placeholder(R.drawable.missingno)
-                    .into(platform_image);
-        });
+        Glide.with(getApplicationContext())
+                .load(counter.getPlatform().getImage())
+                .placeholder(R.drawable.missingno)
+                .into(platform_image);
 
         counter_count.setText(String.valueOf(counter.getCount()));
 
@@ -115,6 +118,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
             huntingViewModel.modifyCounter(counter, counter.getCount());
         });
+
+        button_back.setOnClickListener(v -> onBackPressed());
 
         button_undo.setOnClickListener(view -> {
             counter.add(-counter.getStep());
@@ -160,7 +165,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        button_edit.setOnClickListener(view -> {
+        button_editCount.setOnClickListener(view -> {
             LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
             View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
             AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
@@ -194,6 +199,12 @@ public class PokemonHuntActivity extends AppCompatActivity {
                         dialog12.cancel(); //goes back
                     });
             dialog.show();
+        });
+
+        button_editHunt.setOnClickListener(v -> {
+            Intent intent = new Intent(PokemonHuntActivity.this, StartHuntActivity.class);
+            intent.putExtra("ARGUMENT_ACTIVE_HUNT", counter.getId());
+            startActivity(intent);
         });
 
     }
