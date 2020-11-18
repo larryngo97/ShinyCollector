@@ -2,12 +2,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rse"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_hunting_rv"
+        android:id="@+id/home_recyclerview"
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

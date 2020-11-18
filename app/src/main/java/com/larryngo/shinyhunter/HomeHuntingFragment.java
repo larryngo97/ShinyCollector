@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.larryngo.shinyhunter.adapters.HuntingAdapter;
+import com.larryngo.shinyhunter.adapters.HomeListAdapter;
+import com.larryngo.shinyhunter.app.HomeActivity;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
@@ -22,6 +24,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,13 +32,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeHuntingFragment extends Fragment {
     protected static ArrayList<Counter> list = new ArrayList<>();
-    protected HuntingAdapter adapter;
+    public HomeListAdapter adapter;
     public static HuntingViewModel huntingViewModel;
 
     private View view;
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private ImageView recyclerMenu;
-    private HuntingAdapter.RecyclerViewListener listener;
+    private HomeListAdapter.RecyclerViewListener listener;
 
     private TextView text_nohunts;
     private ImageView image_arrow_down;
@@ -48,8 +52,8 @@ public class HomeHuntingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home_hunting_grid_layout, container, false);
-        recyclerView = view.findViewById(R.id.home_hunting_rv);
+        view = inflater.inflate(R.layout.fragment_home_hunting, container, false);
+        recyclerView = view.findViewById(R.id.home_recyclerview);
         recyclerMenu = view.findViewById(R.id.hunting_list_options);
 
         text_nohunts = view.findViewById(R.id.home_text_nohunts);
@@ -57,8 +61,42 @@ public class HomeHuntingFragment extends Fragment {
         fab = view.findViewById(R.id.home_fab);
 
         setOnClickListener();
+        setHasOptionsMenu(true);
 
         return view;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        getActivity().getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
+        };
+        menu.findItem(R.id.home_menu_search).setOnActionExpandListener(onActionExpandListener);
+        searchView = (SearchView) menu.findItem(R.id.home_menu_search).getActionView();
+        searchView.setQueryHint("Search");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
     }
 
     public void setOnClickListener() {
@@ -76,7 +114,7 @@ public class HomeHuntingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         HuntingViewModelFactory factory = new HuntingViewModelFactory(requireActivity().getApplication());
         huntingViewModel = new ViewModelProvider(this, factory).get(HuntingViewModel.class);
-        adapter = new HuntingAdapter(this.getContext(), listener);
+        adapter = new HomeListAdapter(this.getContext(), listener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -102,16 +140,9 @@ public class HomeHuntingFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
-
-        /*
-        if(firstLoad) {
-            firstLoad = false;
-            recyclerView.post(() -> recyclerView.setAdapter(adapter));
-        }
-
-        */
-
     }
+
+
 
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
@@ -128,4 +159,5 @@ public class HomeHuntingFragment extends Fragment {
         }
         return super.onContextItemSelected(item);
     }
+
 }

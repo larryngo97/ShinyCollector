@@ -112,7 +112,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
                 for (PokemonList entry : data_all) {
                     //System.out.println(game.getName() + constraint.toString().toLowerCase());
                     if (entry.getName().toLowerCase().contains(constraint.toString().toLowerCase()) || //search by name
-                    String.valueOf(entry.getId()).contains(constraint)) { //search by ID
+                            String.valueOf(entry.getId()).toLowerCase().startsWith(constraint.toString().toLowerCase())) { //search by ID
                         filteredList.add(entry);
                     }
                 }

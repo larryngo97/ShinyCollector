@@ -78,7 +78,7 @@ public class GameListFragment extends Fragment {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             try {
                 listener.onInputGameSent(adapter.getList().get(position)); //sends the game to the main hunt menu
-                Utilities.closeKeyboard(getActivity());
+                closeKeyboard();
                 fm.popBackStack(); //go back
             } catch (IOException e) {
                 e.printStackTrace();
@@ -127,6 +127,18 @@ public class GameListFragment extends Fragment {
         });
 
         loadingDialog.dismissDialog();
+    }
+
+    public void closeKeyboard() {
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            View keyboardView = getActivity().getCurrentFocus();
+            if(keyboardView != null) {
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //Determines the generation of the game. Can be used to determine what pokemon

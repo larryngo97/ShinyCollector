@@ -23,7 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.HomeActivity"> </activity>
+        <activity android:name=".app.HomeActivity"
+            android:theme="@style/HomeTheme"
+            android:label="@string/title_home">
+
+        </activity>
         <activity android:name=".StartHuntActivity"> </activity>
         <activity android:name=".PokemonHuntActivity"> </activity>
 
