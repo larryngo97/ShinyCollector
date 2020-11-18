@@ -231,7 +231,7 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/button_shiny"
+            android:id="@+id/button_claim"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"

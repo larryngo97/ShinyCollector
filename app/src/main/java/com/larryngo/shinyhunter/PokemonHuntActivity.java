@@ -16,12 +16,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.larryngo.shinyhunter.models.Counter;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
+import static com.larryngo.shinyhunter.HomeCompletedFragment.completedViewModel;
 
 public class PokemonHuntActivity extends AppCompatActivity {
     private static String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
@@ -43,6 +47,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private Button button_increment;
     private ImageButton button_editCount;
     private ImageButton button_editHunt;
+    private ImageButton button_claim;
 
     private Counter counter;
 
@@ -70,6 +75,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
         button_increment = findViewById(R.id.button_increment);
         button_editCount = findViewById(R.id.button_editcount);
         button_editHunt = findViewById(R.id.button_edithunt);
+        button_claim = findViewById(R.id.button_claim);
 
         Bundle extras = getIntent().getExtras();
 
@@ -82,11 +88,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
                 int counter_id = getIntent().getIntExtra("ARGUMENT_COUNTER_ID", 0);
                 counter.setId(counter_id);
             } else {
-                Toast.makeText(this, R.string.pokemonhuntactivity_error_counternotfound, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_counter_not_found, Toast.LENGTH_SHORT).show();
                 finish();
             }
         } else {
-            Toast.makeText(this, R.string.pokemonhuntactivity_error_datanotfound, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_data_not_found, Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -139,8 +145,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
             et_input.setText(String.valueOf(counter.getStep()));
 
             //new dialog sequence
-            dialog.setTitle(R.string.pokemonhuntactivity_dialog_increment_title)
-                    .setMessage(R.string.pokemonhuntactivity_dialog_increment_desc)
+            dialog.setTitle(R.string.dialog_increment_title)
+                    .setMessage(R.string.dialog_increment_desc)
                     .setPositiveButton(R.string.dialog_set, (dialog13, which) -> {
                         if(et_input.getText().toString().isEmpty()) {
                             dialog13.cancel();
@@ -155,7 +161,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
                             huntingViewModel.modifyStep(counter, newCount);
                         } else {
-                            Toast.makeText(PokemonHuntActivity.this, R.string.pokemonhuntactivity_dialog_increment_invalid, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PokemonHuntActivity.this, R.string.dialog_increment_invalid, Toast.LENGTH_SHORT).show();
                             dialog13.cancel();
                         }
                     })
@@ -174,8 +180,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
             et_input.setText(String.valueOf(counter.getCount()));
 
             //new dialog sequence
-            dialog.setTitle(R.string.pokemonhuntactivity_dialog_count_title)
-                    .setMessage(R.string.pokemonhuntactivity_dialog_count_desc)
+            dialog.setTitle(R.string.dialog_count_title)
+                    .setMessage(R.string.dialog_count_desc)
                     .setPositiveButton(R.string.dialog_set, (dialog1, which) -> {
                         if(et_input.getText().toString().isEmpty())
                         {
@@ -191,7 +197,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             huntingViewModel.modifyCounter(counter, counter.getCount());
                         } else
                         {
-                            Toast.makeText(PokemonHuntActivity.this, R.string.pokemonhuntactivity_dialog_count_invalid, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PokemonHuntActivity.this, R.string.dialog_count_invalid, Toast.LENGTH_SHORT).show();
                             dialog1.cancel();
                         }
                     })
@@ -205,6 +211,27 @@ public class PokemonHuntActivity extends AppCompatActivity {
             Intent intent = new Intent(PokemonHuntActivity.this, StartHuntActivity.class);
             intent.putExtra("ARGUMENT_ACTIVE_HUNT", counter.getId());
             startActivity(intent);
+        });
+
+        button_claim.setOnClickListener(v -> {
+            if(counter.getCount() <= 0) {
+                Toast.makeText(PokemonHuntActivity.this, R.string.error_claim_zero_encounters, Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PokemonHuntActivity.this);
+                builder.setMessage(R.string.dialog_claim_desc)
+                        .setTitle(R.string.dialog_claim_title)
+                        .setPositiveButton(R.string.dialog_yes, (dialog, which) -> {
+                            Date date = new Date();
+                            String stringDate = DateFormat.getDateTimeInstance().format(date);
+                            counter.setDateFinished(stringDate);
+
+                            huntingViewModel.deleteCounter(counter); //remove from current hunting list
+                            completedViewModel.addCounter(counter); //add to completed list
+                            finish();
+                        })
+                        .setNegativeButton(R.string.dialog_no, (dialog, which) -> dialog.dismiss());
+                builder.create().show();
+            }
         });
 
     }

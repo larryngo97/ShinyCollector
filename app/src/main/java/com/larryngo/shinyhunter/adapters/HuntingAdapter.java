@@ -11,14 +11,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.larryngo.shinyhunter.HomeCompletedFragment;
+import com.larryngo.shinyhunter.HomeHuntingFragment;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -28,14 +26,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
+import static com.larryngo.shinyhunter.HomeCompletedFragment.completedViewModel;
 
 public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHolder>{
     private View view;
     private final Context mContext;
     private List<Counter> counters;
-    private final HuntingListener listener;
+    private final RecyclerViewListener listener;
 
-    public HuntingAdapter(Context c, HuntingListener listener){
+    public HuntingAdapter(Context c, RecyclerViewListener listener){
         this.mContext = c;
         this.listener = listener;
     }
@@ -73,6 +72,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                     final View popupDialog = inflater.inflate(R.layout.popup_details, null);
                     ImageView iv_image = popupDialog.findViewById(R.id.details_image_pokemon);
                     TextView tv_nickname = popupDialog.findViewById(R.id.details_name_pokemon);
+                    TextView tv_id = popupDialog.findViewById(R.id.details_id);
                     TextView tv_encounters = popupDialog.findViewById(R.id.details_encounters);
                     TextView tv_timeElapsed = popupDialog.findViewById(R.id.details_timeelapsed);
                     TextView tv_startDate = popupDialog.findViewById(R.id.details_startdate);
@@ -82,67 +82,35 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                     TextView tv_pokemon = popupDialog.findViewById(R.id.details_pokemon);
                     TextView tv_method = popupDialog.findViewById(R.id.details_method);
 
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US);
-                    if(counters.get(position).getDateCreated() != null) {
-                        tv_startDate.setText(counters.get(position).getDateCreated());
-
-                        long secondsInMilli = 1000;
-                        long minutesInMilli = secondsInMilli * 60;
-                        long hoursInMilli = minutesInMilli * 60;
-                        long daysInMilli = hoursInMilli * 24;
-
-                        //get current date in case somehow there is no data
-                        Date date1 = new Date();
-                        Date date2 = new Date();
-
-                        try {
-                            date1 = simpleDateFormat.parse(counters.get(position).getDateCreated()); //get start date
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        if(counters.get(position).getDateFinished() != null) {
-                            tv_captureDate.setText(counters.get(position).getDateFinished());
-                            try {
-                                date2 = simpleDateFormat.parse(counters.get(position).getDateFinished()); //get captured date
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        long difference = date2.getTime() - date1.getTime(); // calculates time elapsed in milliseconds
-
-                        //conversions to D,H,M,S
-                        long days = difference / daysInMilli;
-                        difference = difference % daysInMilli;
-
-                        long hours = difference / hoursInMilli;
-                        difference = difference % hoursInMilli;
-
-                        long minutes = difference / minutesInMilli;
-                        difference = difference % minutesInMilli;
-
-                        long seconds = difference / secondsInMilli;
-
-
-                        String timeElapsed = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-                        tv_timeElapsed.setText(timeElapsed);
-                    }
-
+                    //center image
                     Glide.with(mContext)
                             .load(counters.get(position).getPokemon().getImage())
                             .placeholder(R.drawable.missingno)
                             .into(iv_image);
+                    //nickname
                     if(counters.get(position).getPokemon().getNickname() != null)
                         tv_nickname.setText(counters.get(position).getPokemon().getNickname());
-
+                    //id
+                    tv_id.setText(String.valueOf(counters.get(position).getId()));
+                    //encounters
                     tv_encounters.setText(String.valueOf(counters.get(position).getCount()));
+                    //start date
+                    if(counters.get(position).getDateCreated() != null)
+                        tv_startDate.setText(counters.get(position).getDateCreated());
+                    //capture date
+                    if(counters.get(position).getDateFinished() != null)
+                        tv_captureDate.setText(counters.get(position).getDateFinished());
+                    //time elapsed
+                    tv_timeElapsed.setText(counters.get(position).timeElapsed());
+                    //game
                     if(counters.get(position).getGame().getName() != null)
                         tv_game.setText(counters.get(position).getGame().getName());
+                    //generation
                     tv_generation.setText(String.valueOf(counters.get(position).getGame().getGeneration()));
+                    //pokemon
                     if(counters.get(position).getPokemon().getName() != null)
                         tv_pokemon.setText(counters.get(position).getPokemon().getName());
+                    //method
                     if(counters.get(position).getMethod().getName() != null)
                         tv_method.setText(counters.get(position).getMethod().getName());
 
@@ -157,7 +125,11 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
                             .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    huntingViewModel.deleteCounter(counters.get(position));
+                                    if(counters.get(position).getDateFinished() == null) { //hasn't been finished and therefore is in the hunting list
+                                        huntingViewModel.deleteCounter(counters.get(position));
+                                    } else {
+                                        completedViewModel.deleteCounter(counters.get(position)); //there is a finished date and therefore is completed
+                                    }
                                 }
                             })
                             .setNegativeButton(mContext.getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
@@ -251,7 +223,7 @@ public class HuntingAdapter extends RecyclerView.Adapter<HuntingAdapter.ViewHold
         }
     }
 
-    public interface HuntingListener {
+    public interface RecyclerViewListener {
         void onClick(View v, int position) throws ExecutionException, InterruptedException;
     }
 }

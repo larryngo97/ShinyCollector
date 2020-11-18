@@ -75,7 +75,7 @@ public class MethodListFragment extends Fragment {
         gridView.setOnItemClickListener((adapterView, view, position, id) -> {
             try {
                 listener.onInputMethodSent(adapter.getList().get(position)); //sends that method to the main start hunt menu.
-                closeKeyboard();
+                Utilities.closeKeyboard(getActivity());
                 fm.popBackStack(); //go back
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,18 +107,6 @@ public class MethodListFragment extends Fragment {
         }
 
         loadingDialog.dismissDialog();
-    }
-
-    public void closeKeyboard() {
-        try {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            View keyboardView = getActivity().getCurrentFocus();
-            if(keyboardView != null) {
-                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 

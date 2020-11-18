@@ -13,11 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import io.reactivex.Completable;
 
-public class HuntingRepository  {
+public class CompletedRepository {
     @NonNull
     private final CounterDao counterDao;
 
-    public HuntingRepository(@NonNull CounterDao counterDao) {
+    public CompletedRepository(@NonNull CounterDao counterDao) {
         this.counterDao = counterDao;
     }
 
@@ -62,5 +62,4 @@ public class HuntingRepository  {
     }
 
     public Completable setStep(int id, int value) { return counterDao.modifyStep(id, value); }
-
 }

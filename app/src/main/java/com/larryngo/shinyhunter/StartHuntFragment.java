@@ -1,6 +1,5 @@
 package com.larryngo.shinyhunter;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +16,7 @@ import com.larryngo.shinyhunter.models.Pokemon;
 
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -144,7 +141,7 @@ public class StartHuntFragment extends Fragment {
                   updatePlatform(platform);
                   updateMethod(method);
 
-                  button_start.setText("RESUME HUNT");
+                  button_start.setText(R.string.button_resume);
                   button_start.setOnClickListener(v -> {
                       Counter modifiedCounter = new Counter(game, pokemon, platform, method, counter.getCount(), counter.getStep());
                       modifiedCounter.setId(active_hunt_id);
@@ -171,7 +168,7 @@ public class StartHuntFragment extends Fragment {
                     String stringDate = DateFormat.getDateTimeInstance().format(date);
                     counter.setDateCreated(stringDate);
 
-                    huntingViewModel.addCounter(getActivity(), counter);
+                    huntingViewModel.addCounter(counter);
 
                     //Prevents the user from going back to the startup screen. When a hunt has been created
                     //it should bring the user back to the home page (where they can see their current hunts)

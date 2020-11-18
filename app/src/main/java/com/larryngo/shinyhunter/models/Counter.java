@@ -3,15 +3,14 @@ package com.larryngo.shinyhunter.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.larryngo.shinyhunter.ObjectTypeConverters;
-import com.larryngo.shinyhunter.PokemonHuntActivity;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
 import static com.larryngo.shinyhunter.PokemonHuntActivity.MAX_COUNT_VALUE;
 
@@ -114,6 +113,53 @@ public class Counter implements Parcelable {
             count = 0;
         else if (count > MAX_COUNT_VALUE)
             count = MAX_COUNT_VALUE;
+    }
+
+    public String timeElapsed() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US);
+        if(dateCreated != null) {
+            long secondsInMilli = 1000;
+            long minutesInMilli = secondsInMilli * 60;
+            long hoursInMilli = minutesInMilli * 60;
+            long daysInMilli = hoursInMilli * 24;
+
+            //get current date in case somehow there is no data
+            Date date1 = new Date();
+            Date date2 = new Date();
+
+            try {
+                date1 = simpleDateFormat.parse(dateCreated); //get start date
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            if(dateFinished != null) {
+                try {
+                    date2 = simpleDateFormat.parse(dateFinished); //get captured date
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            long difference = date2.getTime() - date1.getTime(); // calculates time elapsed in milliseconds
+
+            //conversions to D,H,M,S
+            long days = difference / daysInMilli;
+            difference = difference % daysInMilli;
+
+            long hours = difference / hoursInMilli;
+            difference = difference % hoursInMilli;
+
+            long minutes = difference / minutesInMilli;
+            difference = difference % minutesInMilli;
+
+            long seconds = difference / secondsInMilli;
+
+
+            return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        }
+        return null;
     }
 
     public int getId() {

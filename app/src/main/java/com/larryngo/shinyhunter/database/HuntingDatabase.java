@@ -9,23 +9,20 @@ import com.larryngo.shinyhunter.models.CounterDao;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 @Database(entities = {Counter.class}, version = 1)
 @TypeConverters(ObjectTypeConverters.class)
-public abstract class DatabaseHolder extends RoomDatabase {
+public abstract class HuntingDatabase extends RoomDatabase {
 
-    private static DatabaseHolder database;
+    private static HuntingDatabase database;
 
     @NonNull
-    public static DatabaseHolder database() {
+    public static HuntingDatabase database() {
         return database;
     }
 
@@ -33,8 +30,8 @@ public abstract class DatabaseHolder extends RoomDatabase {
 
     @MainThread
     public static void init(Context context) {
-        database = Room.databaseBuilder(context.getApplicationContext(), DatabaseHolder.class, "hunting-database")
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+        database = Room.databaseBuilder(context.getApplicationContext(), HuntingDatabase.class, "hunting-database")
+                .addMigrations(MIGRATION_1_2)
                 //.fallbackToDestructiveMigration()
                 .build();
     }

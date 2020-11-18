@@ -40,10 +40,9 @@ public class HuntingViewModel extends AndroidViewModel {
         return repository.getCounter(id);
     }
 
-    public void addCounter(Activity activity, final Counter entry) {
+    public void addCounter(final Counter entry) {
         List<Counter> currentList = counters.getValue();
         if(currentList != null) {
-            int size = currentList.size();
             repository.addCounter(entry)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())

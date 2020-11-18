@@ -83,7 +83,7 @@ public class PlatformListFragment extends Fragment {
         rv_listener = (v, position) -> {
             try {
                 fragment_listener.onInputPlatformSent(adapter.getList().get(position)); //sends the platform to the main hunt menu
-                closeKeyboard();
+                Utilities.closeKeyboard(getActivity());
                 fm.popBackStack();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -131,18 +131,6 @@ public class PlatformListFragment extends Fragment {
         }
 
         loadingDialog.dismissDialog();
-    }
-
-    public void closeKeyboard() {
-        try {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            View keyboardView = getActivity().getCurrentFocus();
-            if(keyboardView != null) {
-                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

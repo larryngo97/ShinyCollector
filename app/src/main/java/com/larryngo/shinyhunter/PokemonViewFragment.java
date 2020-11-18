@@ -47,7 +47,7 @@ import static com.larryngo.shinyhunter.StartHuntActivity.fm;
  */
 public class PokemonViewFragment extends Fragment {
     private View view;
-    private RecyclerView rv;
+    private RecyclerView recyclerView;
     private PokemonViewAdapter adapter;
     private GifImageView image_pokemon;
     private TextView tv_dex;
@@ -56,8 +56,8 @@ public class PokemonViewFragment extends Fragment {
     private TextView tv_type2;
     private Button button_confirm;
 
-    private ArrayList<PokemonGameIcon> game_list = new ArrayList<>();
-    private ArrayList<String> typeList = new ArrayList<>();
+    private final ArrayList<PokemonGameIcon> game_list = new ArrayList<>();
+    private final ArrayList<String> typeList = new ArrayList<>();
     private Pokemon pokemon;
 
     private FragmentPokemonViewListener fragment_listener;
@@ -93,38 +93,10 @@ public class PokemonViewFragment extends Fragment {
             tv_type1 = view.findViewById(R.id.pokemon_view_type1);
             tv_type2 = view.findViewById(R.id.pokemon_view_type2);
             button_confirm = view.findViewById(R.id.pokemon_view_button_confirm);
-            rv = view.findViewById(R.id.pokemon_view_recycler);
-
-            //Confirming the selection will crop the image and send the image to
-            //StartHuntFragment to update
-            button_confirm.setOnClickListener(view -> new Thread(() -> {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap(); //gets the image from the top left
-                bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); //compressing to PNG
-                byte[] bytes = stream.toByteArray();
-
-                if(getActivity() == null) return;
-                getActivity().runOnUiThread(() -> {
-                    try {
-                        pokemon.setImage(bytes); //sets the image
-
-                        fragment_listener.onInputPokemonSent(pokemon); //sends StartHuntFragment the data
-                        fm.popBackStack(); //go back
-                        fm.popBackStack(); //go back
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }).start());
+            recyclerView = view.findViewById(R.id.pokemon_view_recycler);
 
             setOnClickListener(); //recycler onclick setup
-            adapter = new PokemonViewAdapter(this.getContext(), new ArrayList<>(), rv_listener);
-            rv.setHasFixedSize(true);
-            rv.setAdapter(adapter);
-
-            final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
-            rv.setLayoutManager(layoutManager);
+            setupAdapter();
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
             if(parent != null) {
@@ -134,10 +106,41 @@ public class PokemonViewFragment extends Fragment {
         return view;
     }
 
-    //Recycler onClick. This will generate a bitmap (from the image url) of the pokemon image
-    //that is selected from the recyclerview. Additionally, it will update the image on the top
-    //left corner.
+    public void setupAdapter() {
+        adapter = new PokemonViewAdapter(this.getContext(), new ArrayList<>(), rv_listener);
+        recyclerView.setAdapter(adapter);
+
+        final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
     public void setOnClickListener() {
+        //Confirming the selection will crop the image and send the image to
+        //StartHuntFragment to update
+        button_confirm.setOnClickListener(view -> new Thread(() -> {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap(); //gets the image from the top left
+            bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); //compressing to PNG
+            byte[] bytes = stream.toByteArray();
+
+            if(getActivity() == null) return;
+            getActivity().runOnUiThread(() -> {
+                try {
+                    pokemon.setImage(bytes); //sets the image
+
+                    fragment_listener.onInputPokemonSent(pokemon); //sends StartHuntFragment the data
+                    fm.popBackStack(); //go back
+                    fm.popBackStack(); //go back
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }).start());
+
+        //Recycler onClick. This will generate a bitmap (from the image url) of the pokemon image
+        //that is selected from the recyclerview. Additionally, it will update the image on the top
+        //left corner.
         rv_listener = (v, position) -> new Thread(new Runnable() {
             Bitmap bitmap;
             @Override
@@ -367,7 +370,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_default), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_default), iconUrl);
                     game_list.add(game);
                 }
 
@@ -380,7 +383,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_default");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_redblue), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_redblue), iconUrl);
                     game_list.add(game);
                 }
 
@@ -392,7 +395,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_default");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_yellow), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_yellow), iconUrl);
                     game_list.add(game);
                 }
 
@@ -404,7 +407,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_gold), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_gold), iconUrl);
                     game_list.add(game);
                 }
 
@@ -416,7 +419,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_silver), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_silver), iconUrl);
                     game_list.add(game);
                 }
 
@@ -428,7 +431,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_crystal), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_crystal), iconUrl);
                     game_list.add(game);
                 }
 
@@ -440,7 +443,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_rubysapphire), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_rubysapphire), iconUrl);
                     game_list.add(game);
                 }
 
@@ -452,7 +455,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_emerald), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_emerald), iconUrl);
                     game_list.add(game);
                 }
 
@@ -464,7 +467,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_fireredleafgreen), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_fireredleafgreen), iconUrl);
                     game_list.add(game);
                 }
 
@@ -476,7 +479,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_diamondpearl), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_diamondpearl), iconUrl);
                     game_list.add(game);
                 }
 
@@ -488,7 +491,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_diamondpearl_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_diamondpearl_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -500,7 +503,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_platinum), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_platinum), iconUrl);
                     game_list.add(game);
                 }
 
@@ -512,7 +515,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_platinum_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_platinum_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -525,7 +528,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_heartgoldsoulsilver), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_heartgoldsoulsilver), iconUrl);
                     game_list.add(game);
                 }
 
@@ -537,7 +540,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_heartgoldsoulsilver_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_heartgoldsoulsilver_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -549,7 +552,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_blackwhite), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_blackwhite), iconUrl);
                     game_list.add(game);
                 }
 
@@ -561,7 +564,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_blackwhite_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_blackwhite_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -602,7 +605,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_xy), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_xy), iconUrl);
                     game_list.add(game);
                 }
 
@@ -614,7 +617,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_xy_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_xy_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -626,7 +629,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_omegarubyalphasapphire), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_omegarubyalphasapphire), iconUrl);
                     game_list.add(game);
                 }
 
@@ -638,7 +641,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_omegarubyalphasapphire_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_omegarubyalphasapphire_female), iconUrl);
                     game_list.add(game);
                 }
 
@@ -650,7 +653,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_sunmoon), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_sunmoon), iconUrl);
                     game_list.add(game);
                 }
 
@@ -662,7 +665,7 @@ public class PokemonViewFragment extends Fragment {
                         .get("front_shiny_female");
                 if(!gameElement.isJsonNull()) {
                     String iconUrl = gameElement.getAsString();
-                    game = new PokemonGameIcon(getResources().getString(R.string.pokemonview_sunmoon_female), iconUrl);
+                    game = new PokemonGameIcon(getResources().getString(R.string.icon_sunmoon_female), iconUrl);
                     game_list.add(game);
                 }
             } catch (IOException e) {
@@ -693,7 +696,7 @@ public class PokemonViewFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof FragmentPokemonViewListener) {
             fragment_listener = (FragmentPokemonViewListener) context;

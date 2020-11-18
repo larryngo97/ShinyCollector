@@ -2,7 +2,8 @@ package com.larryngo.shinyhunter.app;
 
 import android.app.Application;
 
-import com.larryngo.shinyhunter.database.DatabaseHolder;
+import com.larryngo.shinyhunter.database.CompletedDatabase;
+import com.larryngo.shinyhunter.database.HuntingDatabase;
 import com.larryngo.shinyhunter.database.TinyDB;
 
 public class App extends Application {
@@ -21,6 +22,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         App.instance = this;
-        DatabaseHolder.init(this);
+        HuntingDatabase.init(this);
+        CompletedDatabase.init(this);
     }
 }

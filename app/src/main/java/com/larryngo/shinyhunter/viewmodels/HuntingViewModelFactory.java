@@ -2,7 +2,7 @@ package com.larryngo.shinyhunter.viewmodels;
 
 import android.app.Application;
 
-import com.larryngo.shinyhunter.database.DatabaseHolder;
+import com.larryngo.shinyhunter.database.HuntingDatabase;
 import com.larryngo.shinyhunter.respositories.HuntingRepository;
 
 import androidx.annotation.NonNull;
@@ -15,7 +15,7 @@ public class HuntingViewModelFactory extends ViewModelProvider.NewInstanceFactor
 
     public HuntingViewModelFactory(Application application) {
         app = application;
-        repository = new HuntingRepository(DatabaseHolder.database().counterDao());
+        repository = new HuntingRepository(HuntingDatabase.database().counterDao());
     }
 
     @NonNull

@@ -30,6 +30,7 @@
     <string name="home_no_hunts">Start a hunt by clicking the button below!</string>
 
     <!-- Details of hunt -->
+    <string name="details_id">ID</string>
     <string name="details_encounters">Encounters</string>
     <string name="details_timeelapsed">Time Elapsed</string>
     <string name="details_startdate">Start Date</string>
@@ -41,57 +42,62 @@
 
 
     <!-- StartHunt -->
-    <string name="starthunt_button_selectgame">Select Game</string>
-    <string name="starthunt_button_selectpokemon">Select Pokemon</string>
-    <string name="starthunt_button_selectplatform">Select Platform</string>
-    <string name="starthunt_button_selectmethod">Select Method</string>
-    <string name="starthunt_button_starthunt">Start Hunt</string>
+    <string name="button_selectgame">Select Game</string>
+    <string name="button_selectpokemon">Select Pokemon</string>
+    <string name="button_selectplatform">Select Platform</string>
+    <string name="button_selectmethod">Select Method</string>
+    <string name="button_starthunt">Start Hunt</string>
+    <string name="button_resume">Resume Hunt</string>
 
     <!-- PokeAPI -->
     <string name="pokeapi_loadingdata">Loading data from PokeAPI server…</string>
     <string name="pokeapi_loadingdata_failure">Failed to connect to PokeAPI!</string>
 
     <!-- PokemonViewFragment -->
-    <string name="pokemonview_default">Default</string>
-    <string name="pokemonview_redblue">R/B</string>
-    <string name="pokemonview_yellow">Yellow</string>
-    <string name="pokemonview_gold">Gold</string>
-    <string name="pokemonview_silver">Silver</string>
-    <string name="pokemonview_crystal">Crystal</string>
-    <string name="pokemonview_rubysapphire">R/S</string>
-    <string name="pokemonview_emerald">Emerald</string>
-    <string name="pokemonview_fireredleafgreen">FR/LG</string>
-    <string name="pokemonview_diamondpearl">D/P</string>
-    <string name="pokemonview_diamondpearl_female">D/P ♀</string>
-    <string name="pokemonview_platinum">Platinum</string>
-    <string name="pokemonview_platinum_female">Platinum ♀</string>
-    <string name="pokemonview_heartgoldsoulsilver">HG/SS</string>
-    <string name="pokemonview_heartgoldsoulsilver_female">HG/SS ♀</string>
-    <string name="pokemonview_blackwhite">B/W</string>
-    <string name="pokemonview_blackwhite_female">B/W ♀</string>
-    <string name="pokemonview_xy">X/Y</string>
-    <string name="pokemonview_xy_female">X/Y ♀</string>
-    <string name="pokemonview_omegarubyalphasapphire">OR/AS</string>
-    <string name="pokemonview_omegarubyalphasapphire_female">OR/AS ♀</string>
-    <string name="pokemonview_sunmoon">S/M</string>
-    <string name="pokemonview_sunmoon_female">S/M ♀</string>
-    <string name="pokemonview_swordshield">S/S</string>
-    <string name="pokemonview_swordshield_female">S/S ♀</string>
+    <string name="icon_default">Default</string>
+    <string name="icon_redblue">R/B</string>
+    <string name="icon_yellow">Yellow</string>
+    <string name="icon_gold">Gold</string>
+    <string name="icon_silver">Silver</string>
+    <string name="icon_crystal">Crystal</string>
+    <string name="icon_rubysapphire">R/S</string>
+    <string name="icon_emerald">Emerald</string>
+    <string name="icon_fireredleafgreen">FR/LG</string>
+    <string name="icon_diamondpearl">D/P</string>
+    <string name="icon_diamondpearl_female">D/P ♀</string>
+    <string name="icon_platinum">Platinum</string>
+    <string name="icon_platinum_female">Platinum ♀</string>
+    <string name="icon_heartgoldsoulsilver">HG/SS</string>
+    <string name="icon_heartgoldsoulsilver_female">HG/SS ♀</string>
+    <string name="icon_blackwhite">B/W</string>
+    <string name="icon_blackwhite_female">B/W ♀</string>
+    <string name="icon_xy">X/Y</string>
+    <string name="icon_xy_female">X/Y ♀</string>
+    <string name="icon_omegarubyalphasapphire">OR/AS</string>
+    <string name="icon_omegarubyalphasapphire_female">OR/AS ♀</string>
+    <string name="icon_sunmoon">S/M</string>
+    <string name="icon_sunmoon_female">S/M ♀</string>
+    <string name="icon_swordshield">S/S</string>
+    <string name="icon_swordshield_female">S/S ♀</string>
 
-    <string name="pokemonview_text_selecticon">Select Icon</string>
-    <string name="pokemonview_button_confirm">Confirm</string>
+    <string name="button_selecticon">Select Icon</string>
+    <string name="button_confirm">Confirm</string>
 
     <!-- PokemonHuntActivity -->
-    <string name="pokemonhuntactivity_error_counternotfound">Error in creating view, counter not found…</string>
-    <string name="pokemonhuntactivity_error_datanotfound">Error in creating view, did not receive data…</string>
+    <string name="error_claim_zero_encounters">You need at least 1 encounter to claim a shiny!</string>
+    <string name="error_counter_not_found">Error in creating view, counter not found…</string>
+    <string name="error_data_not_found">Error in creating view, did not receive data…</string>
 
-    <string name="pokemonhuntactivity_dialog_count_title">Set Counter</string>
-    <string name="pokemonhuntactivity_dialog_count_desc">Enter a number 0–999999. Changes the counter.</string>
-    <string name="pokemonhuntactivity_dialog_count_invalid">Number needs to be 0–999999!</string>
+    <string name="dialog_count_title">Set Counter</string>
+    <string name="dialog_count_desc">Enter a number 0–999999. Changes the counter.</string>
+    <string name="dialog_count_invalid">Number needs to be 0–999999!</string>
 
-    <string name="pokemonhuntactivity_dialog_increment_title">Set Incremental Value</string>
-    <string name="pokemonhuntactivity_dialog_increment_desc">Enter a number 1–99. Changes the value added/subtracted.</string>
-    <string name="pokemonhuntactivity_dialog_increment_invalid">Number needs to be 1–99!</string>
+    <string name="dialog_increment_title">Set Incremental Value</string>
+    <string name="dialog_increment_desc">Enter a number 1–99. Changes the value added/subtracted.</string>
+    <string name="dialog_increment_invalid">Number needs to be 1–99!</string>
+
+    <string name="dialog_claim_title">Claim Shiny</string>
+    <string name="dialog_claim_desc">Are you sure you want to claim this shiny?</string>
 
     <!-- Pokemon Types -->
 

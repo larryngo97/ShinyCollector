@@ -35,7 +35,7 @@ public class HomeHuntingFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private ImageView recyclerMenu;
-    private HuntingAdapter.HuntingListener listener;
+    private HuntingAdapter.RecyclerViewListener listener;
 
     private TextView text_nohunts;
     private ImageView image_arrow_down;
