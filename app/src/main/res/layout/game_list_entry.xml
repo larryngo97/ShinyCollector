@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="@color/backgroundPrimary"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -44,7 +44,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="3"
                 android:text="Pokemon Red"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="18sp"
                 app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="18sp"
@@ -58,6 +58,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_height="1dp"
-        android:background="@color/light_blue"/>
+        android:background="@color/borderPrimary"/>
 
 </LinearLayout>

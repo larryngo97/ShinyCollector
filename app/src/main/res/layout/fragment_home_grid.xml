@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="@color/backgroundPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/home_text_nohunts"
-        android:background="@drawable/box_redwhite"
+        android:background="@drawable/box_hint"
         android:layout_above="@id/home_arrow_down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         app:autoSizeMinTextSize="12sp"
         app:autoSizeTextType="uniform"
         app:autoSizeStepGranularity="2sp"
-        android:shadowColor="@color/black"
+        android:shadowColor="@color/textColorPrimary"
         android:shadowDx="1.2"
         android:shadowDy="1.2"
         android:shadowRadius="2"
@@ -57,7 +57,7 @@
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        app:tint="@color/white"
+        app:tint="@color/backgroundPrimary"
         app:backgroundTint="@color/colorPrimary"
         app:maxImageSize="36dp"
         android:src="@drawable/icon_plus"

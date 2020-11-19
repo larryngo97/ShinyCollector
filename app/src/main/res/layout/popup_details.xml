@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:background="@drawable/box_bluegray"
+        android:background="@drawable/box_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,7 +33,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="Missingno"
-        android:textColor="@color/black"
+        android:textColor="@color/textColorPrimary"
         android:textSize="32sp"
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="12sp"
@@ -42,7 +42,7 @@
 
     <View
         android:id="@+id/details_divider"
-        android:background="@color/light_blue"
+        android:background="@color/borderPrimary"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginStart="100dp"
@@ -52,7 +52,7 @@
 
     <LinearLayout
         android:id="@+id/details_frame"
-        android:background="@drawable/box_blue"
+        android:background="@drawable/box_details"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -74,7 +74,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_id"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -91,7 +91,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -101,7 +101,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_encounters"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -142,7 +142,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -152,7 +152,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -176,7 +176,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_timeelapsed"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -193,7 +193,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -203,7 +203,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -227,7 +227,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_startdate"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -244,7 +244,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -254,7 +254,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -278,7 +278,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_capturedate"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -295,7 +295,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -305,7 +305,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -329,7 +329,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_game"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -346,7 +346,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -356,7 +356,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -380,7 +380,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_generation"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -397,7 +397,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -407,7 +407,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -431,7 +431,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_pokemon"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -448,7 +448,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
@@ -458,7 +458,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/light_gray"
+            android:background="@color/backgroundIcon"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -483,7 +483,7 @@
                 android:gravity="start"
                 android:maxLines="1"
                 android:text="@string/details_method"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
@@ -500,7 +500,7 @@
                 android:fontFamily="@font/mazzard"
                 android:maxLines="1"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="36sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"

@@ -14,7 +14,7 @@
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/pokemon_list_entry_image"
-            android:background="@drawable/box_bluegray"
+            android:background="@drawable/box_icon"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,7 +28,7 @@
         android:layout_gravity="center"
         android:gravity="start"
         android:text="#000"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/textColorHint"
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="16sp"
         app:autoSizeStepGranularity="2sp"
@@ -45,7 +45,7 @@
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="start"
         android:maxLines="1"
-        android:textColor="@color/black"
+        android:textColor="@color/textColorPrimary"
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="14sp"
         app:autoSizeStepGranularity="2sp"

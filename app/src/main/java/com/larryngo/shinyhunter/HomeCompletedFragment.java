@@ -13,6 +13,8 @@ import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModel;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModelFactory;
 
+import java.util.concurrent.ExecutionException;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -24,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class HomeCompletedFragment extends Fragment {
     public static CompletedViewModel completedViewModel;
     public HomeListAdapter adapter;
-    private HomeListAdapter.RecyclerViewListener listener;
+    private HomeListAdapter.RecyclerViewListener recyclerViewListener;
 
     private RecyclerView recyclerView;
     FloatingActionButton fab;
@@ -37,6 +39,8 @@ public class HomeCompletedFragment extends Fragment {
         fab = view.findViewById(R.id.home_fab);
         fab.setImageResource(R.drawable.icon_completed);
 
+        setOnClickListener();
+
         setHasOptionsMenu(true);
         return view;
     }
@@ -46,7 +50,7 @@ public class HomeCompletedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         CompletedViewModelFactory factory = new CompletedViewModelFactory(requireActivity().getApplication());
         completedViewModel = new ViewModelProvider(this, factory).get(CompletedViewModel.class);
-        adapter = new HomeListAdapter(this.getContext(), listener);
+        adapter = new HomeListAdapter(this.getContext(), recyclerViewListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -61,6 +65,15 @@ public class HomeCompletedFragment extends Fragment {
             }
         });
 
+    }
+
+    public void setOnClickListener() {
+        recyclerViewListener = new HomeListAdapter.RecyclerViewListener() {
+            @Override
+            public void onClick(View v, int position) throws ExecutionException, InterruptedException {
+                adapter.popupDetails(position);
+            }
+        };
     }
 
     @Override

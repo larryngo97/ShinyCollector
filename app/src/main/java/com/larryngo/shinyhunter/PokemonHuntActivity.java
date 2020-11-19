@@ -37,14 +37,13 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private ImageButton button_back;
     private ConstraintLayout screen;
     private TextView pokemon_name;
-    private TextView game_name;
-    private TextView method_name;
     private GifImageView pokemon_image;
     private ImageView platform_image;
     private TextView counter_count;
 
     private ImageButton button_undo;
-    private Button button_increment;
+    private ImageButton button_increment;
+    private TextView button_increment_text;
     private ImageButton button_editCount;
     private ImageButton button_editHunt;
     private ImageButton button_claim;
@@ -65,14 +64,13 @@ public class PokemonHuntActivity extends AppCompatActivity {
         setContentView(R.layout.pokemon_hunting_layout);
         screen = findViewById(R.id.counter_screen);
         pokemon_name = findViewById(R.id.counter_pokemon_name);
-        game_name = findViewById(R.id.counter_game_name);
-        method_name = findViewById(R.id.counter_method_name);
         pokemon_image = findViewById(R.id.counter_image_pokemon);
         platform_image = findViewById(R.id.counter_image_platform);
         counter_count = findViewById(R.id.pokemon_count);
         button_back = findViewById(R.id.button_back);
         button_undo = findViewById(R.id.button_undo);
         button_increment = findViewById(R.id.button_increment);
+        button_increment_text = findViewById(R.id.button_icrement_text);
         button_editCount = findViewById(R.id.button_editcount);
         button_editHunt = findViewById(R.id.button_edithunt);
         button_claim = findViewById(R.id.button_claim);
@@ -100,8 +98,6 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
     public void updateView() {
         pokemon_name.setText(counter.getPokemon().getNickname());
-        game_name.setText(counter.getGame().getName().toUpperCase());
-        method_name.setText(counter.getMethod().getName().toUpperCase());
 
         Glide.with(getApplicationContext())
                 .load(counter.getPokemon().getImage())
@@ -135,7 +131,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
         });
 
         String incrementText = "+" + counter.getStep();
-        button_increment.setText(incrementText);
+        button_increment_text.setText(incrementText);
         button_increment.setOnClickListener(view -> {
             LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
             View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
@@ -157,7 +153,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
                         if(newCount >= 1 && newCount <= MAX_STEP_VALUE) {
                             counter.setStep(newCount);
                             String incrementText1 = "+" + counter.getStep();
-                            button_increment.setText(incrementText1);
+                            button_increment_text.setText(incrementText1);
 
                             huntingViewModel.modifyStep(counter, newCount);
                         } else {

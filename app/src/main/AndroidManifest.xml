@@ -11,7 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/HomeTheme">
 
         <activity
             android:name=".SplashActivity"
@@ -28,7 +28,11 @@
             android:label="@string/title_home">
 
         </activity>
-        <activity android:name=".StartHuntActivity"> </activity>
+        <activity android:name=".StartHuntActivity"
+            android:theme="@style/HomeTheme"
+            android:label="@string/title_home">
+
+        </activity>
         <activity android:name=".PokemonHuntActivity"> </activity>
 
         <meta-data

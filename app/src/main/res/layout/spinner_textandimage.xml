@@ -17,7 +17,7 @@
         app:autoSizeMinTextSize="12sp"
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textColorPrimary"/>
 
     <ImageView
         android:id="@+id/spinner_image"
