@@ -7,7 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HomeListAdapter;
+import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModel;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModelFactory;
 
@@ -25,12 +27,15 @@ public class HomeCompletedFragment extends Fragment {
     private HomeListAdapter.RecyclerViewListener listener;
 
     private RecyclerView recyclerView;
+    FloatingActionButton fab;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_completed, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_grid, container, false);
         recyclerView = view.findViewById(R.id.home_recyclerview);
+        fab = view.findViewById(R.id.home_fab);
+        fab.setImageResource(R.drawable.icon_completed);
 
         setHasOptionsMenu(true);
         return view;
@@ -49,6 +54,9 @@ public class HomeCompletedFragment extends Fragment {
         completedViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
                 adapter.setCountersList(counters);
+
+                counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
+
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -57,6 +65,7 @@ public class HomeCompletedFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        if(getActivity() == null) return;
         getActivity().getMenuInflater().inflate(R.menu.home_menu, menu);
 
         MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {

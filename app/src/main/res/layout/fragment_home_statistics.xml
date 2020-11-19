@@ -5,4 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recyclerview"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="75dp"
+        android:clipToPadding="false"
+        android:verticalSpacing="10dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

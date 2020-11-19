@@ -111,8 +111,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    Counter oldCounter = counters.get(oldItemPosition);
-                    Counter newCounter = counters.get(newItemPosition);
+                    Counter oldCounter = counters.get(newItemPosition);
+                    Counter newCounter = counters.get(oldItemPosition);
                     return newCounter.getId() == oldCounter.getId()
                             && Objects.equals(newCounter.getGame(), oldCounter.getGame())
                             && Objects.equals(newCounter.getPokemon(), oldCounter.getPokemon())

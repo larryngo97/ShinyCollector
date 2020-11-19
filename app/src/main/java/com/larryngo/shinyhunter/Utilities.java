@@ -3,6 +3,7 @@ package com.larryngo.shinyhunter;
 import android.app.Activity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.SearchView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 

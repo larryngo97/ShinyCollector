@@ -11,6 +11,8 @@
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="75dp"
+        android:clipToPadding="false"
         android:verticalSpacing="10dp"/>
 
     <TextView
@@ -55,6 +57,8 @@
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
+        app:tint="@color/white"
+        app:backgroundTint="@color/colorPrimary"
         app:maxImageSize="36dp"
         android:src="@drawable/icon_plus"
         android:layout_centerHorizontal="true"
