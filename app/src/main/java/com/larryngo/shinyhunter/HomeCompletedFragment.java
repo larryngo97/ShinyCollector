@@ -38,6 +38,7 @@ public class HomeCompletedFragment extends Fragment {
         recyclerView = view.findViewById(R.id.home_recyclerview);
         fab = view.findViewById(R.id.home_fab);
         fab.setImageResource(R.drawable.icon_completed);
+        fab.setVisibility(View.GONE);
 
         setOnClickListener();
 
@@ -106,6 +107,26 @@ public class HomeCompletedFragment extends Fragment {
             public boolean onQueryTextChange(String query) {
                 adapter.getFilter().filter(query);
                 return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                adapter.refreshList();
+                return false;
+            }
+        });
+
+        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                Utilities.closeKeyboard(getActivity());
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                adapter.refreshList();
             }
         });
     }

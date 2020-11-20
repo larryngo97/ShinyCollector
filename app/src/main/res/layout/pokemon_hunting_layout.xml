@@ -7,135 +7,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/HomeTheme"
     android:orientation="vertical"
-    android:background="@color/backgroundSecondary"
+    android:background="@color/backgroundPrimary"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/layout_options"
-        android:orientation="horizontal"
-        style="?android:attr/buttonBarStyle"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
+        android:background="@color/backgroundPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/button_back"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/circle_button"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_arrow_back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </ImageButton>
-
-        <ImageButton
-            android:id="@+id/button_undo"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_button"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_undo">
-
-        </ImageButton>
-
-        <FrameLayout
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/button_increment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circle_button">
+                android:id="@+id/button_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_arrow_back">
 
             </ImageButton>
 
-            <TextView
-                android:id="@+id/button_icrement_text"
-                android:clickable="false"
+            <LinearLayout
+                android:id="@+id/layout_options"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp"
-                android:gravity="center"
-                android:fontFamily="@font/mazzard_light"
-                android:maxLines="1"
-                android:text="+999"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="14sp"
-                app:autoSizeMaxTextSize="32sp"
-                app:autoSizeMinTextSize="8sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform">
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="end"
+                android:gravity="end">
 
-            </TextView>
+                <ImageButton
+                    android:id="@+id/button_undo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_undo">
 
-        </FrameLayout>
+                </ImageButton>
 
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_gravity="center">
 
-        <ImageButton
-            android:id="@+id/button_editcount"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_button"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_hashtag">
+                    <ImageButton
+                        android:id="@+id/button_increment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless">
 
-        </ImageButton>
+                    </ImageButton>
 
-        <ImageButton
-            android:id="@+id/button_edithunt"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_button"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_edit">
+                    <TextView
+                        android:id="@+id/button_icrement_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:fontFamily="@font/mazzard_light"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:text="+99"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="14sp"
+                        app:autoSizeMaxTextSize="32sp"
+                        app:autoSizeMinTextSize="8sp"
+                        app:autoSizeStepGranularity="2sp"
+                        app:autoSizeTextType="uniform">
 
-        </ImageButton>
+                    </TextView>
 
-        <ImageButton
-            android:id="@+id/button_claim"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_button"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_check">
-
-        </ImageButton>
+                </FrameLayout>
 
 
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/button_editcount"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_hashtag">
+
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/button_edithunt"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_edit">
+
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/button_claim"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_check">
+
+                </ImageButton>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/counter_image_frame"
@@ -167,13 +178,13 @@
                 android:id="@+id/counter_image_pokemon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/counter_image_platform"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
+                android:padding="40dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="-45dp"
                 android:src="@drawable/missingno">
 
             </pl.droidsonroids.gif.GifImageView>

@@ -243,6 +243,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
     };
 
+    public void refreshList() {
+        counters.clear();
+        counters.addAll(counters_all);
+        counters.sort(Counter.COMPARE_BY_LISTID_DESC);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         GifImageView iconView;
         TextView nameView;

@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.internal.Util;
 
 import static android.os.Looper.getMainLooper;
 
@@ -140,6 +141,26 @@ public class HomeHuntingFragment extends Fragment {
             public boolean onQueryTextChange(String query) {
                 adapter.getFilter().filter(query);
                 return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                adapter.refreshList();
+                return false;
+            }
+        });
+
+        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                Utilities.closeKeyboard(getActivity());
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                adapter.refreshList();
             }
         });
     }

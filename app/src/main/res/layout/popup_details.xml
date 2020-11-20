@@ -101,7 +101,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -152,7 +152,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -203,7 +203,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -254,7 +254,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -305,7 +305,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -356,7 +356,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -407,7 +407,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
@@ -458,7 +458,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/backgroundIcon"
+            android:background="@color/iconBorderPrimary"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
