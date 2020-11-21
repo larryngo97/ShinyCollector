@@ -12,7 +12,8 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 * Individual icons for each pokemon that is currently supported by PokeAPI
 * Support for female pokemon
 * Sorting between newest/oldest, pokemon names/id, game, and count
-* Redo a count, set up your own increment number per click, editing pokemon mid-hunt (soon), and options (soon)
+* Redo a count, set up your own increment number per click, editing pokemon mid-hunt, and options!
+* Night mode! Save battery while hunting!
 
 ## Screenshots 
 
@@ -34,4 +35,5 @@ After selecting the necessary parameters, you get a preview of what your hunt wi
 After confirming, it is added to the list of current hunts. You can click any to start/resume a hunt anytime:
 
 ![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/home_hunting_screen.png?raw=true) 
-![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/hunt_counting.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/hunt_counting.png?raw=true)![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/home_hunting_screen_night.png?raw=true) 
+![](https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/hunt_counting_night.png?raw=true)  
