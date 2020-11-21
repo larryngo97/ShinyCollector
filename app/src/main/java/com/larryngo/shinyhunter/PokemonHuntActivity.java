@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.larryngo.shinyhunter.models.Counter;
 
 import java.text.DateFormat;
@@ -34,6 +36,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     public static int MAX_COUNT_VALUE = 999999;
     private final int MAX_STEP_VALUE = 99;
 
+    private AppBarLayout appBarLayout;
     private ImageButton button_back;
     private ConstraintLayout screen;
     private TextView pokemon_name;
@@ -62,6 +65,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon_hunting_layout);
+        appBarLayout = findViewById(R.id.hunt_appbar);
         screen = findViewById(R.id.counter_screen);
         pokemon_name = findViewById(R.id.counter_pokemon_name);
         pokemon_image = findViewById(R.id.counter_image_pokemon);
@@ -114,6 +118,12 @@ public class PokemonHuntActivity extends AppCompatActivity {
     }
 
     public void setupButtons() {
+        appBarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Clicking does nothing
+            }
+        });
         screen.setOnClickListener(view -> {
             counter.add(counter.getStep());
             counter_count.setText(String.valueOf(counter.getCount()));

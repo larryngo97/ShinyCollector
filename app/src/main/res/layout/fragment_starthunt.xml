@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rse"
+    android:background="@color/backgroundColor"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -32,10 +32,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/starthunt_button_selectgame"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/box_button"
+                    style="@style/ButtonNormalTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -49,13 +48,12 @@
                     app:autoSizeTextType="uniform"
                     android:layout_weight="1"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/starthunt_button_selectpokemon"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/box_button"
+                    style="@style/ButtonNormalTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
@@ -66,13 +64,12 @@
                     app:autoSizeTextType="uniform"
                     android:layout_weight="1"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/starthunt_button_selectplatform"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/box_button"
+                    style="@style/ButtonNormalTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
@@ -83,13 +80,12 @@
                     app:autoSizeTextType="uniform"
                     android:layout_weight="1"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/starthunt_button_selectmethod"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/box_button"
+                    style="@style/ButtonNormalTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
@@ -107,7 +103,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_height="2dp"
-                    android:background="@color/borderPrimary"/>
+                    android:background="@color/colorPrimaryVariant"/>
 
             </LinearLayout>
 
@@ -161,7 +157,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_height="2dp"
-                android:background="@color/borderPrimary"/>
+                android:background="@color/colorPrimaryVariant"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -169,10 +165,9 @@
                 android:layout_weight="1.6"
                 android:orientation="vertical">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/starthunt_button_start"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/box_button_confirm"
+                    style="@style/ButtonConfirmTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
@@ -181,7 +176,6 @@
                     app:autoSizeStepGranularity="2sp"
                     android:layout_gravity="center"
                     android:text="@string/button_starthunt"
-                    android:textColor="@color/backgroundPrimary"
                     app:autoSizeMaxTextSize="20sp"
                     app:autoSizeMinTextSize="12sp"
                     app:autoSizeTextType="uniform" />

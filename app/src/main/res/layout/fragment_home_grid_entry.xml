@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/grid_entry_white"
+    android:background="@drawable/grid_entry"
     android:orientation="vertical"
     android:layout_margin="5dp"
     android:layout_width="match_parent"

@@ -41,12 +41,13 @@
                 android:layout_marginEnd="10dp"
                 android:layout_gravity="start"
                 android:gravity="start"
+                android:fontFamily="sans-serif-condensed"
                 android:text="#000"
                 app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="20sp"
                 app:autoSizeTextType="uniform"
                 app:autoSizeStepGranularity="2sp"
-                android:textColor="@color/textColorHint">
+                android:textColor="@color/textColorPrimary">
             </TextView>
 
             <TextView
@@ -55,9 +56,9 @@
                 android:layout_height="60dp"
                 android:layout_gravity="start"
                 android:layout_marginEnd="10dp"
-                android:fontFamily="sans-serif-condensed-light"
                 android:gravity="start"
                 android:maxLines="1"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="Missingno"
                 android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="50sp"
@@ -82,12 +83,12 @@
                     android:layout_weight="1"
                     android:background="@drawable/type_fire"
                     android:gravity="center"
-                    android:shadowColor="@color/textColorPrimary"
-                    android:shadowDx="1.8"
+                    android:shadowColor="@color/textColorShadow"
+                    android:shadowDx="1.5"
                     android:shadowDy="1.5"
-                    android:shadowRadius="2.5"
+                    android:shadowRadius="2"
                     android:text="@string/type_fire"
-                    android:textColor="@color/backgroundPrimary"
+                    android:textColor="@color/textColorSecondary"
                     android:visibility="invisible"
                     app:autoSizeMaxTextSize="50sp"
                     app:autoSizeMinTextSize="16sp"
@@ -103,12 +104,12 @@
                     android:layout_weight="1"
                     android:background="@drawable/type_flying"
                     android:gravity="center"
-                    android:shadowColor="@color/textColorPrimary"
-                    android:shadowDx="1.8"
+                    android:shadowColor="@color/textColorShadow"
+                    android:shadowDx="1.5"
                     android:shadowDy="1.5"
-                    android:shadowRadius="2.5"
+                    android:shadowRadius="2"
                     android:text="@string/type_flying"
-                    android:textColor="@color/backgroundPrimary"
+                    android:textColor="@color/textColorSecondary"
                     android:visibility="invisible"
                     app:autoSizeMaxTextSize="50sp"
                     app:autoSizeMinTextSize="16sp"
@@ -122,18 +123,17 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/pokemon_view_button_confirm"
+        style="@style/ButtonConfirmTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/box_button_confirm"
-        android:foreground="?attr/selectableItemBackground"
         android:layout_gravity="center"
         android:text="@string/button_confirm"
-        android:textColor="@color/backgroundPrimary"
+        android:textColor="@color/backgroundColor"
         app:autoSizeMaxTextSize="20sp"
         app:autoSizeMinTextSize="12sp"
         app:autoSizeTextType="uniform"
@@ -145,7 +145,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:layout_height="2dp"
-        android:background="@color/borderPrimary"/>
+        android:background="@color/colorPrimaryVariant"/>
 
     <TextView
         android:layout_width="match_parent"

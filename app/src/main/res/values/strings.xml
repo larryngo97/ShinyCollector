@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Shiny Hunter</string>
     <string name="title_home">Home</string>
+    <string name="title_settings">Settings</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
@@ -120,7 +121,27 @@
     <string name="type_steel">Steel</string>
     <string name="type_fairy">Fairy</string>
 
-    <!-- Name of games -->
+    <!-- Preferences -->
+    <string name="setting_category_nightmode_key">NightMode</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="messages_header">Messages</string>
+
+    <string name="sync_header">Sync</string>
+    <string name="signature_title">Your signature</string>
+
+    <string name="reply_title">Default reply action</string>
+    <string name="sync_title">Sync email periodically</string>
+
+    <!-- Preference Titles -->
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+
+    <!-- Messages Preferences -->
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- DO NOT RENAME/TRANSLATE BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
 
     <string-array name="list_games_names">
         <item>Red</item>
@@ -161,8 +182,7 @@
         <item>Shield</item>
     </string-array>
 
-    <!-- Name of platforms -->
-
+    <!-- Sync Preferences -->
     <string-array name="list_platforms_names">
         <item>Green Grass</item>
         <item>Ugly Grass</item>
@@ -179,9 +199,6 @@
         <item>Ice</item>
         <item>Wood Bridge</item>
     </string-array>
-
-    <!-- Name of methods -->
-
     <string-array name="list_methods_names">
         <item>DV Method (Gen 1)</item>
         <item>Random Encounters</item>
@@ -201,9 +218,6 @@
         <item>Fossil Restoration</item>
         <item>Other</item>
     </string-array>
-
-    <!-- DO NOT RENAME/TRANSLATE BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
-
     <string-array name="list_games_tokens">
         <item>Red</item>
         <item>Blue</item>
@@ -242,7 +256,6 @@
         <item>Sword</item>
         <item>Shield</item>
     </string-array>
-
     <string-array name="list_platforms_tokens">
         <item>grass_green</item>
         <item>grass_ugly</item>

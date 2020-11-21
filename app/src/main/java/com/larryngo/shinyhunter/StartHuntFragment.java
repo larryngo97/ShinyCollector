@@ -35,7 +35,7 @@ import static com.larryngo.shinyhunter.StartHuntActivity.fm;
     *See other fragments to see how data is collected
  */
 public class StartHuntFragment extends Fragment {
-    protected Button button_game;
+    private Button button_game;
     private Button button_pokemon;
     private Button button_platform;
     private Button button_method;
@@ -119,11 +119,14 @@ public class StartHuntFragment extends Fragment {
 
             //Setting buttons to be disabled until other options are selected. (See update
             //functions above)
+            /*
             button_game.setEnabled(true);
             button_pokemon.setEnabled(false);
             button_platform.setEnabled(false);
             button_method.setEnabled(false);
             button_start.setEnabled(false);
+
+             */
             button_start.setVisibility(View.INVISIBLE);
 
             Bundle extras = getArguments();

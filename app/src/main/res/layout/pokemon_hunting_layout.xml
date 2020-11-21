@@ -7,15 +7,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/HomeTheme"
     android:orientation="vertical"
-    android:background="@color/backgroundPrimary"
+    android:background="@color/backgroundColor"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/hunt_appbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/backgroundPrimary"
+        android:background="@color/cardBackgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,16 +30,7 @@
 
             <ImageButton
                 android:id="@+id/button_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
+                style="@style/ActionBarImageButtons"
                 android:src="@drawable/icon_arrow_back">
 
             </ImageButton>
@@ -53,14 +45,7 @@
 
                 <ImageButton
                     android:id="@+id/button_undo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
+                    style="@style/ActionBarImageButtons"
                     android:src="@drawable/icon_undo">
 
                 </ImageButton>
@@ -74,9 +59,7 @@
 
                     <ImageButton
                         android:id="@+id/button_increment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackgroundBorderless">
+                        style="@style/ActionBarImageButtons">
 
                     </ImageButton>
 
@@ -104,42 +87,21 @@
 
                 <ImageButton
                     android:id="@+id/button_editcount"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
+                    style="@style/ActionBarImageButtons"
                     android:src="@drawable/icon_hashtag">
 
                 </ImageButton>
 
                 <ImageButton
                     android:id="@+id/button_edithunt"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
+                    style="@style/ActionBarImageButtons"
                     android:src="@drawable/icon_edit">
 
                 </ImageButton>
 
                 <ImageButton
                     android:id="@+id/button_claim"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
+                    style="@style/ActionBarImageButtons"
                     android:src="@drawable/icon_check">
 
                 </ImageButton>
@@ -200,7 +162,7 @@
         android:layout_marginEnd="60dp"
         android:translationY="30dp"
         android:background="@drawable/box_hunt_info"
-        android:fontFamily="@font/mazzard"
+        android:fontFamily="@font/mazzard_light"
         android:gravity="center"
         android:padding="5dp"
         android:text="Lugia"

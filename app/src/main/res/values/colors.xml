@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#4D6AFF</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="borderPrimary">#2CA7E0</color>
-    <color name="borderHintBox">#FF002B</color>
-    <color name="borderTypeBox">#000000</color>
-    <color name="textColorHint">#a9a9a9</color>
-    <color name="backgroundPrimary">#ffffff</color>
-    <color name="backgroundSecondary">#aec6cf</color>
+    <color name="colorPrimaryVariant">#2CA7E0</color>
+    <color name="colorAccent">#4D6AFF</color>
+    <color name="backgroundColor">#fcfcfc</color>
+    <color name="cardBackgroundColor">#ffffff</color>
     <color name="textColorPrimary">#000000</color>
+    <color name="textColorSecondary">#ffffff</color>
     <color name="textColorShadow">#000000</color>
+    <color name="tabSelectedColor">#4D6AFF</color>
+    <color name="tabColor">#03DAC5</color>
     <color name="iconColorPrimary">#000000</color>
     <color name="iconBackgroundPrimary">#D3D3D3</color>
-    <color name="iconBorderPrimary">#2CA7E0</color>
+    <color name="buttonTextColorPrimary">#4D6AFF</color>
+    <color name="buttonBackgroundColorPrimary">#ffffff</color>
+    <color name="buttonTextColorSecondary">#fcfcfc</color>
+    <color name="buttonBackgroundColorSecondary">#ff4f5e</color>
 
 
     <color name="color_normal">#A8A878</color>
