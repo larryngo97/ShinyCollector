@@ -12,7 +12,8 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 * Individual icons for each pokemon that is currently supported by PokeAPI
 * Support for female pokemon
 * Sorting between newest/oldest, pokemon names/id, game, and count
-* Redo a count, set up your own increment number per click, editing pokemon mid-hunt (soon), and options (soon)
+* Redo a count, set up your own increment number per click, editing pokemon mid-hunt, and options!
+* Night mode! Save battery while hunting!
 
 ## Screenshots 
 
