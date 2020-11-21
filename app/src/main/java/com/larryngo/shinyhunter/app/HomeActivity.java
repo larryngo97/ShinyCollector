@@ -11,7 +11,7 @@ import com.larryngo.shinyhunter.HomeCompletedFragment;
 import com.larryngo.shinyhunter.HomeHuntingFragment;
 import com.larryngo.shinyhunter.HomeStatisticsFragment;
 import com.larryngo.shinyhunter.R;
-import com.larryngo.shinyhunter.SettingsActivity;
+import com.larryngo.shinyhunter.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        boolean nightMode = SettingsActivity.isDarkModeOn();
+        boolean nightMode = Settings.isDarkModeOn();
         if(nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             setTheme(R.style.HomeThemeDark);
@@ -120,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.home_menu_settings) {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(HomeActivity.this, Settings.class);
             startActivity(intent);
         }
         return true;

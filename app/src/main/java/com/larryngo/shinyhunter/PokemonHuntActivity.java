@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -131,7 +129,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
         });
         screen.setOnClickListener(view -> {
             counter.add(counter.getStep());
-            if(SettingsActivity.isVibrateModeOn()) {
+            if(Settings.isVibrateModeOn()) {
                 vibrator.vibrate(VIBRATION_TIME);
             }
             counter_count.setText(String.valueOf(counter.getCount()));
@@ -143,7 +141,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
         button_undo.setOnClickListener(view -> {
             counter.add(-counter.getStep());
-            if(SettingsActivity.isVibrateModeOn()) {
+            if(Settings.isVibrateModeOn()) {
                 vibrator.vibrate(VIBRATION_TIME);
             }
             counter_count.setText(String.valueOf(counter.getCount()));

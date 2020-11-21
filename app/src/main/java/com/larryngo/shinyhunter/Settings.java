@@ -16,7 +16,7 @@ import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-public class SettingsActivity extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
     public static String SETTING_NIGHTMODE_KEY = "dark_mode";
     public static String SETTING_VIBRATEMODE_KEY = "vibrate_mode";
