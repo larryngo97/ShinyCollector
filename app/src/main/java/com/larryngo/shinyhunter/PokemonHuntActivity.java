@@ -129,9 +129,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
         });
         screen.setOnClickListener(view -> {
             counter.add(counter.getStep());
-            if(Settings.isVibrateModeOn()) {
-                vibrator.vibrate(VIBRATION_TIME);
-            }
+            vibrate();
             counter_count.setText(String.valueOf(counter.getCount()));
 
             huntingViewModel.modifyCounter(counter, counter.getCount());
@@ -141,9 +139,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
         button_undo.setOnClickListener(view -> {
             counter.add(-counter.getStep());
-            if(Settings.isVibrateModeOn()) {
-                vibrator.vibrate(VIBRATION_TIME);
-            }
+            vibrate();
             counter_count.setText(String.valueOf(counter.getCount()));
 
             huntingViewModel.modifyCounter(counter, counter.getCount());
@@ -249,5 +245,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void vibrate() {
+        if(Settings.isVibrateModeOn()) {
+            vibrator.vibrate(VIBRATION_TIME);
+        }
     }
 }
