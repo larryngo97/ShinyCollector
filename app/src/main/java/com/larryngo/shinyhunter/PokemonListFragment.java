@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import com.larryngo.shinyhunter.PokeAPI.PokeAPIService;
 import com.larryngo.shinyhunter.adapters.PokemonListAdapter;
 import com.larryngo.shinyhunter.models.PokemonList;
+import com.larryngo.shinyhunter.util.LoadingDialog;
+import com.larryngo.shinyhunter.util.Utilities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HomeListAdapter;
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.util.Utilities;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModel;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModelFactory;
 

@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,13 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.larryngo.shinyhunter.R;
+
 public class LoadingDialog {
     private Activity activity;
     private AlertDialog dialog;
     private View view;
     private TextView tv_text;
 
-    LoadingDialog(Activity mActivity) {
+    public LoadingDialog(Activity mActivity) {
         activity = mActivity;
     }
 

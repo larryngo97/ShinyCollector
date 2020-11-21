@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.SearchView;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class Utilities {
-    public static  boolean isOnline(Activity activity) {
+    public static boolean isOnline(Activity activity) {
         ConnectivityManager cm = (ConnectivityManager)activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();

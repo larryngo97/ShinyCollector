@@ -2,7 +2,7 @@ package com.larryngo.shinyhunter.database;
 
 import android.content.Context;
 
-import com.larryngo.shinyhunter.ObjectTypeConverters;
+import com.larryngo.shinyhunter.util.ObjectTypeConverters;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.models.CounterDao;
 

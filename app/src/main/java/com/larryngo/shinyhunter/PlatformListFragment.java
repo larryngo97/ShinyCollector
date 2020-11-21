@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import com.larryngo.shinyhunter.adapters.PlatformListAdapter;
 import com.larryngo.shinyhunter.models.Platform;
+import com.larryngo.shinyhunter.util.LoadingDialog;
+import com.larryngo.shinyhunter.util.Utilities;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class PlatformListFragment extends Fragment {
@@ -108,7 +108,7 @@ public class PlatformListFragment extends Fragment {
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
         loadingDialog.setMessage(R.string.dialog_loadingdata);
-        
+
         for (int i = 0; i < list_platforms_tokens.size(); i++)
         {
             try{

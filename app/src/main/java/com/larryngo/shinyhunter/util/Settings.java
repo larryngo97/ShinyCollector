@@ -1,7 +1,8 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.util;
 
 import android.os.Bundle;
 
+import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.app.App;
 
 import androidx.appcompat.app.ActionBar;

@@ -11,7 +11,7 @@ import com.larryngo.shinyhunter.HomeCompletedFragment;
 import com.larryngo.shinyhunter.HomeHuntingFragment;
 import com.larryngo.shinyhunter.HomeStatisticsFragment;
 import com.larryngo.shinyhunter.R;
-import com.larryngo.shinyhunter.Settings;
+import com.larryngo.shinyhunter.util.Settings;
 
 import java.util.ArrayList;
 import java.util.List;

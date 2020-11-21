@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.util.Settings;
 
 import java.text.DateFormat;
 import java.util.Date;

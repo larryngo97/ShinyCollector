@@ -11,6 +11,7 @@ import android.widget.SearchView;
 
 import com.larryngo.shinyhunter.adapters.GameListAdapter;
 import com.larryngo.shinyhunter.models.Game;
+import com.larryngo.shinyhunter.util.LoadingDialog;
 
 import java.io.IOException;
 import java.io.InputStream;

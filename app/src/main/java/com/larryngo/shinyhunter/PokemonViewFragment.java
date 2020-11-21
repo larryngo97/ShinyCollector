@@ -18,6 +18,7 @@ import com.larryngo.shinyhunter.adapters.PokemonViewAdapter;
 import com.larryngo.shinyhunter.models.PokemonGameIcon;
 import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
+import com.larryngo.shinyhunter.util.LoadingDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

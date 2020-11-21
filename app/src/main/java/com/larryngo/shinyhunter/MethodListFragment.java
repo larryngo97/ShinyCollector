@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.GridView;
 import android.widget.SearchView;
 
 import com.larryngo.shinyhunter.adapters.MethodListAdapter;
 import com.larryngo.shinyhunter.models.Method;
+import com.larryngo.shinyhunter.util.LoadingDialog;
+import com.larryngo.shinyhunter.util.Utilities;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class MethodListFragment extends Fragment {

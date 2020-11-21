@@ -1,4 +1,4 @@
-package com.larryngo.shinyhunter;
+package com.larryngo.shinyhunter.util;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

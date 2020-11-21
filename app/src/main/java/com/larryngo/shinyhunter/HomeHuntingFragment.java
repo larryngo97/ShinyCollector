@@ -2,19 +2,18 @@ package com.larryngo.shinyhunter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HomeListAdapter;
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.util.Utilities;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
 
@@ -28,9 +27,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.internal.Util;
-
-import static android.os.Looper.getMainLooper;
 
 public class HomeHuntingFragment extends Fragment {
     protected static ArrayList<Counter> list = new ArrayList<>();
