@@ -10,4 +10,16 @@
             app:defaultValue="false">
         </CheckBoxPreference>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="Hunting"
+        app:iconSpaceReserved="false">
+        <CheckBoxPreference
+            app:title="Vibration"
+            app:iconSpaceReserved="false"
+            app:summary="Vibrate when counting"
+            app:key="@string/setting_category_vibrate_key"
+            app:defaultValue="true">
+        </CheckBoxPreference>
+    </PreferenceCategory>
 </PreferenceScreen>

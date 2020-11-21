@@ -1,7 +1,9 @@
 package com.larryngo.shinyhunter.models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.Vibrator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

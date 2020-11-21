@@ -2,8 +2,10 @@ package com.larryngo.shinyhunter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -33,8 +35,10 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private static String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
     private static String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
 
+    private Vibrator vibrator;
     public static int MAX_COUNT_VALUE = 999999;
     private final int MAX_STEP_VALUE = 99;
+    private final int VIBRATION_TIME = 50;
 
     private AppBarLayout appBarLayout;
     private ImageButton button_back;
@@ -78,6 +82,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
         button_editCount = findViewById(R.id.button_editcount);
         button_editHunt = findViewById(R.id.button_edithunt);
         button_claim = findViewById(R.id.button_claim);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         Bundle extras = getIntent().getExtras();
 
@@ -126,6 +131,9 @@ public class PokemonHuntActivity extends AppCompatActivity {
         });
         screen.setOnClickListener(view -> {
             counter.add(counter.getStep());
+            if(SettingsActivity.isVibrateModeOn()) {
+                vibrator.vibrate(VIBRATION_TIME);
+            }
             counter_count.setText(String.valueOf(counter.getCount()));
 
             huntingViewModel.modifyCounter(counter, counter.getCount());
@@ -135,6 +143,9 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
         button_undo.setOnClickListener(view -> {
             counter.add(-counter.getStep());
+            if(SettingsActivity.isVibrateModeOn()) {
+                vibrator.vibrate(VIBRATION_TIME);
+            }
             counter_count.setText(String.valueOf(counter.getCount()));
 
             huntingViewModel.modifyCounter(counter, counter.getCount());

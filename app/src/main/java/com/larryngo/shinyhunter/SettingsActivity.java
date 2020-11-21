@@ -19,6 +19,8 @@ import androidx.preference.PreferenceFragmentCompat;
 public class SettingsActivity extends AppCompatActivity {
 
     public static String SETTING_NIGHTMODE_KEY = "dark_mode";
+    public static String SETTING_VIBRATEMODE_KEY = "vibrate_mode";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(isDarkModeOn()) {
@@ -77,14 +79,39 @@ public class SettingsActivity extends AppCompatActivity {
                 });
             }
 
+            CheckBoxPreference vibrateModePreference = findPreference(getResources().getString(R.string.setting_category_vibrate_key));
+            if(vibrateModePreference != null) {
+                vibrateModePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        if(vibrateModePreference.isChecked()) {
+                            System.out.println("Turning on vibration");
+                            saveVibrateMode(true);
+                        } else {
+                            System.out.println("Turning off vibration");
+                            saveVibrateMode(false);
+                        }
+                        return true;
+                    }
+                });
+            }
+
         }
     }
 
     public static boolean isDarkModeOn() {
-        return App.getTinyDB().getBoolean(SETTING_NIGHTMODE_KEY);
+        return App.getTinyDB().getBoolean(SETTING_NIGHTMODE_KEY, false);
     }
 
     public static void saveDarkMode(boolean value) {
         App.getTinyDB().putBoolean(SETTING_NIGHTMODE_KEY, value);
+    }
+
+    public static boolean isVibrateModeOn () {
+        return App.getTinyDB().getBoolean(SETTING_VIBRATEMODE_KEY, true);
+    }
+
+    public static void saveVibrateMode(boolean value) {
+        App.getTinyDB().putBoolean(SETTING_VIBRATEMODE_KEY, value);
     }
 }
