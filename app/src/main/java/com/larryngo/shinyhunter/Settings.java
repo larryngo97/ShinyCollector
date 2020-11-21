@@ -1,10 +1,6 @@
 package com.larryngo.shinyhunter;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.larryngo.shinyhunter.app.App;
 
@@ -53,7 +49,7 @@ public class Settings extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
-            CheckBoxPreference nightModePreference = findPreference(getResources().getString(R.string.setting_category_nightmode_key));
+            CheckBoxPreference nightModePreference = findPreference(getResources().getString(R.string.settings_preference_darkmode_key));
             if(nightModePreference != null) {
                 if(isDarkModeOn()) {
                     nightModePreference.setChecked(true);
@@ -79,7 +75,7 @@ public class Settings extends AppCompatActivity {
                 });
             }
 
-            CheckBoxPreference vibrateModePreference = findPreference(getResources().getString(R.string.setting_category_vibrate_key));
+            CheckBoxPreference vibrateModePreference = findPreference(getResources().getString(R.string.settings_preference_vibrate_key));
             if(vibrateModePreference != null) {
                 vibrateModePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override

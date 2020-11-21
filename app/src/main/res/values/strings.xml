@@ -122,10 +122,17 @@
     <string name="type_fairy">Fairy</string>
 
     <!-- Preferences -->
-    <string name="setting_category_nightmode_key">NightMode</string>
-    <string name="setting_category_vibrate_key">VibrateMode</string>
+    <string name="settings_category_general_title">General</string>
 
-    <!-- DO NOT RENAME/TRANSLATE BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
+    <string name="settings_preference_darkmode_title">Dark Theme</string>
+    <string name="settings_preference_darkmode_desc">Turns on dark mode to save battery</string>
+    <string name="settings_preference_darkmode_key">NightMode</string>
+
+    <string name="settings_category_hunting_title">Hunting</string>
+
+    <string name="settings_preference_vibrate_title">Vibration</string>
+    <string name="settings_preference_vibrate_desc">Vibrate when counting</string>
+    <string name="settings_preference_vibrate_key">VibrateMode</string>
 
     <string-array name="list_games_names">
         <item>Red</item>
@@ -166,8 +173,8 @@
         <item>Shield</item>
     </string-array>
 
-    <!-- Sync Preferences -->
     <string-array name="list_platforms_names">
+        <item>None</item>
         <item>Green Grass</item>
         <item>Ugly Grass</item>
         <item>Forest</item>
@@ -182,7 +189,9 @@
         <item>Snowy Grass</item>
         <item>Ice</item>
         <item>Wood Bridge</item>
+        <item>Foster</item>
     </string-array>
+
     <string-array name="list_methods_names">
         <item>DV Method (Gen 1)</item>
         <item>Random Encounters</item>
@@ -202,6 +211,9 @@
         <item>Fossil Restoration</item>
         <item>Other</item>
     </string-array>
+
+    <!-- DO NOT RENAME/TRANSLATE BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
+
     <string-array name="list_games_tokens">
         <item>Red</item>
         <item>Blue</item>
@@ -241,6 +253,7 @@
         <item>Shield</item>
     </string-array>
     <string-array name="list_platforms_tokens">
+        <item>none</item>
         <item>grass_green</item>
         <item>grass_ugly</item>
         <item>forest</item>
@@ -255,5 +268,6 @@
         <item>snow_grass</item>
         <item>ice</item>
         <item>bridge_wood</item>
+        <item>foster</item>
     </string-array>
 </resources>

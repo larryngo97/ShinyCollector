@@ -1,6 +1,9 @@
 package com.larryngo.shinyhunter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
@@ -8,6 +11,12 @@ import android.widget.SearchView;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class Utilities {
+    public static  boolean isOnline(Activity activity) {
+        ConnectivityManager cm = (ConnectivityManager)activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     public static void closeKeyboard(Activity activity) {
         try {
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(INPUT_METHOD_SERVICE);

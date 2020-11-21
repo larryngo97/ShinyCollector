@@ -3,6 +3,6 @@
     <stroke android:color="@color/colorPrimaryVariant"/>
     <solid android:color="@color/cardBackgroundColor"/>
     <stroke android:width="3dp"/>
-    <corners android:radius="20dp"/>
+    <corners android:radius="10dp"/>
 
 </shape>

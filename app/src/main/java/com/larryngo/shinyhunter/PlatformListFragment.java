@@ -108,7 +108,7 @@ public class PlatformListFragment extends Fragment {
         loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
         loadingDialog.setMessage(R.string.dialog_loadingdata);
-
+        
         for (int i = 0; i < list_platforms_tokens.size(); i++)
         {
             try{
@@ -116,7 +116,7 @@ public class PlatformListFragment extends Fragment {
                 {
                     String token = list_platforms_tokens.get(i);
 
-                    InputStream is = getContext().getAssets().open("icons/platforms/" + token + ".png"); // uses token (file name) to get the image from assets
+                    InputStream is = getContext().getAssets().open("icons/platforms/new/" + token + ".png"); // uses token (file name) to get the image from assets
                     byte[] image = new byte[is.available()]; //creates image
                     is.read(image); //necessary for image to show up
                     is.close();

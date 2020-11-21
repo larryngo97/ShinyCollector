@@ -110,7 +110,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/counter_image_frame"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
@@ -122,37 +122,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/counter_image_platform"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <ImageView
-                android:id="@+id/counter_image_platform"
-                android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"
-                android:src="@drawable/platform" />
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/counter_image_pokemon"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/counter_image_pokemon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:padding="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
-                android:layout_marginEnd="40dp"
-                android:src="@drawable/missingno">
-
-            </pl.droidsonroids.gif.GifImageView>
-
-        </RelativeLayout>
-    </FrameLayout>
+        </pl.droidsonroids.gif.GifImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/counter_pokemon_name"
@@ -161,7 +157,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:translationY="30dp"
-        android:background="@drawable/box_hunt_info"
+        android:background="@drawable/box_hunt_preview"
         android:fontFamily="@font/mazzard_light"
         android:gravity="center"
         android:padding="5dp"
@@ -180,7 +176,7 @@
 
     <TextView
         android:id="@+id/pokemon_count"
-        android:background="@drawable/box_hunt_info"
+        android:background="@drawable/box_hunt_preview"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="80dp"

@@ -20,6 +20,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,9 +61,24 @@ public class PokemonListFragment extends Fragment {
             setOnClickListener();
             setupAdapter();
 
+            OkHttpClient client = new OkHttpClient
+                    .Builder()
+                    .cache(new Cache(getActivity().getCacheDir(), 25 * 1024 * 1024)) // 25 MB
+                    .addInterceptor(chain -> {
+                        Request request = chain.request();
+                        if (Utilities.isOnline(getActivity())) {
+                            request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
+                        } else {
+                            request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
+                        }
+                        return chain.proceed(request);
+                    })
+                    .build();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(PokeAPIService.baseURL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
                     .build();
             service = retrofit.create(PokeAPIService.class);
 

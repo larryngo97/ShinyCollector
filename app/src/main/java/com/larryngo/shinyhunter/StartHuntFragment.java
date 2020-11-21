@@ -109,24 +109,22 @@ public class StartHuntFragment extends Fragment {
         if(view == null)
         {
             view = inflater.inflate(R.layout.fragment_starthunt, container, false);
-            button_game = view.findViewById(R.id.starthunt_button_selectgame);
-            button_pokemon = view.findViewById(R.id.starthunt_button_selectpokemon);
-            button_platform = view.findViewById(R.id.starthunt_button_selectplatform);
-            button_method = view.findViewById(R.id.starthunt_button_selectmethod);
-            image_pokemon = view.findViewById(R.id.starthunt_image_pokemon);
-            image_platform = view.findViewById(R.id.starthunt_image_platform);
-            button_start = view.findViewById(R.id.starthunt_button_start);
+            button_game = view.findViewById(R.id.button_selectgame);
+            button_pokemon = view.findViewById(R.id.button_selectpokemon);
+            button_platform = view.findViewById(R.id.button_selectplatform);
+            button_method = view.findViewById(R.id.button_selectmethod);
+            image_pokemon = view.findViewById(R.id.image_pokemon);
+            image_platform = view.findViewById(R.id.image_platform);
+            button_start = view.findViewById(R.id.button_start);
 
             //Setting buttons to be disabled until other options are selected. (See update
             //functions above)
-            /*
             button_game.setEnabled(true);
             button_pokemon.setEnabled(false);
             button_platform.setEnabled(false);
             button_method.setEnabled(false);
             button_start.setEnabled(false);
 
-             */
             button_start.setVisibility(View.INVISIBLE);
 
             Bundle extras = getArguments();
