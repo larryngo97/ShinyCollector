@@ -4,7 +4,6 @@
     android:id="@+id/counter_screen"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app = "http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/HomeTheme"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
@@ -31,7 +30,8 @@
             <ImageButton
                 android:id="@+id/button_back"
                 style="@style/ActionBarImageButtons"
-                android:src="@drawable/icon_arrow_back">
+                android:src="@drawable/icon_arrow_back"
+                android:contentDescription="@string/app_name">
 
             </ImageButton>
 
@@ -46,7 +46,8 @@
                 <ImageButton
                     android:id="@+id/button_undo"
                     style="@style/ActionBarImageButtons"
-                    android:src="@drawable/icon_undo">
+                    android:src="@drawable/icon_undo"
+                    android:contentDescription="@string/app_name">
 
                 </ImageButton>
 
@@ -59,7 +60,8 @@
 
                     <ImageButton
                         android:id="@+id/button_increment"
-                        style="@style/ActionBarImageButtons">
+                        style="@style/ActionBarImageButtons"
+                        android:contentDescription="@string/app_name">
 
                     </ImageButton>
 
@@ -72,7 +74,6 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:padding="5dp"
-                        android:text="+99"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="14sp"
                         app:autoSizeMaxTextSize="32sp"
@@ -88,21 +89,24 @@
                 <ImageButton
                     android:id="@+id/button_editcount"
                     style="@style/ActionBarImageButtons"
-                    android:src="@drawable/icon_hashtag">
+                    android:src="@drawable/icon_hashtag"
+                    android:contentDescription="@string/app_name">
 
                 </ImageButton>
 
                 <ImageButton
                     android:id="@+id/button_edithunt"
                     style="@style/ActionBarImageButtons"
-                    android:src="@drawable/icon_edit">
+                    android:src="@drawable/icon_edit"
+                    android:contentDescription="@string/app_name">
 
                 </ImageButton>
 
                 <ImageButton
                     android:id="@+id/button_claim"
                     style="@style/ActionBarImageButtons"
-                    android:src="@drawable/icon_check">
+                    android:src="@drawable/icon_check"
+                    android:contentDescription="@string/app_name">
 
                 </ImageButton>
             </LinearLayout>
@@ -133,7 +137,8 @@
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/app_name" />
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/counter_image_pokemon"
@@ -161,7 +166,6 @@
         android:fontFamily="@font/mazzard_light"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Lugia"
         android:textColor="@color/textColorPrimary"
         android:textSize="48sp"
         app:autoSizeMaxTextSize="96sp"
@@ -184,7 +188,6 @@
         android:translationY="-30dp"
         android:fontFamily="@font/mazzard_light"
         android:gravity="center"
-        android:text="999999"
         android:textColor="@color/textColorPrimary"
         android:textSize="48sp"
         app:autoSizeMaxTextSize="96sp"

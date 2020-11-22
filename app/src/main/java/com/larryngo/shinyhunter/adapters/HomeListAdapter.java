@@ -145,7 +145,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         final View popupDialog = inflater.inflate(R.layout.popup_details, null);
         ImageView iv_image = popupDialog.findViewById(R.id.details_image_pokemon);
         TextView tv_nickname = popupDialog.findViewById(R.id.details_name_pokemon);
-
+        TextView tv_id = popupDialog.findViewById(R.id.details_id);
         TextView tv_encounters = popupDialog.findViewById(R.id.details_encounters);
         TextView tv_timeElapsed = popupDialog.findViewById(R.id.details_timeelapsed);
         TextView tv_startDate = popupDialog.findViewById(R.id.details_startdate);
@@ -178,6 +178,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             tv_game.setText(counters.get(position).getGame().getName());
         //generation
         tv_generation.setText(String.valueOf(counters.get(position).getGame().getGeneration()));
+        //id
+        tv_id.setText(String.valueOf(counters.get(position).getPokemon().getId()));
         //pokemon
         if(counters.get(position).getPokemon().getName() != null)
             tv_pokemon.setText(counters.get(position).getPokemon().getName());

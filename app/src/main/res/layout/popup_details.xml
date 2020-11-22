@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <FrameLayout
-        android:layout_gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/image_frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/box_icon"
+        app:layout_constraintBottom_toTopOf="@id/name_frame"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="4"
+        app:layout_constraintDimensionRatio="1:1">
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/details_image_pokemon"
@@ -26,38 +31,58 @@
             android:src="@drawable/missingno" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/details_name_pokemon"
+    <LinearLayout
+        android:id="@+id/name_frame"
+        android:orientation="vertical"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/mazzard"
-        android:gravity="center"
-        android:maxLines="1"
-        android:text="Missingno"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="32sp"
-        app:autoSizeMaxTextSize="50sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="2sp"
-        app:autoSizeTextType="uniform" />
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_frame"
+        app:layout_constraintBottom_toTopOf="@id/details_frame"
+        app:layout_constraintVertical_weight="1">
 
-    <View
-        android:id="@+id/details_divider"
-        android:background="@color/colorPrimaryVariant"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp">
+        <TextView
+            android:id="@+id/details_name_pokemon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mazzard"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="24sp"
+            app:autoSizeMaxTextSize="96sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform" />
 
-    </View>
+        <View
+            android:id="@+id/details_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@color/colorPrimaryVariant">
+
+        </View>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/details_frame"
         android:background="@drawable/box_details"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="12">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -380,6 +405,57 @@
                 android:fontFamily="@font/mazzard"
                 android:gravity="start"
                 android:maxLines="1"
+                android:text="@string/details_id"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_id"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary"
+                app:autoSizeMaxTextSize="36sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                android:gravity="end">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:background="@color/colorPrimaryVariant"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/mazzard"
+                android:gravity="start"
+                android:maxLines="1"
                 android:text="@string/details_pokemon"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
@@ -458,10 +534,7 @@
                 android:gravity="end">
             </TextView>
         </LinearLayout>
-
     </LinearLayout>
 
 
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

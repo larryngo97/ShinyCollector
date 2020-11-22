@@ -1,121 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/grid_entry"
-    android:orientation="vertical"
-    android:layout_margin="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:padding="8dp"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal"
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/circle_grid_icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:layout_gravity="center"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/circle_grid_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/hunting_list_entry_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:src="@drawable/missingno" />
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/hunting_list_entry_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:autoSizeStepGranularity="2sp"
-                android:fontFamily="@font/mazzard"
-                android:text="Missingno"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="20sp"
-                app:autoSizeMaxTextSize="36sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeStepGranularity="2sp">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/hunting_list_entry_game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:fontFamily="@font/mazzard"
-                android:text="Pokemon Red"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="18sp"
-                app:autoSizeMaxTextSize="24sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeStepGranularity="2sp">
-
-            </TextView>
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2">
-
-            <TextView
-                android:id="@+id/hunting_list_entry_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:autoSizeStepGranularity="2sp"
-                android:fontFamily="@font/mazzard_light"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="0"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="24sp"
-                app:autoSizeMaxTextSize="36sp"
-                app:autoSizeMinTextSize="8sp"
-                app:autoSizeTextType="uniform">
-
-            </TextView>
-        </FrameLayout>
-
-        <FrameLayout
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/hunting_list_entry_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2.3">
+            android:layout_margin="15dp"
+            android:src="@drawable/missingno" />
+    </FrameLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/hunting_list_options"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/icon_more_vert">
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_weight="1.2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            </androidx.appcompat.widget.AppCompatImageView>
-        </FrameLayout>
+        <TextView
+            android:id="@+id/hunting_list_entry_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/mazzard"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp"
+            app:autoSizeMaxTextSize="36sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="2sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/hunting_list_entry_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/mazzard"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="2sp">
+
+        </TextView>
 
     </LinearLayout>
-</RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/hunting_list_entry_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/mazzard_light"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="24sp"
+            app:autoSizeMaxTextSize="36sp"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeTextType="uniform">
+
+        </TextView>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.3">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/hunting_list_options"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_more_vert">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+    </FrameLayout>
+
+</LinearLayout>
