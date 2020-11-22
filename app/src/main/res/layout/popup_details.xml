@@ -74,57 +74,6 @@
                 android:fontFamily="@font/mazzard"
                 android:gravity="start"
                 android:maxLines="1"
-                android:text="@string/details_id"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="16sp"
-                app:autoSizeMaxTextSize="36sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/details_id"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/mazzard"
-                android:maxLines="1"
-                android:textSize="16sp"
-                android:textColor="@color/textColorPrimary"
-                app:autoSizeMaxTextSize="36sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform"
-                android:gravity="end">
-            </TextView>
-        </LinearLayout>
-
-        <View
-            android:background="@color/colorPrimaryVariant"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp">
-        </View>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:fontFamily="@font/mazzard"
-                android:gravity="start"
-                android:maxLines="1"
                 android:text="@string/details_encounters"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"

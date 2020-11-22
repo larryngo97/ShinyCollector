@@ -31,14 +31,13 @@
     <string name="home_no_hunts">Start a hunt by clicking the button below!</string>
 
     <!-- Details of hunt -->
-    <string name="details_id">ID</string>
     <string name="details_encounters">Encounters</string>
     <string name="details_timeelapsed">Time Elapsed</string>
-    <string name="details_startdate">Start Date</string>
-    <string name="details_capturedate">Encounter Date</string>
+    <string name="details_startdate">Started</string>
+    <string name="details_capturedate">Encountered</string>
     <string name="details_game">Game</string>
     <string name="details_generation">Generation</string>
-    <string name="details_pokemon">Pokemon</string>
+    <string name="details_pokemon">Pokemon (ID)</string>
     <string name="details_method">Method</string>
 
 

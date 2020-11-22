@@ -6,22 +6,22 @@ import android.os.Parcelable;
 public class Game implements Parcelable {
     private int id;
     private String name;
+    private final String token;
     private byte[] image;
-    private int generation;
 
     public Game() {
         this.id = 0;
-        this.name = "Pokemon Red";
+        this.name = "Red";
         this.image = null;
-        this.generation = 1;
+        this.token = "Red";
     }
 
-    public Game(int id, String text, byte[] image, int generation)
+    public Game(int id, String text, byte[] image, String token)
     {
         this.id = id;
         this.name = text;
         this.image = image;
-        this.generation = generation;
+        this.token = token;
     }
 
     public int getId() {
@@ -48,19 +48,67 @@ public class Game implements Parcelable {
         this.image = game_image;
     }
 
-    public int getGeneration() {
-        return generation;
-    }
 
-    public void setGeneration(int generation) {
-        this.generation = generation;
+    //Determines the generation of the game. Can be used to determine what pokemon
+    //can be acquired. (Red/Blue/Yellow can go up to 151, G/S/C up to 251, etc.)
+    public int getGeneration() {
+        switch(token) {
+            case "Red":
+            case "Blue":
+            case "Green":
+            case "Yellow":
+                return 1;
+            case "Gold":
+            case "Silver":
+            case "Crystal":
+                return 2;
+            case "Ruby":
+            case "Sapphire":
+            case "Emerald":
+            case "FireRed":
+            case "LeafGreen":
+            case "Colosseum":
+            case "XD-Gale-of-Darkness":
+                return 3;
+            case "Diamond":
+            case "Pearl":
+            case "Platinum":
+            case "HeartGold":
+            case "SoulSilver":
+            case "Rumble":
+            case "Battle-Revolution":
+                return 4;
+            case "Black":
+            case "White":
+            case "Black-2":
+            case "White-2":
+                return 5;
+            case "X":
+            case "Y":
+            case "Omega-Ruby":
+            case "Alpha-Sapphire":
+            case "Go":
+                return 6;
+            case "Sun":
+            case "Moon":
+            case "Ultra-Sun":
+            case "Ultra-Moon":
+            case "Pikachu":
+            case "Eevee":
+                return 7;
+            case "Sword":
+            case "Shield":
+            case "Mystery-Dungeon-Rescue-DX":
+                return 8;
+        }
+        return -1;
     }
 
     protected Game(Parcel in) {
         id = in.readInt();
         name = in.readString();
         image = in.createByteArray();
-        generation = in.readInt();
+        token = in.readString();
     }
 
     @Override
@@ -73,7 +121,7 @@ public class Game implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeByteArray(image);
-        dest.writeInt(generation);
+        dest.writeString(token);
     }
 
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
