@@ -43,12 +43,4 @@ public abstract class HuntingDatabase extends RoomDatabase {
         }
     };
 
-    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE counters "
-                    + " ADD COLUMN position INTEGER NOT NULL DEFAULT 0");
-        }
-    };
-
 }

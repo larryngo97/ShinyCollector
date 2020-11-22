@@ -9,9 +9,8 @@ import android.widget.TextView;
 import com.larryngo.shinyhunter.R;
 
 public class LoadingDialog {
-    private Activity activity;
+    private final Activity activity;
     private AlertDialog dialog;
-    private View view;
     private TextView tv_text;
 
     public LoadingDialog(Activity mActivity) {
@@ -21,7 +20,7 @@ public class LoadingDialog {
     public void startLoadingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        view = inflater.inflate(R.layout.loading_dialog, null);
+        View view = inflater.inflate(R.layout.loading_dialog, null);
         tv_text = view.findViewById(R.id.loading_text);
         builder.setView(view);
         builder.setCancelable(false);

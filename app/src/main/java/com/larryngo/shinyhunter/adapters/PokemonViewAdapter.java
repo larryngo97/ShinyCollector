@@ -19,10 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import pl.droidsonroids.gif.GifImageView;
 
 public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.ViewHolder> {
-    private View view;
-    private Context context;
-    private ArrayList<PokemonGameIcon> data;
-    private PokemonViewListener listener;
+    private final Context context;
+    private final ArrayList<PokemonGameIcon> data;
+    private final PokemonViewListener listener;
 
     public PokemonViewAdapter(Context context, ArrayList<PokemonGameIcon> data, PokemonViewListener listener) {
         this.context = context;
@@ -33,7 +32,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_view_entry, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_view_entry, parent, false);
         return new ViewHolder(view);
     }
 
@@ -70,8 +69,8 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private GifImageView image;
-        private TextView name;
+        private final GifImageView image;
+        private final TextView name;
 
         public ViewHolder(View view) {
             super(view);

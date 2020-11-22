@@ -9,4 +9,17 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="settings_preference_sortlist_values">
+        <item>date_new</item>
+        <item>date_old</item>
+        <item>count_highest</item>
+        <item>count_lowest</item>
+        <item>name_atoz</item>
+        <item>name_ztoa</item>
+        <item>dex_new</item>
+        <item>dex_old</item>
+        <item>gen_new</item>
+        <item>gen_old</item>
+    </string-array>
 </resources>

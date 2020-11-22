@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HomeListAdapter;
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.util.Settings;
 import com.larryngo.shinyhunter.util.Utilities;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
@@ -85,16 +86,21 @@ public class HomeHuntingFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
 
-
                 adapter.setCountersList(counters);
 
                 counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
-                //counters.sort(Counter.COMPARE_BY_GAME_DESC);
+                Settings.sortCounter(counters); //sort by preference
 
                 recyclerView.setAdapter(adapter);
                 oldListSize = size;
             }
         });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     public void setOnClickListener() {
@@ -141,12 +147,9 @@ public class HomeHuntingFragment extends Fragment {
             }
         });
 
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                adapter.refreshList();
-                return false;
-            }
+        searchView.setOnCloseListener(() -> {
+            adapter.refreshList();
+            return false;
         });
 
         searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {

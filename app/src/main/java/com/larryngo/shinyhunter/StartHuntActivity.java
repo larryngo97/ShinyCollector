@@ -27,7 +27,7 @@ public class StartHuntActivity extends AppCompatActivity implements
     protected PlatformListFragment platformListFragment;
     protected MethodListFragment methodListFragment;
 
-    private static String ARGUMENT_ACTIVE_HUNT = "ARGUMENT_ACTIVE_HUNT";
+    private static final String ARGUMENT_ACTIVE_HUNT = "ARGUMENT_ACTIVE_HUNT";
 
     @Override
     public void sendPokemonToView(PokemonList pokemonData) {
@@ -84,7 +84,7 @@ public class StartHuntActivity extends AppCompatActivity implements
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            if(extras.containsKey("ARGUMENT_ACTIVE_HUNT")) {
+            if(extras.containsKey(ARGUMENT_ACTIVE_HUNT)) {
                 startHuntFragment.setArguments(extras);
             }
         }

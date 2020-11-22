@@ -49,7 +49,6 @@ public class Platform implements Parcelable {
         dest.writeByteArray(image);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Platform> CREATOR = new Parcelable.Creator<Platform>() {
         @Override
         public Platform createFromParcel(Parcel in) {

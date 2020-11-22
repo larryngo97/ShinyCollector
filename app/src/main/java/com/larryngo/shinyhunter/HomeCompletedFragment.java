@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HomeListAdapter;
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.util.Settings;
 import com.larryngo.shinyhunter.util.Utilities;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModel;
 import com.larryngo.shinyhunter.viewmodels.CompletedViewModelFactory;
-
-import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,6 +61,7 @@ public class HomeCompletedFragment extends Fragment {
                 adapter.setCountersList(counters);
 
                 counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
+                Settings.sortCounter(counters);
 
                 recyclerView.setAdapter(adapter);
             }
@@ -70,12 +70,7 @@ public class HomeCompletedFragment extends Fragment {
     }
 
     public void setOnClickListener() {
-        recyclerViewListener = new HomeListAdapter.RecyclerViewListener() {
-            @Override
-            public void onClick(View v, int position) throws ExecutionException, InterruptedException {
-                adapter.popupDetails(position);
-            }
-        };
+        recyclerViewListener = (v, position) -> adapter.popupDetails(position);
     }
 
     @Override
@@ -111,12 +106,9 @@ public class HomeCompletedFragment extends Fragment {
             }
         });
 
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                adapter.refreshList();
-                return false;
-            }
+        searchView.setOnCloseListener(() -> {
+            adapter.refreshList();
+            return false;
         });
 
         searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {

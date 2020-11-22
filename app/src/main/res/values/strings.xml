@@ -128,6 +128,22 @@
     <string name="settings_preference_darkmode_desc">Turns on dark mode to save battery</string>
     <string name="settings_preference_darkmode_key">NightMode</string>
 
+    <string name="settings_preference_sortlist_title">Sort List</string>
+    <string name="settings_preference_sortlist_desc">Default: Sort from newest to oldest</string>
+    <string name="settings_preference_sortlist_key">SortMode</string>
+    <string-array name="settings_preference_sortlist_entries">
+        <item>Date: Newest to Oldest (Default)</item>
+        <item>Date: Oldest to Newest</item>
+        <item>Count: Highest ↑ to Lowest ↓</item>
+        <item>Count: Lowest ↓ to Highest ↑</item>
+        <item>Name: A-Z</item>
+        <item>Name: Z-A</item>
+        <item>Pokédex: Newest to Oldest</item>
+        <item>Pokédex: Oldest to Newest</item>
+        <item>Generation: Newest to Oldest</item>
+        <item>Generation: Oldest to Newest</item>
+    </string-array>
+
     <string name="settings_category_hunting_title">Hunting</string>
 
     <string name="settings_preference_vibrate_title">Vibration</string>
@@ -155,6 +171,7 @@
         <item>HeartGold</item>
         <item>SoulSilver</item>
         <item>Rumble</item>
+        <item>Battle Revolution</item>
         <item>Black</item>
         <item>White</item>
         <item>Black 2</item>
@@ -163,6 +180,7 @@
         <item>Y</item>
         <item>Omega Ruby</item>
         <item>Alpha Sapphire</item>
+        <item>Go</item>
         <item>Sun</item>
         <item>Moon</item>
         <item>Ultra Sun</item>
@@ -171,6 +189,7 @@
         <item>Lets Go Eevee</item>
         <item>Sword</item>
         <item>Shield</item>
+        <item>Mystery Dungeon Rescue DX</item>
     </string-array>
 
     <string-array name="list_platforms_names">
@@ -235,6 +254,7 @@
         <item>HeartGold</item>
         <item>SoulSilver</item>
         <item>Rumble</item>
+        <item>Battle-Revolution</item>
         <item>Black</item>
         <item>White</item>
         <item>Black-2</item>
@@ -243,6 +263,7 @@
         <item>Y</item>
         <item>Omega-Ruby</item>
         <item>Alpha-Sapphire</item>
+        <item>Go</item>
         <item>Sun</item>
         <item>Moon</item>
         <item>Ultra-Sun</item>
@@ -251,6 +272,7 @@
         <item>Eevee</item>
         <item>Sword</item>
         <item>Shield</item>
+        <item>Mystery-Dungeon-Rescue-DX</item>
     </string-array>
     <string-array name="list_platforms_tokens">
         <item>none</item>

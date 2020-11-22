@@ -20,9 +20,9 @@ import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Game;
 
 public class GameListAdapter extends BaseAdapter implements Filterable {
-    private Context mContext;
-    private List<Game> list_games;
-    private List<Game> list_games_all;
+    private final Context mContext;
+    private final List<Game> list_games;
+    private final List<Game> list_games_all;
 
     public GameListAdapter(Context c, List<Game> list_games){
         this.mContext = c;
@@ -32,13 +32,6 @@ public class GameListAdapter extends BaseAdapter implements Filterable {
 
     public List<Game> getList() {
         return list_games;
-    }
-
-    public void addDataList(ArrayList<Game> entry) {
-        list_games.clear();
-        list_games = entry;
-        list_games_all = new ArrayList<>(list_games);
-        notifyDataSetChanged();
     }
 
     public int getCount() {
@@ -59,7 +52,7 @@ public class GameListAdapter extends BaseAdapter implements Filterable {
         View gridView = convertView;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE); //grabs inflate info
-            gridView = inflater.inflate(R.layout.game_list_entry, null); //inflates the grid
+            gridView = inflater.inflate(R.layout.game_list_entry, parent, false); //inflates the grid
         }
 
         ImageView iconView = gridView.findViewById(R.id.game_list_entry_image);

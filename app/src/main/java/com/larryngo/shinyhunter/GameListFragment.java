@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.GridView;
 import android.widget.SearchView;
 
 import com.larryngo.shinyhunter.adapters.GameListAdapter;
 import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.util.LoadingDialog;
+import com.larryngo.shinyhunter.util.Utilities;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,11 +23,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 
 public class GameListFragment extends Fragment {
-    private ArrayList<Game> list_games = new ArrayList<>();
+    private final ArrayList<Game> list_games = new ArrayList<>();
     private List<String> list_games_names;
     private List<String> list_games_tokens;
 
@@ -37,8 +36,6 @@ public class GameListFragment extends Fragment {
     private GameListAdapter adapter;
 
     private FragmentGameListener listener;
-
-    private LoadingDialog loadingDialog;
 
     public interface FragmentGameListener {
         void onInputGameSent(Game entry) throws IOException;
@@ -79,7 +76,7 @@ public class GameListFragment extends Fragment {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             try {
                 listener.onInputGameSent(adapter.getList().get(position)); //sends the game to the main hunt menu
-                closeKeyboard();
+                Utilities.closeKeyboard(getActivity());
                 fm.popBackStack(); //go back
             } catch (IOException e) {
                 e.printStackTrace();
@@ -101,7 +98,7 @@ public class GameListFragment extends Fragment {
     }
 
     public void setupGrid(){
-        loadingDialog = new LoadingDialog(getActivity());
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
         loadingDialog.setMessage(R.string.dialog_loadingdata);
 
@@ -130,18 +127,6 @@ public class GameListFragment extends Fragment {
         loadingDialog.dismissDialog();
     }
 
-    public void closeKeyboard() {
-        try {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            View keyboardView = getActivity().getCurrentFocus();
-            if(keyboardView != null) {
-                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     //Determines the generation of the game. Can be used to determine what pokemon
     //can be acquired. (Red/Blue/Yellow can go up to 151, G/S/C up to 251, etc.)
     public int determineGeneration(String token) {
@@ -150,8 +135,6 @@ public class GameListFragment extends Fragment {
             case "Blue":
             case "Green":
             case "Yellow":
-            case "Pikachu":
-            case "Eevee":
                 return 1;
             case "Gold":
             case "Silver":
@@ -171,6 +154,7 @@ public class GameListFragment extends Fragment {
             case "HeartGold":
             case "SoulSilver":
             case "Rumble":
+            case "Battle-Revolution":
                 return 4;
             case "Black":
             case "White":
@@ -186,9 +170,12 @@ public class GameListFragment extends Fragment {
             case "Moon":
             case "Ultra-Sun":
             case "Ultra-Moon":
+            case "Pikachu":
+            case "Eevee":
                 return 7;
             case "Sword":
             case "Shield":
+            case "Mystery-Dungeon-Rescue-DX":
                 return 8;
         }
         return -1;

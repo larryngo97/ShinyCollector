@@ -1,6 +1,5 @@
 package com.larryngo.shinyhunter.adapters;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.larryngo.shinyhunter.R;
-import com.larryngo.shinyhunter.models.Method;
 import com.larryngo.shinyhunter.models.Platform;
 
 import java.util.ArrayList;
@@ -23,14 +21,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapter.ViewHolder> implements Filterable {
-    private View view;
     private List<Platform> data;
     private List<Platform> data_all;
-    private Context context;
-    private PlatformListListener listener;
+    private final PlatformListListener listener;
 
-    public PlatformListAdapter(Context c, ArrayList<Platform> data, PlatformListListener listener){
-        this.context = c;
+    public PlatformListAdapter(ArrayList<Platform> data, PlatformListListener listener){
         this.data = data;
         this.data_all = new ArrayList<>(data);
         this.listener = listener;
@@ -45,7 +40,7 @@ public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapte
     @NonNull
     @Override
     public PlatformListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.platform_list_entry, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.platform_list_entry, parent, false);
         return new PlatformListAdapter.ViewHolder(view);
     }
 
@@ -70,8 +65,8 @@ public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView image;
-        private TextView name;
+        private final ImageView image;
+        private final TextView name;
 
         public ViewHolder(View view) {
             super(view);

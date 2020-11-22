@@ -34,7 +34,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PokemonListFragment extends Fragment {
     private final String TAG = "ShinyHunter";
 
-    private Retrofit retrofit;
     private PokeAPIService service;
 
     private View view;
@@ -77,7 +76,7 @@ public class PokemonListFragment extends Fragment {
                     })
                     .build();
 
-            retrofit = new Retrofit.Builder()
+            Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(PokeAPIService.baseURL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)

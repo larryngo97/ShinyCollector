@@ -30,11 +30,10 @@ public class MethodListFragment extends Fragment {
     private SearchView searchView;
     private MethodListAdapter adapter;
 
-    private ArrayList<Method> list_methods = new ArrayList<>();
+    private final ArrayList<Method> list_methods = new ArrayList<>();
     private List<String> list_methods_names;
 
     private FragmentMethodListListener listener;
-    private LoadingDialog loadingDialog;
 
     public interface FragmentMethodListListener {
         void onInputMethodSent(Method entry) throws IOException;
@@ -97,7 +96,7 @@ public class MethodListFragment extends Fragment {
     }
 
     public void setupGrid() {
-        loadingDialog = new LoadingDialog(getActivity());
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
         loadingDialog.setMessage(R.string.dialog_loadingdata);
 

@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.larryngo.shinyhunter.R;
-import com.larryngo.shinyhunter.models.Game;
-import com.larryngo.shinyhunter.models.Pokemon;
 import com.larryngo.shinyhunter.models.PokemonList;
 
 import java.util.ArrayList;
@@ -25,11 +23,10 @@ import pl.droidsonroids.gif.GifImageView;
 
 
 public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.ViewHolder> implements Filterable {
-    private View view;
-    private List<PokemonList> data;
+    private final List<PokemonList> data;
     private List<PokemonList> data_all;
-    private PokemonListListener listener;
-    private Context context;
+    private final PokemonListListener listener;
+    private final Context context;
     private int limit = 890;
 
     public PokemonListAdapter(Context context, ArrayList<PokemonList> data, PokemonListListener listener) {
@@ -42,7 +39,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_list_entry, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_list_entry, parent, false);
         return new ViewHolder(view);
     }
 
@@ -132,9 +129,9 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     };
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private GifImageView image;
-        private TextView id;
-        private TextView name;
+        private final GifImageView image;
+        private final TextView id;
+        private final TextView name;
 
         public ViewHolder(View view) {
             super(view);

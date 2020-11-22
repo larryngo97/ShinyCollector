@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.SearchView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 

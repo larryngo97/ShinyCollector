@@ -29,17 +29,14 @@ import static com.larryngo.shinyhunter.StartHuntActivity.fm;
 public class PlatformListFragment extends Fragment {
     private View view;
     private SearchView searchView;
-    private RecyclerView recyclerView;
 
     private PlatformListAdapter adapter;
-    private ArrayList<Platform> list_platforms = new ArrayList<>();
+    private final ArrayList<Platform> list_platforms = new ArrayList<>();
     private List<String> list_platforms_names;
     private List<String> list_platforms_tokens;
 
     private FragmentPlatformListListener fragment_listener;
     private PlatformListAdapter.PlatformListListener rv_listener;
-
-    private LoadingDialog loadingDialog;
 
     public interface FragmentPlatformListListener {
         void onInputPlatformSent(Platform platform) throws IOException;
@@ -56,14 +53,14 @@ public class PlatformListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(view == null) {
             view = inflater.inflate(R.layout.platform_list_layout, container, false);
-            recyclerView = view.findViewById(R.id.platform_list_recycler);
+            RecyclerView recyclerView = view.findViewById(R.id.platform_list_recycler);
             searchView = view.findViewById(R.id.platform_list_search);
 
             list_platforms_names = Arrays.asList(getResources().getStringArray(R.array.list_platforms_names));
             list_platforms_tokens = Arrays.asList(getResources().getStringArray(R.array.list_platforms_tokens));
 
             init();
-            adapter = new PlatformListAdapter(getActivity(), new ArrayList<>(), rv_listener);
+            adapter = new PlatformListAdapter(new ArrayList<>(), rv_listener);
             recyclerView.setAdapter(adapter);
 
             final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
@@ -105,7 +102,7 @@ public class PlatformListFragment extends Fragment {
     }
 
     void collectData() {
-        loadingDialog = new LoadingDialog(getActivity());
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoadingDialog();
         loadingDialog.setMessage(R.string.dialog_loadingdata);
 

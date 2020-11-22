@@ -76,7 +76,6 @@ public class Game implements Parcelable {
         dest.writeInt(generation);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
         @Override
         public Game createFromParcel(Parcel in) {

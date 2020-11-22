@@ -2,7 +2,6 @@ package com.larryngo.shinyhunter.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
-import com.larryngo.shinyhunter.models.Platform;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +30,6 @@ import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
 import static com.larryngo.shinyhunter.HomeCompletedFragment.completedViewModel;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> implements Filterable {
-    private View view;
     private final Context mContext;
     private List<Counter> counters;
     private List<Counter> counters_all;
@@ -48,7 +45,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_grid_entry, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_grid_entry, parent, false);
         return new HomeListAdapter.ViewHolder(view);
     }
 
@@ -128,29 +125,17 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
     }
 
-    public Counter getCounterObject(int position) {
-        return counters.get(position);
-    }
-
     public void popupDelete(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage(mContext.getResources().getString(R.string.dialog_deleteconfirmation))
-                .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(counters.get(position).getDateFinished() == null) { //hasn't been finished and therefore is in the hunting list
-                            huntingViewModel.deleteCounter(counters.get(position));
-                        } else {
-                            completedViewModel.deleteCounter(counters.get(position)); //there is a finished date and therefore is completed
-                        }
+                .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), (dialog, which) -> {
+                    if(counters.get(position).getDateFinished() == null) { //hasn't been finished and therefore is in the hunting list
+                        huntingViewModel.deleteCounter(counters.get(position));
+                    } else {
+                        completedViewModel.deleteCounter(counters.get(position)); //there is a finished date and therefore is completed
                     }
                 })
-                .setNegativeButton(mContext.getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                .setNegativeButton(mContext.getResources().getString(R.string.dialog_no), (dialog, which) -> dialog.dismiss());
         builder.create().show();
     }
 

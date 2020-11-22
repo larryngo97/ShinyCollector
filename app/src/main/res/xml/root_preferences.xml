@@ -9,6 +9,15 @@
             app:key="@string/settings_preference_darkmode_key"
             app:defaultValue="false">
         </CheckBoxPreference>
+
+        <ListPreference
+            app:title="@string/settings_preference_sortlist_title"
+            app:iconSpaceReserved="false"
+            app:summary="@string/settings_preference_sortlist_desc"
+            app:key="@string/settings_preference_sortlist_key"
+            app:entries="@array/settings_preference_sortlist_entries"
+            app:entryValues="@array/settings_preference_sortlist_values">
+        </ListPreference>
     </PreferenceCategory>
 
     <PreferenceCategory

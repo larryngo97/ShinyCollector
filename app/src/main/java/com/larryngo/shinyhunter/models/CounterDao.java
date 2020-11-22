@@ -1,6 +1,5 @@
 package com.larryngo.shinyhunter.models;
 
-import android.util.SparseIntArray;
 
 import java.util.List;
 
@@ -10,7 +9,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import io.reactivex.Completable;
 
 @Dao
@@ -46,8 +44,6 @@ public abstract class CounterDao {
     @Query("UPDATE counters " + "SET method = :entry_method WHERE id = :counterId")
     public abstract Completable modifyMethod(int counterId, Method entry_method);
 
-    @Query("UPDATE counters SET count =(count +:difference) WHERE id ==:counterId")
-    public abstract Completable addCount(int counterId, int difference);
 
     @Query("UPDATE counters " + "SET count = :value WHERE id = :counterId")
     public abstract Completable modifyCount(int counterId, int value);
@@ -55,9 +51,7 @@ public abstract class CounterDao {
     @Query("UPDATE counters " + "SET step = :step WHERE id = :counterId")
     public abstract Completable modifyStep(int counterId, int step);
 
-
     @Query("UPDATE counters " + "SET count = 0")
     public abstract Completable resetValues();
-
 
 }

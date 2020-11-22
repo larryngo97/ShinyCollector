@@ -1,9 +1,7 @@
 package com.larryngo.shinyhunter.models;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Vibrator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,59 +52,35 @@ public class Counter implements Parcelable {
         this.method = counter.method;
     }
 
-    public static Comparator<Counter> COMPARE_BY_LISTID_DESC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj2.id- obj1.id;
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_LISTID_DESC = (obj1, obj2) ->
+            obj2.id - obj1.id;
 
-    public static Comparator<Counter> COMPARE_BY_GAME_DESC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj2.getGame().getId()- obj1.getGame().getId();
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_LISTID_ASC = (obj1, obj2) ->
+            obj1.id - obj2.id;
 
-    public static Comparator<Counter> COMPARE_BY_GAME_ASC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj1.getGame().getId()- obj2.getGame().getId();
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_GAME_DESC = (obj1, obj2) ->
+            obj2.getGame().getId() - obj1.getGame().getId();
 
-    public static Comparator<Counter> COMPARE_BY_POKEMONID_DESC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj2.getPokemon().getId() - obj1.getPokemon().getId();
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_GAME_ASC = (obj1, obj2) ->
+            obj1.getGame().getId()- obj2.getGame().getId();
 
-    public static Comparator<Counter> COMPARE_BY_POKEMONID_ASC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj1.getPokemon().getId() - obj2.getPokemon().getId();
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_POKEMONID_DESC = (obj1, obj2) ->
+            obj2.getPokemon().getId() - obj1.getPokemon().getId();
 
-    public static Comparator<Counter> COMPARE_BY_COUNT_DESC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj2.count - obj1.count;
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_POKEMONID_ASC = (obj1, obj2) ->
+            obj1.getPokemon().getId() - obj2.getPokemon().getId();
 
-    public static Comparator<Counter> COMPARE_BY_COUNT_ASC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj1.count - obj2.count;
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_COUNT_DESC = (obj1, obj2) ->
+            obj2.count - obj1.count;
 
-    public static Comparator<Counter> COMPARE_BY_NICKNAME_DESC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj2.getPokemon().getNickname().compareTo(obj1.getPokemon().getNickname());
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_COUNT_ASC = (obj1, obj2) ->
+            obj1.count - obj2.count;
 
-    public static Comparator<Counter> COMPARE_BY_NICKNAME_ASC = new Comparator<Counter>() {
-        public int compare(Counter obj1, Counter obj2) {
-            return obj1.getPokemon().getNickname().compareTo(obj2.getPokemon().getNickname());
-        }
-    };
+    public static Comparator<Counter> COMPARE_BY_NICKNAME_DESC = (obj1, obj2) ->
+            obj2.getPokemon().getNickname().compareTo(obj1.getPokemon().getNickname());
+
+    public static Comparator<Counter> COMPARE_BY_NICKNAME_ASC = (obj1, obj2) ->
+            obj1.getPokemon().getNickname().compareTo(obj2.getPokemon().getNickname());
 
     public void add(int num)
     {
@@ -237,10 +211,10 @@ public class Counter implements Parcelable {
     }
 
     protected Counter(Parcel in) {
-        game = (Game) in.readParcelable(Game.class.getClassLoader());
-        pokemon = (Pokemon) in.readParcelable(Pokemon.class.getClassLoader());
-        platform = (Platform) in.readParcelable(Platform.class.getClassLoader());
-        method = (Method) in.readParcelable(Method.class.getClassLoader());
+        game = in.readParcelable(Game.class.getClassLoader());
+        pokemon = in.readParcelable(Pokemon.class.getClassLoader());
+        platform = in.readParcelable(Platform.class.getClassLoader());
+        method = in.readParcelable(Method.class.getClassLoader());
         dateCreated = in.readString();
         dateFinished = in.readString();
         count = in.readInt();
@@ -264,7 +238,6 @@ public class Counter implements Parcelable {
         dest.writeInt(step);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Counter> CREATOR = new Parcelable.Creator<Counter>() {
         @Override
         public Counter createFromParcel(Parcel in) {

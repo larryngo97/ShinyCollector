@@ -31,13 +31,13 @@ import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
 import static com.larryngo.shinyhunter.HomeCompletedFragment.completedViewModel;
 
 public class PokemonHuntActivity extends AppCompatActivity {
-    private static String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
-    private static String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
+    private static final String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
+    private static final String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
 
     private Vibrator vibrator;
     public static int MAX_COUNT_VALUE = 999999;
-    private final int MAX_STEP_VALUE = 99;
-    private final int VIBRATION_TIME = 50;
+    private static final int MAX_STEP_VALUE = 99;
+    private static final int VIBRATION_TIME = 50;
 
     private AppBarLayout appBarLayout;
     private ImageButton button_back;
@@ -122,12 +122,10 @@ public class PokemonHuntActivity extends AppCompatActivity {
     }
 
     public void setupButtons() {
-        appBarLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Clicking does nothing
-            }
+        appBarLayout.setOnClickListener(v -> {
+            //Clicking does nothing
         });
+
         screen.setOnClickListener(view -> {
             counter.add(counter.getStep());
             vibrate();

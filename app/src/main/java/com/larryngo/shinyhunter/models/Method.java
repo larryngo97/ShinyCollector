@@ -3,9 +3,6 @@ package com.larryngo.shinyhunter.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Method implements Parcelable {
     private int id;
@@ -54,7 +51,6 @@ public class Method implements Parcelable {
         dest.writeString(name);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Method> CREATOR = new Parcelable.Creator<Method>() {
         @Override
         public Method createFromParcel(Parcel in) {

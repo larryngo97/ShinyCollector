@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-
 public class Pokemon implements Parcelable {
     private int id;
     private String name;
@@ -126,7 +125,6 @@ public class Pokemon implements Parcelable {
         dest.writeInt(weight);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Pokemon> CREATOR = new Parcelable.Creator<Pokemon>() {
         @Override
         public Pokemon createFromParcel(Parcel in) {

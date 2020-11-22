@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,12 +28,7 @@ import androidx.viewpager.widget.ViewPager;
 
 
 public class HomeActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private Toolbar toolbar;
-    private ViewPager viewPager;
-    private SectionsPageAdapter viewPagerAdapter;
-
-    public SearchView searchView;
-
+    private final static int REQUEST_CODE_RESTART = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         boolean nightMode = Settings.isDarkModeOn();
@@ -48,11 +42,11 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = findViewById(R.id.home_toolbar);
+        Toolbar toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.home_tabLayout);
-        viewPager = findViewById(R.id.home_viewPager);
+        TabLayout tabLayout = findViewById(R.id.home_tabLayout);
+        ViewPager viewPager = findViewById(R.id.home_viewPager);
 
         HomeHuntingFragment homeHuntingFragment = new HomeHuntingFragment();
         HomeCompletedFragment homeCompletedFragment = new HomeCompletedFragment();
@@ -60,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
 
         tabLayout.setupWithViewPager(viewPager);
 
-        viewPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), 0);
+        SectionsPageAdapter viewPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), 0);
         viewPagerAdapter.addFragment(homeHuntingFragment, getResources().getString(R.string.home_hunting_title));
         viewPagerAdapter.addFragment(homeCompletedFragment, getResources().getString(R.string.home_completed_title));
         viewPagerAdapter.addFragment(homeStatisticsFragment, getResources().getString(R.string.home_statistics_title));
@@ -80,8 +74,8 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
     }
 
     public static class SectionsPageAdapter extends FragmentPagerAdapter {
-        private List<Fragment> fragments = new ArrayList<>();
-        private List<String> fragmentTitle = new ArrayList<>();
+        private final List<Fragment> fragments = new ArrayList<>();
+        private final List<String> fragmentTitle = new ArrayList<>();
         public SectionsPageAdapter(FragmentManager fm, int behavior) {
             super(fm, behavior);
         }
@@ -121,14 +115,28 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.home_menu_settings) {
             Intent intent = new Intent(HomeActivity.this, Settings.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_RESTART); //home should be reset every time user exits settings
+
         }
         return true;
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_RESTART) { //restart code
+            recreate(); //restart
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -144,7 +152,7 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
 }
