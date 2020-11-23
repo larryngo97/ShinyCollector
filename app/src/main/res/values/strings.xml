@@ -235,6 +235,10 @@
 
     <!-- DO NOT RENAME/TRANSLATE BELOW. THESE ARE TOKENS THAT ARE NEEDED TO FIND FILES IN ASSETS -->
 
+    <string name="admob_app_id">ca-app-pub-9716148949436094~7719956197</string>
+    <string name="admob_native_id">ca-app-pub-9716148949436094/2424764468</string>
+    <string name="admob_banner_id">ca-app-pub-9716148949436094/6406874526</string>
+
     <string-array name="list_games_tokens">
         <item>Red</item>
         <item>Blue</item>

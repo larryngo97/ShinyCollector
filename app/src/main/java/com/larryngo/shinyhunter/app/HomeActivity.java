@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.tabs.TabLayout;
 import com.larryngo.shinyhunter.HomeCompletedFragment;
 import com.larryngo.shinyhunter.HomeHuntingFragment;
@@ -28,6 +33,7 @@ import androidx.viewpager.widget.ViewPager;
 
 
 public class HomeActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+    private AdView mAdView;
     private final static int REQUEST_CODE_RESTART = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,16 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
 
@@ -50,14 +66,14 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
 
         HomeHuntingFragment homeHuntingFragment = new HomeHuntingFragment();
         HomeCompletedFragment homeCompletedFragment = new HomeCompletedFragment();
-        HomeStatisticsFragment homeStatisticsFragment = new HomeStatisticsFragment();
+        //HomeStatisticsFragment homeStatisticsFragment = new HomeStatisticsFragment();
 
         tabLayout.setupWithViewPager(viewPager);
 
         SectionsPageAdapter viewPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), 0);
         viewPagerAdapter.addFragment(homeHuntingFragment, getResources().getString(R.string.home_hunting_title));
         viewPagerAdapter.addFragment(homeCompletedFragment, getResources().getString(R.string.home_completed_title));
-        viewPagerAdapter.addFragment(homeStatisticsFragment, getResources().getString(R.string.home_statistics_title));
+        //viewPagerAdapter.addFragment(homeStatisticsFragment, getResources().getString(R.string.home_statistics_title));
         viewPager.setAdapter(viewPagerAdapter);
 
         if(tabLayout.getTabAt(0) != null) {
@@ -66,9 +82,12 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         if(tabLayout.getTabAt(1) != null) {
             tabLayout.getTabAt(1).setIcon(R.drawable.icon_completed);
         }
+        /*
         if(tabLayout.getTabAt(2) != null) {
             tabLayout.getTabAt(2).setIcon(R.drawable.icon_statistics);
         }
+
+         */
 
 
     }

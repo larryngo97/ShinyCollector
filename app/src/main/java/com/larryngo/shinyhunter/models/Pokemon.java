@@ -12,7 +12,6 @@ public class Pokemon implements Parcelable {
     private ArrayList<String> types;
     private String image_url;
     private byte[] image;
-    private int weight;
 
     public Pokemon() {
         id = 1;
@@ -81,27 +80,18 @@ public class Pokemon implements Parcelable {
         this.name = name;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
     protected Pokemon(Parcel in) {
         id = in.readInt();
         name = in.readString();
         nickname = in.readString();
         if (in.readByte() == 0x01) {
-            types = new ArrayList<String>();
+            types = new ArrayList<>();
             in.readList(types, String.class.getClassLoader());
         } else {
             types = null;
         }
         image_url = in.readString();
         image = in.createByteArray();
-        weight = in.readInt();
     }
 
     @Override
@@ -122,7 +112,6 @@ public class Pokemon implements Parcelable {
         }
         dest.writeString(image_url);
         dest.writeByteArray(image);
-        dest.writeInt(weight);
     }
 
     public static final Parcelable.Creator<Pokemon> CREATOR = new Parcelable.Creator<Pokemon>() {
