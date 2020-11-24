@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/cardBackgroundColor"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/button_back"
+                style="@style/ActionBarImageButtons"
+                android:src="@drawable/icon_arrow_back"
+                android:contentDescription="@string/app_name">
+
+            </ImageButton>
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:fontFamily="@font/mazzard"
+            android:maxLines="1"
+            android:text="@string/text_header_congratulations"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="28sp"
+            app:autoSizeMaxTextSize="36sp"
+            app:autoSizeMinTextSize="16sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform">
+
+        </TextView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_header_line1_youcaptured"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/pokemon_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_header_line2_after"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/number_encounters_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="28sp"
+                app:autoSizeMaxTextSize="32sp"
+                app:autoSizeMinTextSize="16sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_header_line2_encounters"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/details_frame"
+        android:background="@drawable/box_hunt_preview_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_layout"
+        app:layout_constraintBottom_toTopOf="@id/button_addcollection" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_body_preface_game"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/game_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_body_preface_method"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/method_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_body_preface_start"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/date_start_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_body_preface_end"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/date_end_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/mazzard_light"
+                android:maxLines="1"
+                android:text="@string/text_body_preface_time"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/time_elapsed_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/mazzard"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/claim_error_message"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="28sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform">
+
+            </TextView>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/image_frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginEnd="125dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:background="@color/backgroundColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_layout">
+
+        <ImageView
+            android:id="@+id/image_platform"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/platform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/app_name" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/image_pokemon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="30dp"
+            android:src="@drawable/missingno"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </pl.droidsonroids.gif.GifImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_addcollection"
+        style="@style/ButtonConfirmTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/button_text_claim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.google.android.material.button.MaterialButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

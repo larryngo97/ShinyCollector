@@ -102,6 +102,20 @@
     <string name="dialog_claim_title">Claim Shiny</string>
     <string name="dialog_claim_desc">Are you sure you want to claim this shiny?</string>
 
+    <!-- ClaimActivity -->
+    <string name="text_header_congratulations">CONGRATULATIONS!</string>
+    <string name="text_header_line1_youcaptured">You captured</string>
+    <string name="text_header_line2_after">after</string>
+    <string name="text_header_line2_encounters">encounters!</string>
+    <string name="text_body_preface_game">You captured this Pokémon on</string>
+    <string name="text_body_preface_method">using the method</string>
+    <string name="text_body_preface_start">which you started on</string>
+    <string name="text_body_preface_end">and ended on</string>
+    <string name="text_body_preface_time">for a total time of</string>
+    <string name="button_text_claim">Add to collection</string>
+
+    <string name="claim_error_message">ERROR</string>
+
     <!-- Pokemon Types -->
 
     <string name="type_normal">Normal</string>

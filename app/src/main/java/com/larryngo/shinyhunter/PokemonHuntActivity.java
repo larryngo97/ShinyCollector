@@ -67,7 +67,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pokemon_hunting_layout);
+        setContentView(R.layout.activity_pokemonhunt);
         appBarLayout = findViewById(R.id.hunt_appbar);
         screen = findViewById(R.id.counter_screen);
         pokemon_name = findViewById(R.id.counter_pokemon_name);
@@ -235,9 +235,17 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             String stringDate = DateFormat.getDateTimeInstance().format(date);
                             counter.setDateFinished(stringDate);
 
+                            Intent intent = new Intent(PokemonHuntActivity.this, ClaimActivity.class);
+                            intent.putExtra("ARGUMENT_CLAIM_COUNTER_ID", counter.getId());
+                            intent.putExtra("ARGUMENT_CLAIM_COUNTER", counter);
+                            startActivity(intent);
+
+                            /*
                             huntingViewModel.deleteCounter(counter); //remove from current hunting list
                             completedViewModel.addCounter(counter); //add to completed list
                             finish();
+
+                             */
                         })
                         .setNegativeButton(R.string.dialog_no, (dialog, which) -> dialog.dismiss());
                 builder.create().show();
