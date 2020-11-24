@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/pokemon_view_entry_card"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +15,7 @@
         android:layout_height="120dp">
 
         <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/pokemon_list_entry_image"
+            android:id="@+id/pokemon_view_entry_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp"
@@ -26,7 +27,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/pokemon_list_entry_name"
+        android:id="@+id/pokemon_view_entry_name"
         android:layout_width="120dp"
         android:layout_height="30dp"
         android:layout_gravity="center"

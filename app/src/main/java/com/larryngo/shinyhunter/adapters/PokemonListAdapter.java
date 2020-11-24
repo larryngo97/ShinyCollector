@@ -145,9 +145,9 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
             super(view);
 
             container = view.findViewById(R.id.pokemon_list_entry_card);
-            image = view.findViewById(R.id.pokemon_list_entry_image);
+            image = view.findViewById(R.id.pokemon_view_entry_image);
             id = view.findViewById(R.id.pokemon_list_entry_id);
-            name = view.findViewById(R.id.pokemon_list_entry_name);
+            name = view.findViewById(R.id.pokemon_view_entry_name);
 
             view.setOnClickListener(this);
 
