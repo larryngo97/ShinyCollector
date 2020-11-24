@@ -1,6 +1,7 @@
 package com.larryngo.shinyhunter.util;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.app.App;
@@ -8,6 +9,7 @@ import com.larryngo.shinyhunter.models.Counter;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -32,15 +34,10 @@ public class Settings extends AppCompatActivity {
             setTheme(R.style.HomeTheme);
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.activity_settings);
 
         Toolbar toolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -48,6 +45,11 @@ public class Settings extends AppCompatActivity {
                     .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
                     .replace(R.id.settings, new SettingsFragment())
                     .commit();
+        }
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -178,5 +180,14 @@ public class Settings extends AppCompatActivity {
 
     public static void saveVibrateMode(boolean value) {
         App.getTinyDB().putBoolean(SETTING_VIBRATEMODE_KEY, value);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -60,8 +60,7 @@ public class HomeCompletedFragment extends Fragment {
             if(counters != null) {
                 adapter.setCountersList(counters);
 
-                counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
-                Settings.sortCounter(counters);
+                adapter.refreshList();
 
                 recyclerView.setAdapter(adapter);
             }

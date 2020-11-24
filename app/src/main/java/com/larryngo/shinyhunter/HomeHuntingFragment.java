@@ -87,20 +87,13 @@ public class HomeHuntingFragment extends Fragment {
                 }
 
                 adapter.setCountersList(counters);
-
-                counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
-                Settings.sortCounter(counters); //sort by preference
+                adapter.refreshList();
 
                 recyclerView.setAdapter(adapter);
                 oldListSize = size;
             }
         });
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     public void setOnClickListener() {
@@ -165,4 +158,15 @@ public class HomeHuntingFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("STARTED");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.refreshList();
+    }
 }
