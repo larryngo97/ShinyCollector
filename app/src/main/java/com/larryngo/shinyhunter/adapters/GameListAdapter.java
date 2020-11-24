@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Game;
+import com.larryngo.shinyhunter.util.Settings;
 
 public class GameListAdapter extends BaseAdapter implements Filterable {
     private final Context mContext;
@@ -58,7 +59,9 @@ public class GameListAdapter extends BaseAdapter implements Filterable {
         }
 
         LinearLayout layoutView = gridView.findViewById(R.id.game_list_entry_card);
-        layoutView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        if(Settings.isAnimModeOn()) {
+            layoutView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        }
 
         ImageView iconView = gridView.findViewById(R.id.game_list_entry_image);
         TextView titleView = gridView.findViewById(R.id.game_list_entry_title);

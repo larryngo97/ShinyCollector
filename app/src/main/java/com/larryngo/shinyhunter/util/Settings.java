@@ -23,6 +23,7 @@ public class Settings extends AppCompatActivity {
     public static String SETTING_NIGHTMODE_KEY = "dark_mode";
     public static String SETTING_VIBRATEMODE_KEY = "vibrate_mode";
     public static String SETTING_SORT_KEY = "sort_key";
+    public static String SETTING_ANIM_KEY ="anim_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +78,6 @@ public class Settings extends AppCompatActivity {
                 });
             }
 
-            CheckBoxPreference vibrateModePreference = findPreference(getResources().getString(R.string.settings_preference_vibrate_key));
-            if(vibrateModePreference != null) {
-                vibrateModePreference.setOnPreferenceClickListener(preference -> {
-                    saveVibrateMode(vibrateModePreference.isChecked()); //turns vibrate on if checked, off if not
-                    return true;
-                });
-            }
-
             ListPreference sortModePreference = findPreference(getResources().getString(R.string.settings_preference_sortlist_key));
             if(sortModePreference != null) {
                 if (sortModePreference.getEntry() == null) {
@@ -97,6 +90,22 @@ public class Settings extends AppCompatActivity {
                     saveSortKey(newValue.toString()); //stores into preferences the key
                     int index = sortModePreference.findIndexOfValue(newValue.toString()); //index of the selected entry
                     sortModePreference.setSummary(sortModePreference.getEntries()[index]); //have description the selected selected entry
+                    return true;
+                });
+            }
+
+            CheckBoxPreference animModePreference = findPreference(getResources().getString(R.string.settings_preference_anim_key));
+            if(animModePreference != null) {
+                animModePreference.setOnPreferenceClickListener(preference -> {
+                    saveAnimMode(animModePreference.isChecked()); //turns animations on if checked, off if not
+                    return true;
+                });
+            }
+
+            CheckBoxPreference vibrateModePreference = findPreference(getResources().getString(R.string.settings_preference_vibrate_key));
+            if(vibrateModePreference != null) {
+                vibrateModePreference.setOnPreferenceClickListener(preference -> {
+                    saveVibrateMode(vibrateModePreference.isChecked()); //turns vibrate on if checked, off if not
                     return true;
                 });
             }
@@ -140,6 +149,14 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+    public static boolean isDarkModeOn() {
+        return App.getTinyDB().getBoolean(SETTING_NIGHTMODE_KEY, false);
+    }
+
+    public static void saveDarkMode(boolean value) {
+        App.getTinyDB().putBoolean(SETTING_NIGHTMODE_KEY, value);
+    }
+
     public static String getSortKey() {
         return App.getTinyDB().getString(SETTING_SORT_KEY);
     }
@@ -148,12 +165,12 @@ public class Settings extends AppCompatActivity {
         App.getTinyDB().putString(SETTING_SORT_KEY, value);
     }
 
-    public static boolean isDarkModeOn() {
-        return App.getTinyDB().getBoolean(SETTING_NIGHTMODE_KEY, false);
+    public static boolean isAnimModeOn() {
+        return App.getTinyDB().getBoolean(SETTING_ANIM_KEY, true);
     }
 
-    public static void saveDarkMode(boolean value) {
-        App.getTinyDB().putBoolean(SETTING_NIGHTMODE_KEY, value);
+    public static void saveAnimMode(boolean value) {
+        App.getTinyDB().putBoolean(SETTING_ANIM_KEY, value);
     }
 
     public static boolean isVibrateModeOn () {

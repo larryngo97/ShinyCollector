@@ -18,6 +18,13 @@
             app:entries="@array/settings_preference_sortlist_entries"
             app:entryValues="@array/settings_preference_sortlist_values">
         </ListPreference>
+
+        <CheckBoxPreference
+            app:title="@string/settings_preference_anim_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/settings_preference_anim_key"
+            app:defaultValue="true">
+        </CheckBoxPreference>
     </PreferenceCategory>
 
     <PreferenceCategory

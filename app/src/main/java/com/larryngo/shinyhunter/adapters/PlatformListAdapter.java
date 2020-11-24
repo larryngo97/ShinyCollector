@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Platform;
+import com.larryngo.shinyhunter.util.Settings;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,7 +54,9 @@ public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Platform platform = data.get(position);
 
-        holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        if(Settings.isAnimModeOn()) {
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        }
         holder.name.setText(platform.getName());
         Bitmap bitmap = BitmapFactory.decodeByteArray(platform.getImage(), 0, platform.getImage().length);
 

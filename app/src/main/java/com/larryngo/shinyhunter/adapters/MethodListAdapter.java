@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Method;
+import com.larryngo.shinyhunter.util.Settings;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,7 +57,9 @@ public class MethodListAdapter extends BaseAdapter implements Filterable {
         }
 
         LinearLayout linearLayout = gridView.findViewById(R.id.method_list_entry_card);
-        linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        if(Settings.isAnimModeOn()) {
+            linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        }
 
         TextView titleView = gridView.findViewById(R.id.method_list_entry_title);
         titleView.setText(list_methods.get(position).getName());

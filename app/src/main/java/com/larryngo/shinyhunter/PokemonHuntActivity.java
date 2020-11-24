@@ -253,7 +253,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             Pair image2 = Pair.create(platform_image, ViewCompat.getTransitionName(platform_image));
                             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                     PokemonHuntActivity.this, image1, image2);
-                            startActivity(intent, options.toBundle());
+                            if(Settings.isAnimModeOn()) {
+                                startActivity(intent, options.toBundle());
+                            } else {
+                                startActivity(intent);
+                            }
 
                             /*
                             huntingViewModel.deleteCounter(counter); //remove from current hunting list

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.Counter;
+import com.larryngo.shinyhunter.util.Settings;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +59,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         String game_name = counters.get(position).getGame().getName();
         int count = counters.get(position).getCount();
 
-        holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        if(Settings.isAnimModeOn()) {
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        }
         Glide.with(mContext)
                 .load(pokemon_image)
                 .placeholder(R.drawable.missingno)

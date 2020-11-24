@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.models.PokemonList;
+import com.larryngo.shinyhunter.util.Settings;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +50,9 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         PokemonList pokemon = data.get(position);
 
-        holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        if(Settings.isAnimModeOn()) {
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+        }
 
         String name = pokemon.getName().substring(0, 1).toUpperCase() + pokemon.getName().substring(1); //capitalize first letter of word
         holder.name.setText(name);

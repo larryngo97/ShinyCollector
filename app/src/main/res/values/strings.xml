@@ -144,7 +144,7 @@
     <string name="settings_preference_darkmode_desc">Turns on dark mode to save battery</string>
     <string name="settings_preference_darkmode_key">NightMode</string>
 
-    <string name="settings_preference_sortlist_title">Sort List (Applied after restart)</string>
+    <string name="settings_preference_sortlist_title">Sort List</string>
     <string name="settings_preference_sortlist_desc">Default: Sort from newest to oldest</string>
     <string name="settings_preference_sortlist_key">SortMode</string>
     <string-array name="settings_preference_sortlist_entries">
@@ -159,6 +159,9 @@
         <item>Generation: Newest to Oldest</item>
         <item>Generation: Oldest to Newest</item>
     </string-array>
+
+    <string name="settings_preference_anim_title">Enable Animations</string>
+    <string name="settings_preference_anim_key">AnimMode</string>
 
     <string name="settings_category_hunting_title">Hunting</string>
 
