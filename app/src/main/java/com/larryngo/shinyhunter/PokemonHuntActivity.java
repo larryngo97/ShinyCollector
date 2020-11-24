@@ -1,5 +1,6 @@
 package com.larryngo.shinyhunter;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -137,20 +138,34 @@ public class PokemonHuntActivity extends AppCompatActivity {
         });
 
         screen.setOnClickListener(view -> {
-            counter.add(counter.getStep());
             vibrate();
-            counter_count.setText(String.valueOf(counter.getCount()));
 
+            if(Settings.isAnimModeOn()) {
+                ValueAnimator anim = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + counter.getStep());
+                anim.addUpdateListener(animation -> counter_count.setText(anim.getAnimatedValue().toString()));
+                anim.start();
+            } else {
+                counter_count.setText(String.valueOf(counter.getCount() + counter.getStep()));
+            }
+
+            counter.add(counter.getStep());
             huntingViewModel.modifyCounter(counter, counter.getCount());
         });
 
         button_back.setOnClickListener(v -> onBackPressed());
 
         button_undo.setOnClickListener(view -> {
-            counter.add(-counter.getStep());
             vibrate();
-            counter_count.setText(String.valueOf(counter.getCount()));
 
+            if(Settings.isAnimModeOn()) {
+                ValueAnimator anim = ValueAnimator.ofInt(counter.getCount(), counter.getCount() - counter.getStep());
+                anim.addUpdateListener(animation -> counter_count.setText(anim.getAnimatedValue().toString()));
+                anim.start();
+            } else {
+                counter_count.setText(String.valueOf(counter.getCount() - counter.getStep()));
+            }
+
+            counter.add(-counter.getStep());
             huntingViewModel.modifyCounter(counter, counter.getCount());
         });
 
@@ -249,11 +264,13 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             intent.putExtra("ARGUMENT_CLAIM_COUNTER_ID", counter.getId());
                             intent.putExtra("ARGUMENT_CLAIM_COUNTER", counter);
 
-                            Pair image1 = Pair.create(pokemon_image, ViewCompat.getTransitionName(pokemon_image));
-                            Pair image2 = Pair.create(platform_image, ViewCompat.getTransitionName(platform_image));
-                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                    PokemonHuntActivity.this, image1, image2);
                             if(Settings.isAnimModeOn()) {
+                                Pair<View, String>[] pairs = new Pair[2];
+                                pairs[0] = new Pair<>(pokemon_image, ViewCompat.getTransitionName(pokemon_image));
+                                pairs[1] = new Pair<>(platform_image, ViewCompat.getTransitionName(platform_image));
+                                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                        PokemonHuntActivity.this, pairs);
+
                                 startActivity(intent, options.toBundle());
                             } else {
                                 startActivity(intent);
