@@ -5,9 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -56,6 +58,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         String game_name = counters.get(position).getGame().getName();
         int count = counters.get(position).getCount();
 
+        holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
         Glide.with(mContext)
                 .load(pokemon_image)
                 .placeholder(R.drawable.missingno)
@@ -236,6 +239,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        LinearLayout container;
         GifImageView iconView;
         TextView nameView;
         TextView gameView;
@@ -245,11 +249,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
 
-            iconView = view.findViewById(R.id.hunting_list_entry_image);
-            nameView = view.findViewById(R.id.hunting_list_entry_name);
-            gameView = view.findViewById(R.id.hunting_list_entry_game);
-            countView = view.findViewById(R.id.hunting_list_entry_count);
-            optionsMenu = view.findViewById(R.id.hunting_list_options);
+            container = view.findViewById(R.id.list_entry_card);
+            iconView = view.findViewById(R.id.list_entry_image);
+            nameView = view.findViewById(R.id.list_entry_name);
+            gameView = view.findViewById(R.id.list_entry_game);
+            countView = view.findViewById(R.id.list_entry_count);
+            optionsMenu = view.findViewById(R.id.list_options);
 
             view.setOnClickListener(this);
 

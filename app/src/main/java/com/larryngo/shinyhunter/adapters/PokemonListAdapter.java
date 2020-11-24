@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,11 +28,11 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     private final List<PokemonList> data;
     private List<PokemonList> data_all;
     private final PokemonListListener listener;
-    private final Context context;
+    private final Context mContext;
     private int limit = 890;
 
     public PokemonListAdapter(Context context, ArrayList<PokemonList> data, PokemonListListener listener) {
-        this.context = context;
+        this.mContext = context;
         this.data = data;
         this.data_all = new ArrayList<>(data);
         this.listener = listener;
@@ -46,6 +48,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         PokemonList pokemon = data.get(position);
+
+        holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
 
         String name = pokemon.getName().substring(0, 1).toUpperCase() + pokemon.getName().substring(1); //capitalize first letter of word
         holder.name.setText(name);
@@ -65,7 +69,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
             holder.id.setText(index_number);
         }
 
-        Glide.with(context)
+        Glide.with(mContext)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.getId() + ".png")
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -129,6 +133,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     };
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final LinearLayout container;
         private final GifImageView image;
         private final TextView id;
         private final TextView name;
@@ -136,6 +141,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         public ViewHolder(View view) {
             super(view);
 
+            container = view.findViewById(R.id.pokemon_list_entry_card);
             image = view.findViewById(R.id.pokemon_list_entry_image);
             id = view.findViewById(R.id.pokemon_list_entry_id);
             name = view.findViewById(R.id.pokemon_list_entry_name);

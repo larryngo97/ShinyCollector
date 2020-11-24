@@ -163,11 +163,4 @@ public class Settings extends AppCompatActivity {
     public static void saveVibrateMode(boolean value) {
         App.getTinyDB().putBoolean(SETTING_VIBRATEMODE_KEY, value);
     }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        setResult(1001, intent); //tells home to restart to refresh list
-        finish();
-    }
 }

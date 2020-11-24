@@ -6,10 +6,12 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -54,6 +56,9 @@ public class GameListAdapter extends BaseAdapter implements Filterable {
             LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE); //grabs inflate info
             gridView = inflater.inflate(R.layout.game_list_entry, parent, false); //inflates the grid
         }
+
+        LinearLayout layoutView = gridView.findViewById(R.id.game_list_entry_card);
+        layoutView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
 
         ImageView iconView = gridView.findViewById(R.id.game_list_entry_image);
         TextView titleView = gridView.findViewById(R.id.game_list_entry_title);

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.larryngo.shinyhunter.R;
@@ -17,12 +19,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class MethodListAdapter extends BaseAdapter implements Filterable {
-    private final Context context;
+    private final Context mContext;
     private final List<Method> list_methods;
     private final List<Method> list_methods_all;
 
     public MethodListAdapter(Context context, ArrayList<Method> list_methods) {
-        this.context = context;
+        this.mContext = context;
         this.list_methods = list_methods;
         this.list_methods_all = new ArrayList<>(list_methods);
     }
@@ -49,9 +51,12 @@ public class MethodListAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
         View gridView = convertView;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); //grabs inflate info
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE); //grabs inflate info
             gridView = inflater.inflate(R.layout.method_list_entry, parent, false); //inflates the grid
         }
+
+        LinearLayout linearLayout = gridView.findViewById(R.id.method_list_entry_card);
+        linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
 
         TextView titleView = gridView.findViewById(R.id.method_list_entry_title);
         titleView.setText(list_methods.get(position).getName());

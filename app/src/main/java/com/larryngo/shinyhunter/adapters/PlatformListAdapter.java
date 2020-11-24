@@ -1,13 +1,16 @@
 package com.larryngo.shinyhunter.adapters;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.larryngo.shinyhunter.R;
@@ -21,11 +24,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapter.ViewHolder> implements Filterable {
+    private final Context mContext;
     private List<Platform> data;
     private List<Platform> data_all;
     private final PlatformListListener listener;
 
-    public PlatformListAdapter(ArrayList<Platform> data, PlatformListListener listener){
+    public PlatformListAdapter(Context context, ArrayList<Platform> data, PlatformListListener listener){
+        this.mContext = context;
         this.data = data;
         this.data_all = new ArrayList<>(data);
         this.listener = listener;
@@ -48,6 +53,7 @@ public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Platform platform = data.get(position);
 
+        holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
         holder.name.setText(platform.getName());
         Bitmap bitmap = BitmapFactory.decodeByteArray(platform.getImage(), 0, platform.getImage().length);
 
@@ -65,12 +71,14 @@ public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final LinearLayout container;
         private final ImageView image;
         private final TextView name;
 
         public ViewHolder(View view) {
             super(view);
 
+            container = view.findViewById(R.id.platform_list_entry_card);
             name = view.findViewById(R.id.platform_list_entry_name);
             image = view.findViewById(R.id.platform_list_entry_image);
 

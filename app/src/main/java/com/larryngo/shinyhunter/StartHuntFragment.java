@@ -181,24 +181,24 @@ public class StartHuntFragment extends Fragment {
             //GAME BUTTON
             //Selecting a game which will filter out which pokemon can be caught (it determines
             //the current generation of that game)
-            button_game.setOnClickListener(v -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+            button_game.setOnClickListener(v -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new GameListFragment()).addToBackStack(null).commit());
 
             //POKEMON BUTTON
             //Main entry in the set. Creates a view of the entire pokemon library where user can
             //select the icon from specific games (or choose default!) for creativity.
-            button_pokemon.setOnClickListener(v -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+            button_pokemon.setOnClickListener(v -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new PokemonListFragment()).addToBackStack(null).commit());
 
 
             //PLATFORM BUTTON
             //Creates a platform image that sits under the pokemon. Just a cosmetic enhancement!
-            button_platform.setOnClickListener(view -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+            button_platform.setOnClickListener(view -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new PlatformListFragment()).addToBackStack(null).commit());
 
             //METHOD BUTTON
             //A simple list of available methods.
-            button_method.setOnClickListener(view -> fm.beginTransaction().setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up)
+            button_method.setOnClickListener(view -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new MethodListFragment()).addToBackStack(null).commit());
 
         }

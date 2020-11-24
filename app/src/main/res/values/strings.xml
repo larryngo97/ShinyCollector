@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shiny Hunter</string>
+    <string name="app_name">PokéHunter</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
     <string name="title_dashboard">Dashboard</string>
@@ -144,7 +144,7 @@
     <string name="settings_preference_darkmode_desc">Turns on dark mode to save battery</string>
     <string name="settings_preference_darkmode_key">NightMode</string>
 
-    <string name="settings_preference_sortlist_title">Sort List</string>
+    <string name="settings_preference_sortlist_title">Sort List (Applied after restart)</string>
     <string name="settings_preference_sortlist_desc">Default: Sort from newest to oldest</string>
     <string name="settings_preference_sortlist_key">SortMode</string>
     <string-array name="settings_preference_sortlist_entries">

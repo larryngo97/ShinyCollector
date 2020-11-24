@@ -60,11 +60,12 @@ public class PlatformListFragment extends Fragment {
             list_platforms_tokens = Arrays.asList(getResources().getStringArray(R.array.list_platforms_tokens));
 
             init();
-            adapter = new PlatformListAdapter(new ArrayList<>(), rv_listener);
-            recyclerView.setAdapter(adapter);
 
             final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
+
+            adapter = new PlatformListAdapter(getContext(), new ArrayList<>(), rv_listener);
+            recyclerView.setAdapter(adapter);
 
             collectData();
         } else {
@@ -120,13 +121,12 @@ public class PlatformListFragment extends Fragment {
 
                     Platform platform = new Platform(list_platforms_names.get(i), image); //creates the platform
                     list_platforms.add(platform); //adds platform to the list
-                    adapter.addDataList(list_platforms); //tells adapter to update the list based on the current list
                 }
             }catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
+        adapter.addDataList(list_platforms); //tells adapter to update the list based on the current list
         loadingDialog.dismissDialog();
     }
 

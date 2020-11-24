@@ -134,18 +134,10 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.home_menu_settings) {
             Intent intent = new Intent(HomeActivity.this, Settings.class);
-            startActivityForResult(intent, REQUEST_CODE_RESTART); //home should be reset every time user exits settings
+            startActivity(intent); //home should be reset every time user exits settings
 
         }
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_RESTART) { //restart code
-            recreate(); //restart
-        }
     }
 
     @Override
