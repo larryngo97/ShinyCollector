@@ -1,6 +1,5 @@
 package com.larryngo.shinyhunter.util;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.larryngo.shinyhunter.R;
