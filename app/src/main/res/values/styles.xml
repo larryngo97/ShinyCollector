@@ -8,6 +8,8 @@
         <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="buttonStyle">@style/ButtonNormalTheme</item>
+
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="HomeThemeDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">

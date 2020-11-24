@@ -25,10 +25,12 @@ import java.util.Date;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import pl.droidsonroids.gif.GifImageView;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+import androidx.transition.Fade;
 
 import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
-import static com.larryngo.shinyhunter.HomeCompletedFragment.completedViewModel;
 
 public class PokemonHuntActivity extends AppCompatActivity {
     private static final String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
@@ -43,7 +45,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private ImageButton button_back;
     private ConstraintLayout screen;
     private TextView pokemon_name;
-    private GifImageView pokemon_image;
+    private ImageView pokemon_image;
     private ImageView platform_image;
     private TextView counter_count;
 
@@ -82,6 +84,14 @@ public class PokemonHuntActivity extends AppCompatActivity {
         button_editHunt = findViewById(R.id.button_edithunt);
         button_claim = findViewById(R.id.button_claim);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        Fade fade = new Fade();
+        View decor = getWindow().getDecorView();
+        fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+
+        getWindow().setExitTransition(null);
 
         Bundle extras = getIntent().getExtras();
 
@@ -238,7 +248,12 @@ public class PokemonHuntActivity extends AppCompatActivity {
                             Intent intent = new Intent(PokemonHuntActivity.this, ClaimActivity.class);
                             intent.putExtra("ARGUMENT_CLAIM_COUNTER_ID", counter.getId());
                             intent.putExtra("ARGUMENT_CLAIM_COUNTER", counter);
-                            startActivity(intent);
+
+                            Pair image1 = Pair.create(pokemon_image, ViewCompat.getTransitionName(pokemon_image));
+                            Pair image2 = Pair.create(platform_image, ViewCompat.getTransitionName(platform_image));
+                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                    PokemonHuntActivity.this, image1, image2);
+                            startActivity(intent, options.toBundle());
 
                             /*
                             huntingViewModel.deleteCounter(counter); //remove from current hunting list
