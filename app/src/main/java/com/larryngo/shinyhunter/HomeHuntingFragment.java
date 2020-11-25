@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinyhunter.adapters.HomeListAdapter;
 import com.larryngo.shinyhunter.models.Counter;
-import com.larryngo.shinyhunter.util.Settings;
 import com.larryngo.shinyhunter.util.Utilities;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModel;
 import com.larryngo.shinyhunter.viewmodels.HuntingViewModelFactory;
@@ -30,17 +29,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeHuntingFragment extends Fragment {
-    protected static ArrayList<Counter> list = new ArrayList<>();
     public HomeListAdapter adapter;
     public static HuntingViewModel huntingViewModel;
+    private HomeListAdapter.RecyclerViewListener recyclerViewListener;
 
     private int oldListSize;
     private RecyclerView recyclerView;
-    private HomeListAdapter.RecyclerViewListener listener;
 
     private TextView text_nohunts;
     private ImageView image_arrow_down;
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
+
+    public static HomeHuntingFragment newInstance() {
+        return new HomeHuntingFragment();
+    }
 
     @Nullable
     @Override
@@ -64,10 +66,12 @@ public class HomeHuntingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         HuntingViewModelFactory factory = new HuntingViewModelFactory(requireActivity().getApplication());
         huntingViewModel = new ViewModelProvider(this, factory).get(HuntingViewModel.class);
-        adapter = new HomeListAdapter(this.getContext(), listener);
+        adapter = new HomeListAdapter(this.getContext(), recyclerViewListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+        System.out.println("TEST Hunting");
 
         huntingViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
@@ -87,13 +91,11 @@ public class HomeHuntingFragment extends Fragment {
                 }
 
                 adapter.setCountersList(counters);
-                adapter.refreshList();
 
                 recyclerView.setAdapter(adapter);
                 oldListSize = size;
             }
         });
-
     }
 
     public void setOnClickListener() {
@@ -103,7 +105,7 @@ public class HomeHuntingFragment extends Fragment {
 
         });
 
-        listener = (v, position) -> PokemonHuntActivity.start(getActivity(), Objects.requireNonNull(huntingViewModel.getCounters().getValue()).get(position));
+        recyclerViewListener = (v, position) -> PokemonHuntActivity.start(getActivity(), Objects.requireNonNull(huntingViewModel.getCounters().getValue()).get(position));
     }
 
 
@@ -161,7 +163,6 @@ public class HomeHuntingFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        System.out.println("STARTED");
     }
 
     @Override

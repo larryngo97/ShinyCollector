@@ -24,12 +24,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeCompletedFragment extends Fragment {
-    public static CompletedViewModel completedViewModel;
     public HomeListAdapter adapter;
+    public static CompletedViewModel completedViewModel;
     private HomeListAdapter.RecyclerViewListener recyclerViewListener;
 
     private RecyclerView recyclerView;
     FloatingActionButton fab;
+
+    private int oldListSize;
+
+    public static HomeCompletedFragment newInstance() {
+        return new HomeCompletedFragment();
+    }
 
     @Nullable
     @Override
@@ -41,8 +47,8 @@ public class HomeCompletedFragment extends Fragment {
         fab.setVisibility(View.GONE);
 
         setOnClickListener();
-
         setHasOptionsMenu(true);
+
         return view;
     }
 
@@ -56,13 +62,21 @@ public class HomeCompletedFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        System.out.println("TEST Completed");
+
         completedViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
+                int size = counters.size();
+
+                if(oldListSize != size) {
+                    System.out.println("Old size: " + oldListSize + " \nNew Size: " + size);
+                    adapter.notifyDataSetChanged();
+                }
+
                 adapter.setCountersList(counters);
 
-                adapter.refreshList();
-
                 recyclerView.setAdapter(adapter);
+                oldListSize = size;
             }
         });
 
@@ -121,5 +135,11 @@ public class HomeCompletedFragment extends Fragment {
                 adapter.refreshList();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.refreshList();
     }
 }

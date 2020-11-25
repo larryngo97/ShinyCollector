@@ -31,10 +31,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
+
 
 public class HomeActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private AdView mAdView;
-    private final static int REQUEST_CODE_RESTART = 1001;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         boolean nightMode = Settings.isDarkModeOn();
@@ -48,6 +53,10 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tabLayout = findViewById(R.id.home_tabLayout);
+        viewPager = findViewById(R.id.home_viewPager);
+
+        /*
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -58,22 +67,26 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+         */
+
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
 
-        TabLayout tabLayout = findViewById(R.id.home_tabLayout);
-        ViewPager viewPager = findViewById(R.id.home_viewPager);
+        setupViewPager();
 
-        HomeHuntingFragment homeHuntingFragment = new HomeHuntingFragment();
-        HomeCompletedFragment homeCompletedFragment = new HomeCompletedFragment();
-        //HomeStatisticsFragment homeStatisticsFragment = new HomeStatisticsFragment();
+    }
+
+    public void setupViewPager() {
+        HomeHuntingFragment homeHuntingFragment = HomeHuntingFragment.newInstance();
+        HomeCompletedFragment homeCompletedFragment = HomeCompletedFragment.newInstance();
+        HomeStatisticsFragment homeStatisticsFragment = HomeStatisticsFragment.newInstance();
 
         tabLayout.setupWithViewPager(viewPager);
 
-        SectionsPageAdapter viewPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), 0);
+        SectionsPageAdapter viewPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerAdapter.addFragment(homeHuntingFragment, getResources().getString(R.string.home_hunting_title));
         viewPagerAdapter.addFragment(homeCompletedFragment, getResources().getString(R.string.home_completed_title));
-        //viewPagerAdapter.addFragment(homeStatisticsFragment, getResources().getString(R.string.home_statistics_title));
+        viewPagerAdapter.addFragment(homeStatisticsFragment, getResources().getString(R.string.home_statistics_title));
         viewPager.setAdapter(viewPagerAdapter);
 
         if(tabLayout.getTabAt(0) != null) {
@@ -82,13 +95,9 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         if(tabLayout.getTabAt(1) != null) {
             tabLayout.getTabAt(1).setIcon(R.drawable.icon_completed);
         }
-        /*
         if(tabLayout.getTabAt(2) != null) {
             tabLayout.getTabAt(2).setIcon(R.drawable.icon_statistics);
         }
-
-         */
-
 
     }
 
@@ -141,11 +150,6 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -164,6 +168,15 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        switch(key) {
+            case Settings.SETTING_SORT_KEY:
+                System.out.println("Sort Key changed");
+                break;
+            case Settings.SETTING_NIGHTMODE_KEY:
+                System.out.println("Dark Mode changed");
+                break;
+            default:
 
+        }
     }
 }

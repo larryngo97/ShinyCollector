@@ -3,6 +3,7 @@ package com.larryngo.shinyhunter.util;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.larryngo.shinyhunter.HomeHuntingFragment;
 import com.larryngo.shinyhunter.R;
 import com.larryngo.shinyhunter.app.App;
 import com.larryngo.shinyhunter.models.Counter;
@@ -21,10 +22,10 @@ import androidx.preference.PreferenceFragmentCompat;
 
 public class Settings extends AppCompatActivity {
 
-    public static String SETTING_NIGHTMODE_KEY = "dark_mode";
-    public static String SETTING_VIBRATEMODE_KEY = "vibrate_mode";
-    public static String SETTING_SORT_KEY = "sort_key";
-    public static String SETTING_ANIM_KEY ="anim_key";
+    public static final String SETTING_NIGHTMODE_KEY = "dark_mode";
+    public static final String SETTING_VIBRATEMODE_KEY = "vibrate_mode";
+    public static final String SETTING_SORT_KEY = "sort_key";
+    public static final String SETTING_ANIM_KEY ="anim_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,7 @@ public class Settings extends AppCompatActivity {
     public static void sortCounter(List<Counter> countersList) {
         String sortKey = getSortKey();
         System.out.println("Sorting by " + sortKey);
+        countersList.sort(Counter.COMPARE_BY_LISTID_DESC);
         switch(sortKey) {
             case "date_old":
                 countersList.sort(Counter.COMPARE_BY_LISTID_ASC); //oldest

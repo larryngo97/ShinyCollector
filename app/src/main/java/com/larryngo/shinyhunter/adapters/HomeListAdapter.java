@@ -127,6 +127,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             });
             counters = update;
             counters_all = new ArrayList<>(counters);
+            counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
+            Settings.sortCounter(counters);
             result.dispatchUpdatesTo(this);
         }
     }
@@ -235,10 +237,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     };
 
     public void refreshList() {
-        counters.clear();
-        counters.addAll(counters_all);
-        counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
-        Settings.sortCounter(counters); //sort by preference
+        setCountersList(counters);
         notifyDataSetChanged();
     }
 

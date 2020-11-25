@@ -180,24 +180,29 @@
 
     </TextView>
 
-    <TextView
-        android:id="@+id/pokemon_count"
+    <FrameLayout
         android:background="@drawable/box_hunt_preview"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:translationY="-30dp"
-        android:fontFamily="@font/mazzard_light"
-        android:gravity="center"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="48sp"
-        app:autoSizeMaxTextSize="96sp"
-        app:autoSizeMinTextSize="24sp"
-        app:autoSizeStepGranularity="2sp"
-        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/counter_image_frame" />
+        app:layout_constraintTop_toBottomOf="@+id/counter_image_frame">
+
+        <TextView
+            android:id="@+id/pokemon_count"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/mazzard_light"
+            android:gravity="center"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="48sp"
+            app:autoSizeMaxTextSize="96sp"
+            app:autoSizeMinTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.larryngo.shinyhunter;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -274,14 +276,22 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
     public void editCounter(int step) {
         if(Settings.isAnimModeOn()) {
-            ValueAnimator anim = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + step);
             long duration = abs(step * 100); // 0.1 second per step
             if (duration > COUNTER_ANIMATION_DURATION) {
                 duration = COUNTER_ANIMATION_DURATION; //1 second max (10 is the threshhold)
             }
-            anim.setDuration(duration);
-            anim.addUpdateListener(animation -> counter_count.setText(anim.getAnimatedValue().toString()));
-            anim.start();
+
+            ObjectAnimator numberSizeAnimation =
+                    ObjectAnimator.ofPropertyValuesHolder(counter_count,
+                            PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.5f, 1.0f),
+                            PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.5f, 1.0f));
+            numberSizeAnimation.setDuration(duration);
+            numberSizeAnimation.start();
+
+            ValueAnimator numberChangeAnimation = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + step);
+            numberChangeAnimation.setDuration(duration);
+            numberChangeAnimation.addUpdateListener(animation -> counter_count.setText(numberChangeAnimation.getAnimatedValue().toString()));
+            numberChangeAnimation.start();
         } else {
             counter_count.setText(String.valueOf(counter.getCount() + step));
         }

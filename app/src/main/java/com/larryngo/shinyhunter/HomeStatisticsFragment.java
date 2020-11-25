@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 
 public class HomeStatisticsFragment extends Fragment {
 
+    public static HomeStatisticsFragment newInstance() {
+        return new HomeStatisticsFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

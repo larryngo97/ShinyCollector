@@ -1,22 +1,16 @@
 package com.larryngo.shinyhunter.viewmodels;
 
-import android.app.Activity;
 import android.app.Application;
-import android.widget.Toast;
 
-import com.larryngo.shinyhunter.PokemonHuntActivity;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.respositories.HuntingRepository;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
 
 import androidx.annotation.IntRange;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -25,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class HuntingViewModel extends AndroidViewModel {
     private final HuntingRepository repository;
     private final LiveData<List<Counter>> counters;
+
 
     HuntingViewModel(Application application, HuntingRepository huntingRepository) {
         super(application);
@@ -62,12 +57,12 @@ public class HuntingViewModel extends AndroidViewModel {
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@androidx.annotation.NonNull Throwable e) {
 
                         }
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                         }
 
@@ -111,12 +106,12 @@ public class HuntingViewModel extends AndroidViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@androidx.annotation.NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                     }
                 });
@@ -133,12 +128,12 @@ public class HuntingViewModel extends AndroidViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@androidx.annotation.NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                     }
                 });
@@ -155,12 +150,12 @@ public class HuntingViewModel extends AndroidViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@androidx.annotation.NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                     }
                 });
@@ -177,12 +172,12 @@ public class HuntingViewModel extends AndroidViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@androidx.annotation.NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                     }
                 });
@@ -199,12 +194,12 @@ public class HuntingViewModel extends AndroidViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@androidx.annotation.NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                     }
                 });
@@ -221,16 +216,17 @@ public class HuntingViewModel extends AndroidViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@androidx.annotation.NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@androidx.annotation.NonNull Disposable d) {
 
                     }
                 });
     }
+
 
     /*
     private MutableLiveData<List<Counter>> hunting_list;
