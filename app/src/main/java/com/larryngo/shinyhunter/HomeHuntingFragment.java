@@ -71,8 +71,6 @@ public class HomeHuntingFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        System.out.println("TEST Hunting");
-
         huntingViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
                 final int size = counters.size();
@@ -163,11 +161,11 @@ public class HomeHuntingFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        adapter.refreshList();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        adapter.refreshList();
     }
 }

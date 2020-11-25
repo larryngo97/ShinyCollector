@@ -62,8 +62,6 @@ public class HomeCompletedFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        System.out.println("TEST Completed");
-
         completedViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
                 int size = counters.size();
@@ -140,6 +138,11 @@ public class HomeCompletedFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         adapter.refreshList();
     }
 }
