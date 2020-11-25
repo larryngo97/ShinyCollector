@@ -114,6 +114,19 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_banner_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hunt_appbar">
+    </com.google.android.gms.ads.AdView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/counter_image_frame"
         android:layout_margin="20dp"

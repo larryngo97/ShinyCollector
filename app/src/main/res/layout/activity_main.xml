@@ -35,7 +35,7 @@
         android:id="@+id/home_viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_appBarLayout"
+        android:layout_below="@+id/adView"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/home_appBarLayout"
         ads:adSize="BANNER"
         ads:adUnitId="@string/admob_banner_id">
     </com.google.android.gms.ads.AdView>

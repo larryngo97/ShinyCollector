@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.models.Game;
 import com.larryngo.shinyhunter.models.Method;
@@ -48,6 +50,8 @@ public class StartHuntFragment extends Fragment {
     private Pokemon pokemon;
     private Platform platform;
     private Method method;
+
+    private InterstitialAd ad;
 
     public void updateGame(Game input){
         if(input == null) return;
@@ -117,6 +121,10 @@ public class StartHuntFragment extends Fragment {
             image_platform = view.findViewById(R.id.image_platform);
             button_start = view.findViewById(R.id.button_start);
 
+            ad = new InterstitialAd(requireContext());
+            ad.setAdUnitId(getString(R.string.admob_interstitial_starthunt_id));
+            ad.loadAd(new AdRequest.Builder().build());
+
             //Setting buttons to be disabled until other options are selected. (See update
             //functions above)
             button_game.setEnabled(true);
@@ -168,6 +176,10 @@ public class StartHuntFragment extends Fragment {
                     Date date = new Date();
                     String stringDate = DateFormat.getDateTimeInstance().format(date);
                     counter.setDateCreated(stringDate);
+
+                    if(ad.isLoaded() || ad.isLoading()) {
+                        ad.show();
+                    }
 
                     huntingViewModel.addCounter(counter);
 

@@ -44,7 +44,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
         PokemonGameIcon game = data.get(position);
 
         if(Settings.isAnimModeOn()) {
-            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_grow_right));
         }
 
         String name = game.getName();

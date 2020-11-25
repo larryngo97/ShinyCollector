@@ -51,7 +51,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         PokemonList pokemon = data.get(position);
 
         if(Settings.isAnimModeOn()) {
-            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_grow_right));
         }
 
         String name = pokemon.getName().substring(0, 1).toUpperCase() + pokemon.getName().substring(1); //capitalize first letter of word

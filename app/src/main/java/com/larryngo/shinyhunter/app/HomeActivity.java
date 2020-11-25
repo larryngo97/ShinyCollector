@@ -35,8 +35,6 @@ import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CU
 
 
 public class HomeActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private AdView mAdView;
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -56,24 +54,23 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         tabLayout = findViewById(R.id.home_tabLayout);
         viewPager = findViewById(R.id.home_viewPager);
 
-        /*
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
 
             }
         });
-        mAdView = findViewById(R.id.adView);
+
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-         */
 
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
 
         setupViewPager();
-
     }
 
     public void setupViewPager() {

@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.larryngo.shinyhunter.models.Counter;
 import com.larryngo.shinyhunter.util.Settings;
@@ -97,6 +99,10 @@ public class PokemonHuntActivity extends AppCompatActivity {
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
 
         getWindow().setExitTransition(null);
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         Bundle extras = getIntent().getExtras();
 

@@ -60,7 +60,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         int count = counters.get(position).getCount();
 
         if(Settings.isAnimModeOn()) {
-            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop_up));
         }
         Glide.with(mContext)
                 .load(pokemon_image)

@@ -55,7 +55,7 @@ public class PlatformListAdapter extends RecyclerView.Adapter<PlatformListAdapte
         Platform platform = data.get(position);
 
         if(Settings.isAnimModeOn()) {
-            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+            holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_grow_right));
         }
         holder.name.setText(platform.getName());
         Bitmap bitmap = BitmapFactory.decodeByteArray(platform.getImage(), 0, platform.getImage().length);

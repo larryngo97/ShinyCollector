@@ -60,7 +60,7 @@ public class GameListAdapter extends BaseAdapter implements Filterable {
 
         LinearLayout layoutView = gridView.findViewById(R.id.game_list_entry_card);
         if(Settings.isAnimModeOn()) {
-            layoutView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_pop));
+            layoutView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_grow_right));
         }
 
         ImageView iconView = gridView.findViewById(R.id.game_list_entry_image);

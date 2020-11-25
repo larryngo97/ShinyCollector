@@ -9,6 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.appbar.AppBarLayout;
 import com.larryngo.shinyhunter.app.HomeActivity;
 import com.larryngo.shinyhunter.models.Counter;
@@ -38,6 +42,8 @@ public class ClaimActivity extends AppCompatActivity {
     private ImageView image_platform;
     private GifImageView image_pokemon;
 
+    private InterstitialAd ad;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +63,10 @@ public class ClaimActivity extends AppCompatActivity {
         image_platform = findViewById(R.id.image_platform);
         image_pokemon = findViewById(R.id.image_pokemon);
         button_addToCollection = findViewById(R.id.button_addcollection);
+
+        ad = new InterstitialAd(this);
+        ad.setAdUnitId(getString(R.string.admob_interstitial_claim_id));
+        ad.loadAd(new AdRequest.Builder().build());
 
         Bundle extras = getIntent().getExtras();
 
@@ -105,6 +115,10 @@ public class ClaimActivity extends AppCompatActivity {
             Intent intent = new Intent(ClaimActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
+            if(ad.isLoaded() || ad.isLoading()) {
+                ad.show();
+            }
 
             finish();
         });
