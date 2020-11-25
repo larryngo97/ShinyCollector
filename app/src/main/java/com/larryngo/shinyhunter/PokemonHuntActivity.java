@@ -32,6 +32,7 @@ import androidx.core.view.ViewCompat;
 import androidx.transition.Fade;
 
 import static com.larryngo.shinyhunter.HomeHuntingFragment.huntingViewModel;
+import static java.lang.Math.abs;
 
 public class PokemonHuntActivity extends AppCompatActivity {
     private static final String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
@@ -41,6 +42,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
     public static int MAX_COUNT_VALUE = 999999;
     private static final int MAX_STEP_VALUE = 99;
     private static final int VIBRATION_TIME = 50;
+    private static final long COUNTER_ANIMATION_DURATION = 1000;
 
     private AppBarLayout appBarLayout;
     private ImageButton button_back;
@@ -139,34 +141,14 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
         screen.setOnClickListener(view -> {
             vibrate();
-
-            if(Settings.isAnimModeOn()) {
-                ValueAnimator anim = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + counter.getStep());
-                anim.addUpdateListener(animation -> counter_count.setText(anim.getAnimatedValue().toString()));
-                anim.start();
-            } else {
-                counter_count.setText(String.valueOf(counter.getCount() + counter.getStep()));
-            }
-
-            counter.add(counter.getStep());
-            huntingViewModel.modifyCounter(counter, counter.getCount());
+            editCounter(counter.getStep());
         });
 
         button_back.setOnClickListener(v -> onBackPressed());
 
         button_undo.setOnClickListener(view -> {
             vibrate();
-
-            if(Settings.isAnimModeOn()) {
-                ValueAnimator anim = ValueAnimator.ofInt(counter.getCount(), counter.getCount() - counter.getStep());
-                anim.addUpdateListener(animation -> counter_count.setText(anim.getAnimatedValue().toString()));
-                anim.start();
-            } else {
-                counter_count.setText(String.valueOf(counter.getCount() - counter.getStep()));
-            }
-
-            counter.add(-counter.getStep());
-            huntingViewModel.modifyCounter(counter, counter.getCount());
+            editCounter(-counter.getStep());
         });
 
         String incrementText = "+" + counter.getStep();
@@ -288,6 +270,24 @@ public class PokemonHuntActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void editCounter(int step) {
+        if(Settings.isAnimModeOn()) {
+            ValueAnimator anim = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + step);
+            long duration = abs(step * 100); // 0.1 second per step
+            if (duration > COUNTER_ANIMATION_DURATION) {
+                duration = COUNTER_ANIMATION_DURATION; //1 second max (10 is the threshhold)
+            }
+            anim.setDuration(duration);
+            anim.addUpdateListener(animation -> counter_count.setText(anim.getAnimatedValue().toString()));
+            anim.start();
+        } else {
+            counter_count.setText(String.valueOf(counter.getCount() + step));
+        }
+
+        counter.add(step);
+        huntingViewModel.modifyCounter(counter, counter.getCount());
     }
 
     public void vibrate() {
