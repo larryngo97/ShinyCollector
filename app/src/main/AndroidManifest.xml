@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.larryngo.shinyhunter">
+    package="com.larryngo.shinycollector">
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,14 +12,14 @@
         android:xlargeScreens="false"/>
 
     <application
-        android:name=".app.App"
+        android:name="com.larryngo.shinycollector.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/HomeTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.larryngo.shinycollector.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -29,23 +29,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.HomeActivity"
+            android:name="com.larryngo.shinycollector.app.HomeActivity"
             android:label="@string/title_home">
 
         </activity>
-        <activity android:name=".StartHuntActivity">
+        <activity android:name="com.larryngo.shinycollector.StartHuntActivity">
 
         </activity>
-        <activity android:name=".PokemonHuntActivity">
+        <activity android:name="com.larryngo.shinycollector.PokemonHuntActivity">
 
         </activity>
 
-        <activity android:name=".ClaimActivity">
+        <activity android:name="com.larryngo.shinycollector.ClaimActivity">
 
         </activity>
 
         <activity
-            android:name=".util.Settings"
+            android:name="com.larryngo.shinycollector.util.Settings"
             android:label="@string/title_settings">
 
         </activity>

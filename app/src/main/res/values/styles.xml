@@ -63,6 +63,28 @@
         <item name="android:textColorHint">#5000</item>
     </style>
 
+    <style name="cardview_text_main">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <style name="cardview_text_header">
+        <item name="android:fontFamily">@font/mazzard</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
     <style name="ActionBarImageButtons">
         <!-- Customize your theme here. -->
         <item name="android:layout_width">40dp</item>

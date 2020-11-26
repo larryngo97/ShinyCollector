@@ -5,6 +5,10 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="backgroundColor">#121212</color>
     <color name="cardBackgroundColor">#1F1B24</color>
+    <color name="cardBackgroundColorVariant">#9253a3</color>
+    <color name="cardBackgroundColorVariant2">#da3b39</color>
+    <color name="cardBackgroundColorVariant3">#2177aa</color>
+    <color name="cardBackgroundColorVariant4">#16697a</color>
     <color name="textColorPrimary">#ffffff</color>
     <color name="textColorSecondary">#ffffff</color>
     <color name="textColorShadow">#000000</color>
