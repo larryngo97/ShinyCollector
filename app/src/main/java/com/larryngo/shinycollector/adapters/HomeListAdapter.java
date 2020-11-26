@@ -127,7 +127,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             });
             counters = update;
             counters_all = new ArrayList<>(counters);
-            counters.sort(Counter.COMPARE_BY_LISTID_DESC); //ALWAYS sort by the newest entry, followed by preference
             Settings.sortCounter(counters);
             result.dispatchUpdatesTo(this);
         }
@@ -221,7 +220,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     }
                 }
             }
-            filteredList.sort(Counter.COMPARE_BY_LISTID_DESC);
+            Settings.sortCounter(filteredList);
             FilterResults results = new FilterResults();
             results.values = filteredList;
 
@@ -243,7 +242,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         LinearLayout container;
-        GifImageView iconView;
+        ImageView iconView;
         TextView nameView;
         TextView gameView;
         TextView countView;

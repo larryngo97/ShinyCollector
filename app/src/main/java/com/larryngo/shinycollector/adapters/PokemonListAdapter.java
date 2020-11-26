@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -137,7 +138,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final LinearLayout container;
-        private final GifImageView image;
+        private final ImageView image;
         private final TextView id;
         private final TextView name;
 

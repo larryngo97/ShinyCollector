@@ -116,10 +116,25 @@ public class Settings extends AppCompatActivity {
     public static void sortCounter(List<Counter> countersList) {
         String sortKey = getSortKey();
         System.out.println("Sorting by " + sortKey);
-        countersList.sort(Counter.COMPARE_BY_LISTID_DESC);
+        boolean isCompleted = false;
+
+        //sort by newest first
+        if(!countersList.isEmpty()) {
+            if(countersList.get(0).getDateFinished() != null) { //checks the first index to see if it is completed or not
+                isCompleted = true;
+                countersList.sort(Counter.COMPARE_BY_DATE_FINISHED_DESC);
+            } else {
+                countersList.sort(Counter.COMPARE_BY_DATE_STARTED_DESC);
+            }
+        }
         switch(sortKey) {
             case "date_old":
-                countersList.sort(Counter.COMPARE_BY_LISTID_ASC); //oldest
+                //oldest
+                if(isCompleted) {
+                    countersList.sort(Counter.COMPARE_BY_DATE_FINISHED_ASC);
+                } else {
+                    countersList.sort(Counter.COMPARE_BY_DATE_STARTED_ASC);
+                }
                 break;
             case "count_highest":
                 countersList.sort(Counter.COMPARE_BY_COUNT_DESC); //most count
@@ -146,7 +161,6 @@ public class Settings extends AppCompatActivity {
                 countersList.sort(Counter.COMPARE_BY_GAME_DESC); //game oldest to newest
                 break;
             default:
-                countersList.sort(Counter.COMPARE_BY_LISTID_DESC);
                 break;
         }
     }

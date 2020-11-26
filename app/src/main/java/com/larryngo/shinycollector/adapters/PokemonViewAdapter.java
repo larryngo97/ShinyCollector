@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,6 @@ import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import pl.droidsonroids.gif.GifImageView;
 
 public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.ViewHolder> {
     private final Context mContext;
@@ -78,7 +78,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final LinearLayout container;
-        private final GifImageView image;
+        private final ImageView image;
         private final TextView name;
 
         public ViewHolder(View view) {

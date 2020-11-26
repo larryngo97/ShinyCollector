@@ -4,14 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app = "http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="25dp"
+    android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app = "http://schemas.android.com/apk/res-auto"
         android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/layout1"
@@ -39,21 +39,20 @@
 
                     <TextView
                         android:id="@+id/caught_number"
+                        style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        style="@style/cardview_text_main"
-                        android:text="23"
-                        app:autoSizeTextType="uniform">
-                    </TextView>
+                        android:text="@string/text_number_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
+                        style="@style/cardview_text_header"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/caught_number"
-                        style="@style/cardview_text_header"
-                        android:text="Total Caught"
-                        app:autoSizeTextType="uniform">
-                    </TextView>
+                        android:text="@string/text_total_caught"
+                        app:autoSizeTextType="uniform"/>
+
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -72,23 +71,20 @@
 
                     <TextView
                         android:id="@+id/encounters_number"
+                        style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        style="@style/cardview_text_main"
-                        android:text="195700"
-                        app:autoSizeTextType="uniform">
-
-                    </TextView>
+                        android:text="@string/text_number_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
+                        style="@style/cardview_text_header"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/encounters_number"
-                        style="@style/cardview_text_header"
-                        android:text="# Encounters"
-                        app:autoSizeTextType="uniform">
+                        android:text="@string/text_number_encounters"
+                        app:autoSizeTextType="uniform"/>
 
-                    </TextView>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -105,22 +101,19 @@
 
                     <TextView
                         android:id="@+id/encounters_avg_number"
+                        style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        style="@style/cardview_text_main"
-                        android:text="8508.70"
-                        app:autoSizeTextType="uniform">
-
-                    </TextView>
+                        android:text="@string/text_number_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
+                        style="@style/cardview_text_header"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/encounters_avg_number"
-                        style="@style/cardview_text_header"
-                        android:text="Avg. Encounters"
-                        app:autoSizeTextType="uniform">
-                    </TextView>
+                        android:text="@string/text_average_encounters"
+                        app:autoSizeTextType="uniform"/>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -158,31 +151,29 @@
 
                         <TextView
                             android:id="@+id/game_with_most_name"
+                            style="@style/cardview_text_main"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            style="@style/cardview_text_main"
-                            android:text="FireRed"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
+                            android:text="@string/text_name_null"
+                            app:autoSizeTextType="uniform"/>
 
                         <TextView
                             android:id="@+id/game_with_most_number"
+                            style="@style/cardview_text_main"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_below="@+id/game_with_most_name"
-                            style="@style/cardview_text_main"
-                            android:text="3"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
+                            android:text="@string/text_number_null"
+                            app:autoSizeTextType="uniform"/>
 
                         <TextView
+                            style="@style/cardview_text_header"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/game_with_most_number"
-                            style="@style/cardview_text_header"
-                            android:text="Game Leader"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
+                            android:text="@string/text_most_games"
+                            app:autoSizeTextType="uniform"/>
+
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -200,31 +191,28 @@
 
                         <TextView
                             android:id="@+id/pokemon_with_most_name"
+                            style="@style/cardview_text_main"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            style="@style/cardview_text_main"
-                            android:text="Pikachu"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
+                            android:text="@string/text_name_null"
+                            app:autoSizeTextType="uniform"/>
 
                         <TextView
                             android:id="@+id/pokemon_with_most_number"
+                            style="@style/cardview_text_main"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_below="@+id/pokemon_with_most_name"
-                            style="@style/cardview_text_main"
-                            android:text="4"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
+                            android:text="@string/text_number_null"
+                            app:autoSizeTextType="uniform"/>
 
                         <TextView
+                            style="@style/cardview_text_header"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/pokemon_with_most_number"
-                            style="@style/cardview_text_header"
-                            android:text="Pokemon Leader"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
+                            android:text="@string/text_most_pokemon"
+                            app:autoSizeTextType="uniform"/>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -237,7 +225,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="4">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -245,72 +233,52 @@
                     <ImageView
                         android:id="@+id/random_image_platform"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/random_image_pokemon"
+                        android:layout_marginTop="-30dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="85dp"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/platform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:contentDescription="@string/app_name"/>
 
-                    </ImageView>
-
-                    <pl.droidsonroids.gif.GifImageView
+                    <ImageView
                         android:id="@+id/random_image_pokemon"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="55dp"
-                        android:layout_marginEnd="55dp"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_marginTop="10dp"
+                        android:layout_centerHorizontal="true"
                         android:src="@drawable/missingno"
-                        app:layout_constraintDimensionRatio="1:1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-                    </pl.droidsonroids.gif.GifImageView>
+                        android:contentDescription="@string/app_name" />
 
                     <TextView
                         android:id="@+id/random_encounters_number"
                         style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_above="@id/random_encounters_name"
                         android:layout_marginTop="10dp"
-                        android:text="13785"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toTopOf="@id/random_encounters_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/random_image_platform">
-
-                    </TextView>
+                        android:text="@string/text_number_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
                         android:id="@+id/random_encounters_name"
+                        style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/cardview_text_main"
-                        android:text="Missingno"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/random_encounters_number">
-
-                    </TextView>
+                        android:layout_above="@id/random_encounters_header"
+                        android:text="@string/text_name_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
                         android:id="@+id/random_encounters_header"
+                        style="@style/cardview_text_header"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        style="@style/cardview_text_header"
-                        android:text="Random spotlight"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-                    </TextView>
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/text_random_spotlight"
+                        app:autoSizeTextType="uniform"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
@@ -333,7 +301,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -341,72 +309,56 @@
                     <ImageView
                         android:id="@+id/most_image_platform"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/most_image_pokemon"
+                        android:layout_marginTop="-30dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="85dp"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/platform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:contentDescription="@string/app_name">
 
                     </ImageView>
 
-                    <pl.droidsonroids.gif.GifImageView
+                    <ImageView
                         android:id="@+id/most_image_pokemon"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_marginTop="10dp"
+                        android:layout_centerHorizontal="true"
                         android:src="@drawable/missingno"
-                        app:layout_constraintDimensionRatio="1:1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-                    </pl.droidsonroids.gif.GifImageView>
+                        android:contentDescription="@string/app_name">
+
+                    </ImageView>
 
                     <TextView
                         android:id="@+id/most_encounters_number"
                         style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_above="@id/most_encounters_name"
                         android:layout_marginTop="10dp"
-                        android:text="13785"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toTopOf="@id/most_encounters_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/most_image_platform">
-
-                    </TextView>
+                        android:text="@string/text_number_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
                         android:id="@+id/most_encounters_name"
+                        style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/cardview_text_main"
-                        android:text="Missingno"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/most_encounters_number">
-
-                    </TextView>
+                        android:layout_above="@id/most_encounters_header"
+                        android:text="@string/text_name_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
                         android:id="@+id/most_encounters_header"
+                        style="@style/cardview_text_header"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        style="@style/cardview_text_header"
-                        android:text="Most Encounters"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-                    </TextView>
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/text_most_encountered"
+                        app:autoSizeTextType="uniform"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -416,7 +368,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -424,76 +376,56 @@
                     <ImageView
                         android:id="@+id/least_image_platform"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/least_image_pokemon"
+                        android:layout_marginTop="-30dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="85dp"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/platform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:contentDescription="@string/app_name"/>
 
-                    </ImageView>
-
-                    <pl.droidsonroids.gif.GifImageView
+                    <ImageView
                         android:id="@+id/least_image_pokemon"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_marginTop="10dp"
+                        android:layout_centerHorizontal="true"
                         android:src="@drawable/missingno"
-                        app:layout_constraintDimensionRatio="1:1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-                    </pl.droidsonroids.gif.GifImageView>
+                        android:contentDescription="@string/app_name"/>
 
                     <TextView
                         android:id="@+id/least_encounters_number"
                         style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_above="@id/least_encounters_name"
                         android:layout_marginTop="10dp"
-                        android:text="13785"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toTopOf="@id/least_encounters_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/least_image_platform">
-
-                    </TextView>
+                        android:text="@string/text_number_null"
+                        app:autoSizeTextType="uniform"/>
 
                     <TextView
                         android:id="@+id/least_encounters_name"
+                        style="@style/cardview_text_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/cardview_text_main"
-                        android:text="Missingno"
+                        android:layout_above="@id/least_encounters_header"
+                        android:text="@string/text_name_null"
                         app:autoSizeTextType="uniform"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/least_encounters_number">
-
-                    </TextView>
+                        app:layout_constraintTop_toBottomOf="@+id/least_encounters_number"/>
 
                     <TextView
                         android:id="@+id/least_encounters_header"
+                        style="@style/cardview_text_header"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        style="@style/cardview_text_header"
-                        android:text="Least Encounters"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-                    </TextView>
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/text_least_encountered"
+                        app:autoSizeTextType="uniform"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

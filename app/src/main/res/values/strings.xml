@@ -115,6 +115,19 @@
     <string name="button_text_claim">Add to collection</string>
 
     <string name="claim_error_message">ERROR</string>
+    
+    <!-- Statistics -->
+    <string name="text_total_caught">Total Caught</string>
+    <string name="text_number_encounters"># Encounters</string>
+    <string name="text_average_encounters">Avg. Encounters</string>
+    <string name="text_most_games">Most # Game</string>
+    <string name="text_most_pokemon">Most # Pokemon</string>
+    <string name="text_random_spotlight">Random Spotlight</string>
+    <string name="text_most_encountered">Most Encounters</string>
+    <string name="text_least_encountered">Least Encounters</string>
+
+    <string name="text_name_null">\?</string>
+    <string name="text_number_null">0</string>
 
     <!-- Pokemon Types -->
 

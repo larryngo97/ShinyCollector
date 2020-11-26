@@ -8,7 +8,10 @@
     <color name="cardBackgroundColorVariant">#9253a3</color>
     <color name="cardBackgroundColorVariant2">#da3b39</color>
     <color name="cardBackgroundColorVariant3">#2177aa</color>
-    <color name="cardBackgroundColorVariant4">#16697a</color>
+    <color name="cardBackgroundColorVariant4">#7eab88</color>
+    <color name="cardBackgroundColorVariant5">#c63c6a</color>
+    <color name="cardBackgroundColorVariant6">#f05db1</color>
+    <color name="cardBackgroundColorVariant7">#ff7a58</color>
     <color name="textColorPrimary">#ffffff</color>
     <color name="textColorSecondary">#ffffff</color>
     <color name="textColorShadow">#000000</color>

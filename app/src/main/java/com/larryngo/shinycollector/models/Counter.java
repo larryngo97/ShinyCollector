@@ -52,11 +52,17 @@ public class Counter implements Parcelable {
         this.method = counter.method;
     }
 
-    public static Comparator<Counter> COMPARE_BY_LISTID_DESC = (obj1, obj2) ->
-            obj2.id - obj1.id;
+    public static Comparator<Counter> COMPARE_BY_DATE_STARTED_DESC = (obj1, obj2) ->
+            obj2.dateCreated.compareTo(obj1.dateCreated);
 
-    public static Comparator<Counter> COMPARE_BY_LISTID_ASC = (obj1, obj2) ->
-            obj1.id - obj2.id;
+    public static Comparator<Counter> COMPARE_BY_DATE_STARTED_ASC = (obj1, obj2) ->
+            obj1.dateCreated.compareTo(obj2.dateCreated);
+
+    public static Comparator<Counter> COMPARE_BY_DATE_FINISHED_DESC = (obj1, obj2) ->
+            obj2.dateFinished.compareTo(obj1.dateFinished);
+
+    public static Comparator<Counter> COMPARE_BY_DATE_FINISHED_ASC = (obj1, obj2) ->
+            obj1.dateFinished.compareTo(obj2.dateFinished);
 
     public static Comparator<Counter> COMPARE_BY_GAME_DESC = (obj1, obj2) ->
             obj2.getGame().getId() - obj1.getGame().getId();

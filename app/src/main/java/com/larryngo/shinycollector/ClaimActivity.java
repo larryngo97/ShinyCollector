@@ -11,13 +11,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.material.appbar.AppBarLayout;
 import com.larryngo.shinycollector.app.HomeActivity;
 import com.larryngo.shinycollector.models.Counter;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinycollector.HomeCompletedFragment.completedViewModel;
 import static com.larryngo.shinycollector.HomeHuntingFragment.huntingViewModel;
@@ -27,7 +25,6 @@ public class ClaimActivity extends AppCompatActivity {
     private final static String ARGUMENT_CLAIM_COUNTER_ID = "ARGUMENT_CLAIM_COUNTER_ID";
     private Counter counter;
 
-    private AppBarLayout appBarLayout;
     private ImageButton button_back;
     private TextView tv_pokemon_name;
     private TextView tv_encounters;
@@ -38,7 +35,7 @@ public class ClaimActivity extends AppCompatActivity {
     private TextView tv_time_elapsed;
     private Button button_addToCollection;
     private ImageView image_platform;
-    private GifImageView image_pokemon;
+    private ImageView image_pokemon;
 
     private InterstitialAd ad;
 
@@ -49,7 +46,6 @@ public class ClaimActivity extends AppCompatActivity {
 
         getWindow().setEnterTransition(null);
 
-        appBarLayout = findViewById(R.id.appbar);
         button_back = findViewById(R.id.button_back);
         tv_pokemon_name = findViewById(R.id.pokemon_name_text);
         tv_encounters = findViewById(R.id.number_encounters_text);
