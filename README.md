@@ -28,5 +28,4 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 
 ## TO-DO LIST
 
-* Statistics Page
 * Edit Completed Hunts
