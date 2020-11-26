@@ -15,7 +15,6 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 <img src="https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/app_demo_5.png" width="200" />
 <img src="https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/app_demo_6.png" width="200" />
 <img src="https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/app_demo_7.png" width="200" />
-<img src="https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/app_demo_8.png" width="200" />
 
 
 ## Features
