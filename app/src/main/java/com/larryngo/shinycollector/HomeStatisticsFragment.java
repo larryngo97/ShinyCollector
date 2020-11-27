@@ -106,7 +106,7 @@ public class HomeStatisticsFragment extends Fragment {
                 }
 
                 Random rand = new Random();
-                int randomPokemonIndex = rand.nextInt(size - 1);
+                int randomPokemonIndex = rand.nextInt(size);
                 System.out.println(randomPokemonIndex);
 
                 Counter randomPokemonCounter = counters.get(randomPokemonIndex);
