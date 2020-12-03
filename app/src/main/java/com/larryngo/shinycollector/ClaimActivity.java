@@ -2,16 +2,14 @@ package com.larryngo.shinycollector;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.larryngo.shinycollector.app.HomeActivity;
+import com.larryngo.shinycollector.databinding.ActivityClaimBinding;
 import com.larryngo.shinycollector.models.Counter;
 
 import androidx.annotation.Nullable;
@@ -24,39 +22,18 @@ public class ClaimActivity extends AppCompatActivity {
     private final static String ARGUMENT_CLAIM_COUNTER = "ARGUMENT_CLAIM_COUNTER";
     private final static String ARGUMENT_CLAIM_COUNTER_ID = "ARGUMENT_CLAIM_COUNTER_ID";
     private Counter counter;
-
-    private ImageButton button_back;
-    private TextView tv_pokemon_name;
-    private TextView tv_encounters;
-    private TextView tv_game_name;
-    private TextView tv_method_name;
-    private TextView tv_date_start;
-    private TextView tv_date_end;
-    private TextView tv_time_elapsed;
-    private Button button_addToCollection;
-    private ImageView image_platform;
-    private ImageView image_pokemon;
-
     private InterstitialAd ad;
+    private ActivityClaimBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_claim);
+
+        binding = ActivityClaimBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         getWindow().setEnterTransition(null);
-
-        button_back = findViewById(R.id.button_back);
-        tv_pokemon_name = findViewById(R.id.pokemon_name_text);
-        tv_encounters = findViewById(R.id.number_encounters_text);
-        tv_game_name = findViewById(R.id.game_text);
-        tv_method_name = findViewById(R.id.method_text);
-        tv_date_start = findViewById(R.id.date_start_text);
-        tv_date_end = findViewById(R.id.date_end_text);
-        tv_time_elapsed = findViewById(R.id.time_elapsed_text);
-        image_platform = findViewById(R.id.image_platform);
-        image_pokemon = findViewById(R.id.image_pokemon);
-        button_addToCollection = findViewById(R.id.button_addcollection);
 
         ad = new InterstitialAd(this);
         ad.setAdUnitId(getString(R.string.admob_interstitial_claim_id));
@@ -82,27 +59,27 @@ public class ClaimActivity extends AppCompatActivity {
     }
 
     public void updateView() {
-        tv_pokemon_name.setText(counter.getPokemon().getName());
-        tv_encounters.setText(String.valueOf(counter.getCount()));
-        tv_game_name.setText(counter.getGame().getName());
-        tv_method_name.setText(counter.getMethod().getName());
-        tv_date_start.setText(counter.getDateCreated());
-        tv_date_end.setText(counter.getDateFinished());
-        tv_time_elapsed.setText(counter.timeElapsed());
+        binding.pokemonNameText.setText(counter.getPokemon().getName());
+        binding.numberEncountersText.setText(String.valueOf(counter.getCount()));
+        binding.gameText.setText(counter.getGame().getName());
+        binding.methodText.setText(counter.getMethod().getName());
+        binding.dateStartText.setText(counter.getDateCreated());
+        binding.dateEndText.setText(counter.getDateFinished());
+        binding.timeElapsedText.setText(counter.timeElapsed());
 
         Glide.with(getApplicationContext())
                 .load(counter.getPlatform().getImage())
                 .placeholder(R.drawable.missingno)
-                .into(image_platform);
+                .into(binding.imagePlatform);
 
         Glide.with(getApplicationContext())
                 .load(counter.getPokemon().getImage())
                 .placeholder(R.drawable.missingno)
-                .into(image_pokemon);
+                .into(binding.imagePokemon);
 
-        button_back.setOnClickListener(v -> onBackPressed());
+        binding.buttonBack.setOnClickListener(v -> onBackPressed());
 
-        button_addToCollection.setOnClickListener(v -> {
+        binding.buttonAddcollection.setOnClickListener(v -> {
             huntingViewModel.deleteCounter(counter); //remove from current hunting list
             completedViewModel.addCounter(counter); //add to completed list
 

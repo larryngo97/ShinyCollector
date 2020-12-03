@@ -7,11 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinycollector.adapters.HomeListAdapter;
+import com.larryngo.shinycollector.databinding.FragmentHomeGridBinding;
 import com.larryngo.shinycollector.util.Utilities;
 import com.larryngo.shinycollector.viewmodels.HuntingViewModel;
 import com.larryngo.shinycollector.viewmodels.HuntingViewModelFactory;
@@ -24,19 +22,14 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeHuntingFragment extends Fragment {
+    private FragmentHomeGridBinding binding;
     public HomeListAdapter adapter;
     public static HuntingViewModel huntingViewModel;
     private HomeListAdapter.RecyclerViewListener recyclerViewListener;
 
     private int oldListSize;
-    private RecyclerView recyclerView;
-
-    private TextView text_nohunts;
-    private ImageView image_arrow_down;
-    private FloatingActionButton fab;
 
     public static HomeHuntingFragment newInstance() {
         return new HomeHuntingFragment();
@@ -45,13 +38,10 @@ public class HomeHuntingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_grid, container, false);
-        recyclerView = view.findViewById(R.id.home_recyclerview);
+        binding = FragmentHomeGridBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        text_nohunts = view.findViewById(R.id.home_text_nohunts);
-        image_arrow_down = view.findViewById(R.id.home_arrow_down);
-        fab = view.findViewById(R.id.home_fab);
-        fab.setImageResource(R.drawable.icon_plus);
+        binding.homeFab.setImageResource(R.drawable.icon_plus);
 
         setOnClickListener();
         setHasOptionsMenu(true);
@@ -67,18 +57,18 @@ public class HomeHuntingFragment extends Fragment {
         adapter = new HomeListAdapter(this.getContext(), recyclerViewListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        binding.homeRecyclerview.setLayoutManager(layoutManager);
 
         huntingViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
                 final int size = counters.size();
 
                 if (size == 0) {
-                    text_nohunts.setVisibility(View.VISIBLE);
-                    image_arrow_down.setVisibility(View.VISIBLE);
+                    binding.homeTextNohunts.setVisibility(View.VISIBLE);
+                    binding.homeArrowDown.setVisibility(View.VISIBLE);
                 } else {
-                    text_nohunts.setVisibility(View.GONE);
-                    image_arrow_down.setVisibility(View.GONE);
+                    binding.homeTextNohunts.setVisibility(View.GONE);
+                    binding.homeArrowDown.setVisibility(View.GONE);
                 }
 
                 if(oldListSize != size) {
@@ -88,14 +78,14 @@ public class HomeHuntingFragment extends Fragment {
 
                 adapter.setCountersList(counters);
 
-                recyclerView.setAdapter(adapter);
+                binding.homeRecyclerview.setAdapter(adapter);
                 oldListSize = size;
             }
         });
     }
 
     public void setOnClickListener() {
-        fab.setOnClickListener(v -> {
+        binding.homeFab.setOnClickListener(v -> {
             Intent intent = new Intent (getContext(), StartHuntActivity.class);
             startActivity(intent);
 
@@ -165,5 +155,11 @@ public class HomeHuntingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

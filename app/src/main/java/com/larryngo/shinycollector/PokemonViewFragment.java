@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.larryngo.shinycollector.PokeAPI.PokeAPIService;
 import com.larryngo.shinycollector.adapters.PokemonViewAdapter;
+import com.larryngo.shinycollector.databinding.PokemonViewLayoutBinding;
 import com.larryngo.shinycollector.models.PokemonGameIcon;
 import com.larryngo.shinycollector.models.Pokemon;
 import com.larryngo.shinycollector.models.PokemonList;
@@ -35,8 +34,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinycollector.StartHuntActivity.fm;
 
@@ -48,15 +45,8 @@ import static com.larryngo.shinycollector.StartHuntActivity.fm;
     confirm it to have it be the main pokemon image when hunting.
  */
 public class PokemonViewFragment extends Fragment {
-    private View view;
-    private RecyclerView recyclerView;
+    private PokemonViewLayoutBinding binding;
     private PokemonViewAdapter adapter;
-    private ImageView image_pokemon;
-    private TextView tv_dex;
-    private TextView tv_name;
-    private TextView tv_type1;
-    private TextView tv_type2;
-    private Button button_confirm;
 
     private final ArrayList<PokemonGameIcon> game_list = new ArrayList<>();
     private final ArrayList<String> typeList = new ArrayList<>();
@@ -87,41 +77,28 @@ public class PokemonViewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null) {
-            view = inflater.inflate(R.layout.pokemon_view_layout, container, false);
-            image_pokemon = view.findViewById(R.id.pokemon_view_image);
-            tv_dex = view.findViewById(R.id.pokemon_view_id);
-            tv_name = view.findViewById(R.id.pokemon_view_name);
-            tv_type1 = view.findViewById(R.id.pokemon_view_type1);
-            tv_type2 = view.findViewById(R.id.pokemon_view_type2);
-            button_confirm = view.findViewById(R.id.pokemon_view_button_confirm);
-            recyclerView = view.findViewById(R.id.pokemon_view_recycler);
+        binding = PokemonViewLayoutBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-            setOnClickListener(); //recycler onclick setup
-            setupAdapter();
-        } else {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view);
-            }
-        }
+        setOnClickListener(); //recycler onclick setup
+        setupAdapter();
+
         return view;
     }
 
     public void setupAdapter() {
         adapter = new PokemonViewAdapter(this.getContext(), new ArrayList<>(), rv_listener);
-        recyclerView.setAdapter(adapter);
-
         final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.pokemonViewRecycler.setLayoutManager(layoutManager);
+        binding.pokemonViewRecycler.setAdapter(adapter);
     }
 
     public void setOnClickListener() {
         //Confirming the selection will crop the image and send the image to
         //StartHuntFragment to update
-        button_confirm.setOnClickListener(view -> new Thread(() -> {
+        binding.pokemonViewButtonConfirm.setOnClickListener(view -> new Thread(() -> {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            Bitmap bitmap = ((BitmapDrawable)image_pokemon.getDrawable()).getBitmap(); //gets the image from the top left
+            Bitmap bitmap = ((BitmapDrawable)binding.pokemonViewImage.getDrawable()).getBitmap(); //gets the image from the top left
             bitmap = cropBitmapTransparency(bitmap); //crop the bitmap
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); //compressing to PNG
             byte[] bytes = stream.toByteArray();
@@ -162,10 +139,10 @@ public class PokemonViewFragment extends Fragment {
 
                 if(getActivity() == null) return;
                 getActivity().runOnUiThread(() ->
-                        Glide.with(view.getContext())
+                        Glide.with(requireContext())
                                 .load(adapter.getData().get(position).getImage_url())
                                 .placeholder(R.drawable.missingno)
-                                .into(image_pokemon));
+                                .into(binding.pokemonViewImage));
             }
         }).start();
     }
@@ -259,40 +236,40 @@ public class PokemonViewFragment extends Fragment {
     void updateView() {
         //Updates the image on the upper left, and is the pokemon image that will be sent to start the hunt.
         if(getActivity() == null) return;
-        getActivity().runOnUiThread(() -> Glide.with(view.getContext())
+        getActivity().runOnUiThread(() -> Glide.with(requireContext())
                 .load(pokemon.getImage_url())
                 .placeholder(R.drawable.missingno)
-                .into(image_pokemon));
+                .into(binding.pokemonViewImage));
 
         //Index number that goes up to 999
         String index_number;
         if(pokemon.getId()< 10) {
             index_number = "#00" + pokemon.getId();
-            tv_dex.setText(index_number);
+            binding.pokemonViewId.setText(index_number);
         }
         else if (pokemon.getId() < 100) {
             index_number = "#0" + pokemon.getId();
-            tv_dex.setText(index_number);
+            binding.pokemonViewId.setText(index_number);
         }
         else {
             index_number = "#" + pokemon.getId();
-            tv_dex.setText(index_number);
+            binding.pokemonViewId.setText(index_number);
         }
 
-        tv_name.setText(pokemon.getName());
+        binding.pokemonViewName.setText(pokemon.getName());
 
         //Both types are invisible until their types are revealed.
-        tv_type1.setVisibility(View.INVISIBLE);
-        tv_type2.setVisibility(View.INVISIBLE);
+        binding.pokemonViewType1.setVisibility(View.INVISIBLE);
+        binding.pokemonViewType2.setVisibility(View.INVISIBLE);
         if(!pokemon.getTypes().isEmpty()) {
-            tv_type1.setVisibility(View.VISIBLE);
+            binding.pokemonViewType1.setVisibility(View.VISIBLE);
             String type = pokemon.getTypes().get(0);
-            setTypesHelper(tv_type1, type); //Sets type 1
+            setTypesHelper( binding.pokemonViewType1, type); //Sets type 1
         }
         if(pokemon.getTypes().size() == 2) {
-            tv_type2.setVisibility(View.VISIBLE);
+            binding.pokemonViewType2.setVisibility(View.VISIBLE);
             String type = pokemon.getTypes().get(1);
-            setTypesHelper(tv_type2, type); //Sets type 2
+            setTypesHelper(binding.pokemonViewType2, type); //Sets type 2
         }
     }
 
@@ -713,5 +690,11 @@ public class PokemonViewFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         fragment_listener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

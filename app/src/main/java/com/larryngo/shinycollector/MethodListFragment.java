@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.SearchView;
 
 import com.larryngo.shinycollector.adapters.MethodListAdapter;
+import com.larryngo.shinycollector.databinding.MethodListLayoutBinding;
 import com.larryngo.shinycollector.models.Method;
 import com.larryngo.shinycollector.util.LoadingDialog;
 import com.larryngo.shinycollector.util.Utilities;
@@ -25,9 +25,7 @@ import androidx.fragment.app.Fragment;
 import static com.larryngo.shinycollector.StartHuntActivity.fm;
 
 public class MethodListFragment extends Fragment {
-    private View view;
-    private GridView gridView;
-    private SearchView searchView;
+    private MethodListLayoutBinding binding;
     private MethodListAdapter adapter;
 
     private final ArrayList<Method> list_methods = new ArrayList<>();
@@ -49,29 +47,22 @@ public class MethodListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null) {
-            view = inflater.inflate(R.layout.method_list_layout, container, false);
-            list_methods_names = Arrays.asList(getResources().getStringArray(R.array.list_methods_names));
-            gridView = view.findViewById(R.id.method_list_grid);
-            searchView = view.findViewById(R.id.method_list_search);
+        binding = MethodListLayoutBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-            init();
-            setupGrid();
-            adapter = new MethodListAdapter(this.getContext(), list_methods);
-            gridView.setAdapter(adapter);
+        list_methods_names = Arrays.asList(getResources().getStringArray(R.array.list_methods_names));
 
-        } else {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view);
-            }
-        }
+        init();
+        setupGrid();
+        adapter = new MethodListAdapter(this.getContext(), list_methods);
+        binding.methodListGrid.setAdapter(adapter);
+
         return view;
     }
 
     public void init() {
         //gridview clicks
-        gridView.setOnItemClickListener((adapterView, view, position, id) -> {
+        binding.methodListGrid.setOnItemClickListener((adapterView, view, position, id) -> {
             try {
                 listener.onInputMethodSent(adapter.getList().get(position)); //sends that method to the main start hunt menu.
                 Utilities.closeKeyboard(getActivity());
@@ -81,7 +72,7 @@ public class MethodListFragment extends Fragment {
             }
         });
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.methodListSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -124,5 +115,11 @@ public class MethodListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

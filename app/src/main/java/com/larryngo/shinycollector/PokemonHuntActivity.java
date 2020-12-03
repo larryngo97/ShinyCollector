@@ -12,15 +12,12 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.material.appbar.AppBarLayout;
+import com.larryngo.shinycollector.databinding.ActivityPokemonhuntBinding;
 import com.larryngo.shinycollector.models.Counter;
 import com.larryngo.shinycollector.util.Settings;
 
@@ -29,16 +26,17 @@ import java.util.Date;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
 import androidx.transition.Fade;
 
+
 import static com.larryngo.shinycollector.HomeHuntingFragment.huntingViewModel;
 import static java.lang.Math.abs;
 
 public class PokemonHuntActivity extends AppCompatActivity {
+    ActivityPokemonhuntBinding binding;
     private static final String ARGUMENT_COUNTER_ID = "ARGUMENT_COUNTER_ID";
     private static final String ARGUMENT_COUNTER = "ARGUMENT_COUNTER";
 
@@ -47,21 +45,6 @@ public class PokemonHuntActivity extends AppCompatActivity {
     private static final int MAX_STEP_VALUE = 99;
     private static final int VIBRATION_TIME = 50;
     private static final long COUNTER_ANIMATION_DURATION = 1000;
-
-    private AppBarLayout appBarLayout;
-    private ImageButton button_back;
-    private ConstraintLayout screen;
-    private TextView pokemon_name;
-    private ImageView pokemon_image;
-    private ImageView platform_image;
-    private TextView counter_count;
-
-    private ImageButton button_undo;
-    private ImageButton button_increment;
-    private TextView button_increment_text;
-    private ImageButton button_editCount;
-    private ImageButton button_editHunt;
-    private ImageButton button_claim;
 
     private Counter counter;
 
@@ -76,20 +59,10 @@ public class PokemonHuntActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemonhunt);
-        appBarLayout = findViewById(R.id.hunt_appbar);
-        screen = findViewById(R.id.counter_screen);
-        pokemon_name = findViewById(R.id.counter_pokemon_name);
-        pokemon_image = findViewById(R.id.counter_image_pokemon);
-        platform_image = findViewById(R.id.counter_image_platform);
-        counter_count = findViewById(R.id.pokemon_count);
-        button_back = findViewById(R.id.button_back);
-        button_undo = findViewById(R.id.button_undo);
-        button_increment = findViewById(R.id.button_increment);
-        button_increment_text = findViewById(R.id.button_icrement_text);
-        button_editCount = findViewById(R.id.button_editcount);
-        button_editHunt = findViewById(R.id.button_edithunt);
-        button_claim = findViewById(R.id.button_claim);
+        binding = ActivityPokemonhuntBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         Fade fade = new Fade();
@@ -126,42 +99,42 @@ public class PokemonHuntActivity extends AppCompatActivity {
     }
 
     public void updateView() {
-        pokemon_name.setText(counter.getPokemon().getNickname());
+        binding.namePokemon.setText(counter.getPokemon().getNickname());
 
         Glide.with(getApplicationContext())
                 .load(counter.getPokemon().getImage())
                 .placeholder(R.drawable.missingno)
-                .into(pokemon_image);
+                .into(binding.counterImagePokemon);
 
         Glide.with(getApplicationContext())
                 .load(counter.getPlatform().getImage())
                 .placeholder(R.drawable.missingno)
-                .into(platform_image);
+                .into(binding.counterImagePlatform);
 
-        counter_count.setText(String.valueOf(counter.getCount()));
+        binding.countPokemon.setText(String.valueOf(counter.getCount()));
 
     }
 
     public void setupButtons() {
-        appBarLayout.setOnClickListener(v -> {
+        binding.huntAppbar.setOnClickListener(v -> {
             //Clicking does nothing
         });
 
-        screen.setOnClickListener(view -> {
+        binding.counterScreen.setOnClickListener(view -> {
             vibrate();
             editCounter(counter.getStep());
         });
 
-        button_back.setOnClickListener(v -> onBackPressed());
+        binding.buttonBack.setOnClickListener(v -> onBackPressed());
 
-        button_undo.setOnClickListener(view -> {
+        binding.buttonUndo.setOnClickListener(view -> {
             vibrate();
             editCounter(-counter.getStep());
         });
 
         String incrementText = "+" + counter.getStep();
-        button_increment_text.setText(incrementText);
-        button_increment.setOnClickListener(view -> {
+        binding.buttonIcrementText.setText(incrementText);
+        binding.buttonIncrement.setOnClickListener(view -> {
             LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
             View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
             AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
@@ -182,7 +155,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
                         if(newCount >= 1 && newCount <= MAX_STEP_VALUE) {
                             counter.setStep(newCount);
                             String incrementText1 = "+" + counter.getStep();
-                            button_increment_text.setText(incrementText1);
+                            binding.buttonIcrementText.setText(incrementText1);
 
                             huntingViewModel.modifyStep(counter, newCount);
                         } else {
@@ -196,7 +169,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        button_editCount.setOnClickListener(view -> {
+        binding.buttonEditcount.setOnClickListener(view -> {
             LayoutInflater inflater = LayoutInflater.from(PokemonHuntActivity.this);
             View dialogView = inflater.inflate(R.layout.edit_count_dialog, null);
             AlertDialog.Builder dialog = new AlertDialog.Builder(PokemonHuntActivity.this);
@@ -217,7 +190,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
                         if(newCount >= 0 && newCount <= MAX_COUNT_VALUE) {
                             counter.setCount(newCount);
-                            counter_count.setText(String.valueOf(counter.getCount()));
+                            binding.countPokemon.setText(String.valueOf(counter.getCount()));
 
                             huntingViewModel.modifyCounter(counter, counter.getCount());
                         } else
@@ -232,13 +205,13 @@ public class PokemonHuntActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        button_editHunt.setOnClickListener(v -> {
+        binding.buttonEdithunt.setOnClickListener(v -> {
             Intent intent = new Intent(PokemonHuntActivity.this, StartHuntActivity.class);
             intent.putExtra("ARGUMENT_ACTIVE_HUNT", counter.getId());
             startActivity(intent);
         });
 
-        button_claim.setOnClickListener(v -> {
+        binding.buttonClaim.setOnClickListener(v -> {
             if(counter.getCount() <= 0) {
                 Toast.makeText(PokemonHuntActivity.this, R.string.error_claim_zero_encounters, Toast.LENGTH_SHORT).show();
             } else {
@@ -256,8 +229,8 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
                             if(Settings.isAnimModeOn()) {
                                 Pair<View, String>[] pairs = new Pair[2];
-                                pairs[0] = new Pair<>(pokemon_image, ViewCompat.getTransitionName(pokemon_image));
-                                pairs[1] = new Pair<>(platform_image, ViewCompat.getTransitionName(platform_image));
+                                pairs[0] = new Pair<>(binding.counterImagePokemon, ViewCompat.getTransitionName(binding.counterImagePokemon));
+                                pairs[1] = new Pair<>(binding.counterImagePlatform, ViewCompat.getTransitionName(binding.counterImagePlatform));
                                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                         PokemonHuntActivity.this, pairs);
 
@@ -288,7 +261,7 @@ public class PokemonHuntActivity extends AppCompatActivity {
             }
 
             ObjectAnimator numberSizeAnimation =
-                    ObjectAnimator.ofPropertyValuesHolder(counter_count,
+                    ObjectAnimator.ofPropertyValuesHolder(binding.countPokemon,
                             PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.5f, 1.0f),
                             PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.5f, 1.0f));
             numberSizeAnimation.setDuration(duration);
@@ -296,10 +269,10 @@ public class PokemonHuntActivity extends AppCompatActivity {
 
             ValueAnimator numberChangeAnimation = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + step);
             numberChangeAnimation.setDuration(duration);
-            numberChangeAnimation.addUpdateListener(animation -> counter_count.setText(numberChangeAnimation.getAnimatedValue().toString()));
+            numberChangeAnimation.addUpdateListener(animation -> binding.countPokemon.setText(numberChangeAnimation.getAnimatedValue().toString()));
             numberChangeAnimation.start();
         } else {
-            counter_count.setText(String.valueOf(counter.getCount() + step));
+            binding.countPokemon.setText(String.valueOf(counter.getCount() + step));
         }
 
         counter.add(step);

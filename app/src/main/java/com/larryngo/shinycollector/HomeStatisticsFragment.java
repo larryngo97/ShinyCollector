@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.larryngo.shinycollector.databinding.FragmentHomeStatisticsBinding;
 import com.larryngo.shinycollector.models.Counter;
 import com.larryngo.shinycollector.viewmodels.CompletedViewModel;
 import com.larryngo.shinycollector.viewmodels.CompletedViewModelFactory;
@@ -29,8 +30,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 public class HomeStatisticsFragment extends Fragment {
+    private FragmentHomeStatisticsBinding binding;
     public static CompletedViewModel completedViewModel;
-    private View view;
 
     public static HomeStatisticsFragment newInstance() {
         return new HomeStatisticsFragment();
@@ -39,7 +40,8 @@ public class HomeStatisticsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home_statistics, container, false);
+        binding = FragmentHomeStatisticsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         setHasOptionsMenu(true);
         return view;
@@ -56,17 +58,17 @@ public class HomeStatisticsFragment extends Fragment {
                 int size = counters.size();
                 if(size == 0) return;
 
-                ((TextView)view.findViewById(R.id.caught_number)).setText(String.valueOf(size));
+                binding.caughtNumber.setText(String.valueOf(size));
 
                 int countSize = 0;
                 for (Counter counter : counters) {
                     countSize += counter.getCount();
                 }
-                ((TextView)view.findViewById(R.id.encounters_number)).setText(String.valueOf(countSize));
+                binding.encountersNumber.setText(String.valueOf(countSize));
 
                 float averageSize = (float) countSize / (float) size;
                 DecimalFormat df = new DecimalFormat("#.##");
-                ((TextView)view.findViewById(R.id.encounters_avg_number)).setText(df.format(averageSize));
+                binding.encountersAvgNumber.setText(df.format(averageSize));
 
 
                 List<String> listOfGames = new ArrayList<>();
@@ -85,10 +87,10 @@ public class HomeStatisticsFragment extends Fragment {
 
                 if(mostGamesNameMap.isPresent()) {
                     String mostGamesText = mostGamesNameMap.get().getKey();
-                    ((TextView)view.findViewById(R.id.game_with_most_name)).setText(mostGamesText);
+                    binding.gameWithMostName.setText(mostGamesText);
 
                     int mostGamesNumber = Collections.frequency(listOfGames, mostGamesText);
-                    ((TextView)view.findViewById(R.id.game_with_most_number)).setText(String.valueOf(mostGamesNumber));
+                    binding.gameWithMostNumber.setText(String.valueOf(mostGamesNumber));
                 }
 
                 Optional<Map.Entry<String, Long>> mostPokemonNameMap = listOfPokemon.stream()
@@ -99,10 +101,10 @@ public class HomeStatisticsFragment extends Fragment {
 
                 if(mostPokemonNameMap.isPresent()) {
                     String mostPokemonText = mostPokemonNameMap.get().getKey();
-                    ((TextView)view.findViewById(R.id.pokemon_with_most_name)).setText(mostPokemonText);
+                    binding.pokemonWithMostName.setText(mostPokemonText);
 
                     int mostPokemonNumber = Collections.frequency(listOfPokemon, mostPokemonText);
-                    ((TextView)view.findViewById(R.id.pokemon_with_most_number)).setText(String.valueOf(mostPokemonNumber));
+                    binding.pokemonWithMostNumber.setText(String.valueOf(mostPokemonNumber));
                 }
 
                 Random rand = new Random();
@@ -113,15 +115,15 @@ public class HomeStatisticsFragment extends Fragment {
                 Glide.with(requireContext())
                         .load(randomPokemonCounter.getPokemon().getImage())
                         .placeholder(R.drawable.missingno)
-                        .into(((ImageView)view.findViewById(R.id.random_image_pokemon)));
+                        .into(binding.randomImagePokemon);
 
                 Glide.with(requireContext())
                         .load(randomPokemonCounter.getPlatform().getImage())
                         .placeholder(R.drawable.missingno)
-                        .into(((ImageView)view.findViewById(R.id.random_image_platform)));
+                        .into(binding.randomImagePlatform);
 
-                ((TextView)view.findViewById(R.id.random_encounters_number)).setText(String.valueOf(randomPokemonCounter.getCount()));
-                ((TextView)view.findViewById(R.id.random_encounters_name)).setText(String.valueOf(randomPokemonCounter.getPokemon().getNickname()));
+                binding.randomEncountersName.setText(String.valueOf(randomPokemonCounter.getPokemon().getNickname()));
+                binding.randomEncountersNumber.setText(String.valueOf(randomPokemonCounter.getCount()));
 
                 Optional<Counter> mostEncountersMap = counters.stream()
                         .max(Comparator.comparing(Counter::getCount));
@@ -132,15 +134,15 @@ public class HomeStatisticsFragment extends Fragment {
                     Glide.with(requireContext())
                             .load(counterWithMostEncounters.getPokemon().getImage())
                             .placeholder(R.drawable.missingno)
-                            .into(((ImageView)view.findViewById(R.id.most_image_pokemon)));
+                            .into(binding.mostImagePokemon);
 
                     Glide.with(requireContext())
                             .load(counterWithMostEncounters.getPlatform().getImage())
                             .placeholder(R.drawable.missingno)
-                            .into(((ImageView)view.findViewById(R.id.most_image_platform)));
+                            .into(binding.mostImagePlatform);
 
-                    ((TextView)view.findViewById(R.id.most_encounters_number)).setText(String.valueOf(counterWithMostEncounters.getCount()));
-                    ((TextView)view.findViewById(R.id.most_encounters_name)).setText(counterWithMostEncounters.getPokemon().getNickname());
+                    binding.mostEncountersName.setText(counterWithMostEncounters.getPokemon().getNickname());
+                    binding.mostEncountersNumber.setText(String.valueOf(counterWithMostEncounters.getCount()));
                 }
 
                 Optional<Counter> leastEncountersMap = counters.stream()
@@ -152,15 +154,15 @@ public class HomeStatisticsFragment extends Fragment {
                     Glide.with(requireContext())
                             .load(counterWithLeastEncounters.getPokemon().getImage())
                             .placeholder(R.drawable.missingno)
-                            .into(((ImageView)view.findViewById(R.id.least_image_pokemon)));
+                            .into(binding.leastImagePokemon);
 
                     Glide.with(requireContext())
                             .load(counterWithLeastEncounters.getPlatform().getImage())
                             .placeholder(R.drawable.missingno)
-                            .into(((ImageView)view.findViewById(R.id.least_image_platform)));
+                            .into(binding.leastImagePlatform);
 
-                    ((TextView)view.findViewById(R.id.least_encounters_number)).setText(String.valueOf(counterWithLeastEncounters.getCount()));
-                    ((TextView)view.findViewById(R.id.least_encounters_name)).setText(counterWithLeastEncounters.getPokemon().getNickname());
+                    binding.leastEncountersName.setText(counterWithLeastEncounters.getPokemon().getNickname());
+                    binding.leastEncountersNumber.setText(String.valueOf(counterWithLeastEncounters.getCount()));
                 }
             }
         });
@@ -171,5 +173,11 @@ public class HomeStatisticsFragment extends Fragment {
         if(getActivity() == null) return;
         getActivity().getMenuInflater().inflate(R.menu.home_menu_var, menu);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

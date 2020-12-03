@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.larryngo.shinycollector.databinding.FragmentStarthuntBinding;
 import com.larryngo.shinycollector.models.Counter;
 import com.larryngo.shinycollector.models.Game;
 import com.larryngo.shinycollector.models.Method;
@@ -24,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import pl.droidsonroids.gif.GifImageView;
 
 import static com.larryngo.shinycollector.HomeHuntingFragment.huntingViewModel;
 import static com.larryngo.shinycollector.StartHuntActivity.fm;
@@ -37,14 +35,7 @@ import static com.larryngo.shinycollector.StartHuntActivity.fm;
     *See other fragments to see how data is collected
  */
 public class StartHuntFragment extends Fragment {
-    private Button button_game;
-    private Button button_pokemon;
-    private Button button_platform;
-    private Button button_method;
-    private GifImageView image_pokemon;
-    private ImageView image_platform;
-    private Button button_start;
-
+    private FragmentStarthuntBinding binding;
     private View view;
     private Game game;
     private Pokemon pokemon;
@@ -56,10 +47,10 @@ public class StartHuntFragment extends Fragment {
     public void updateGame(Game input){
         if(input == null) return;
         game = input;
-        button_game.setText(game.getName());
+        binding.buttonSelectgame.setText(game.getName());
 
         //Enables the pokemon button
-        button_pokemon.setEnabled(true);
+        binding.buttonSelectpokemon.setEnabled(true);
     }
 
     public void updatePokemon(Pokemon input) {
@@ -69,57 +60,50 @@ public class StartHuntFragment extends Fragment {
         //Changes the image of the platform preview.
         if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
-            button_pokemon.setText(pokemon.getName());
+            binding.buttonSelectpokemon.setText(pokemon.getName());
 
-            Glide.with(view.getContext())
+            Glide.with(requireContext())
                     .load(pokemon.getImage())
                     .placeholder(R.drawable.missingno)
-                    .into(image_pokemon);
+                    .into(binding.imagePokemon);
         });
 
         //Enables the platform button
-        button_platform.setEnabled(true);
+        binding.buttonSelectplatform.setEnabled(true);
     }
 
     public void updatePlatform(Platform input) {
         if(input == null) return;
         platform = input;
-        button_platform.setText(platform.getName());
+        binding.buttonSelectplatform.setText(platform.getName());
 
         //Changes the image of the pokemon preview.
         if(getActivity() == null) return;
-        getActivity().runOnUiThread(() -> Glide.with(view.getContext())
+        getActivity().runOnUiThread(() -> Glide.with(requireContext())
                 .load(platform.getImage())
                 .placeholder(R.drawable.missingno)
-                .into(image_platform));
+                .into(binding.imagePlatform));
 
         //Enables the method button
-        button_method.setEnabled(true);
+        binding.buttonSelectmethod.setEnabled(true);
     }
 
     public void updateMethod(Method input) {
         if(input == null) return;
         method = input;
-        button_method.setText(method.getName());
+        binding.buttonSelectmethod.setText(method.getName());
 
         //Enables the start button
-        button_start.setVisibility(View.VISIBLE);
-        button_start.setEnabled(true);
+        binding.buttonStart.setVisibility(View.VISIBLE);
+        binding.buttonStart.setEnabled(true);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null)
-        {
-            view = inflater.inflate(R.layout.fragment_starthunt, container, false);
-            button_game = view.findViewById(R.id.button_selectgame);
-            button_pokemon = view.findViewById(R.id.button_selectpokemon);
-            button_platform = view.findViewById(R.id.button_selectplatform);
-            button_method = view.findViewById(R.id.button_selectmethod);
-            image_pokemon = view.findViewById(R.id.image_pokemon);
-            image_platform = view.findViewById(R.id.image_platform);
-            button_start = view.findViewById(R.id.button_start);
+        if(view == null) {
+            binding = FragmentStarthuntBinding.inflate(inflater, container, false);
+            view = binding.getRoot();
 
             ad = new InterstitialAd(requireContext());
             ad.setAdUnitId(getString(R.string.admob_interstitial_starthunt_id));
@@ -127,51 +111,51 @@ public class StartHuntFragment extends Fragment {
 
             //Setting buttons to be disabled until other options are selected. (See update
             //functions above)
-            button_game.setEnabled(true);
-            button_pokemon.setEnabled(false);
-            button_platform.setEnabled(false);
-            button_method.setEnabled(false);
-            button_start.setEnabled(false);
+            binding.buttonSelectgame.setEnabled(true);
+            binding.buttonSelectpokemon.setEnabled(false);
+            binding.buttonSelectplatform.setEnabled(false);
+            binding.buttonSelectmethod.setEnabled(false);
+            binding.buttonStart.setEnabled(false);
 
-            button_start.setVisibility(View.INVISIBLE);
+            binding.buttonStart.setVisibility(View.INVISIBLE);
 
             Bundle extras = getArguments();
             if(extras != null) {
                 int active_hunt_id = getArguments().getInt("ARGUMENT_ACTIVE_HUNT");
                 LiveData<Counter> counterLiveData = huntingViewModel.getCounter(active_hunt_id);
                 counterLiveData.observe(getViewLifecycleOwner(), counter -> {
-                  game = counter.getGame();
-                  pokemon = counter.getPokemon();
-                  platform = counter.getPlatform();
-                  method = counter.getMethod();
+                    game = counter.getGame();
+                    pokemon = counter.getPokemon();
+                    platform = counter.getPlatform();
+                    method = counter.getMethod();
 
-                  updateGame(game);
-                  updatePokemon(pokemon);
-                  updatePlatform(platform);
-                  updateMethod(method);
+                    updateGame(game);
+                    updatePokemon(pokemon);
+                    updatePlatform(platform);
+                    updateMethod(method);
 
-                  button_start.setText(R.string.button_resume);
-                  button_start.setOnClickListener(v -> {
-                      Counter modifiedCounter = new Counter(game, pokemon, platform, method, counter.getCount(), counter.getStep());
-                      modifiedCounter.setId(active_hunt_id);
+                    binding.buttonStart.setText(R.string.button_resume);
+                    binding.buttonStart.setOnClickListener(v -> {
+                        Counter modifiedCounter = new Counter(game, pokemon, platform, method, counter.getCount(), counter.getStep());
+                        modifiedCounter.setId(active_hunt_id);
 
-                      huntingViewModel.modifyGame(modifiedCounter);
-                      huntingViewModel.modifyPokemon(modifiedCounter);
-                      huntingViewModel.modifyPlatform(modifiedCounter);
-                      huntingViewModel.modifyMethod(modifiedCounter);
+                        huntingViewModel.modifyGame(modifiedCounter);
+                        huntingViewModel.modifyPokemon(modifiedCounter);
+                        huntingViewModel.modifyPlatform(modifiedCounter);
+                        huntingViewModel.modifyMethod(modifiedCounter);
 
-                      PokemonHuntActivity.start(getActivity(), modifiedCounter);
+                        PokemonHuntActivity.start(getActivity(), modifiedCounter);
 
-                      if(getActivity() == null) return;
-                      getActivity().finish();
-                  });
+                        if(getActivity() == null) return;
+                        getActivity().finish();
+                    });
                 });
             } else {
                 //START BUTTON
                 //Packages up the entire content of this fragment and pushes them towards the next activity.
                 //This will also create a new data entry onto the current hunts list so the user can come
                 //back to it any time.
-                button_start.setOnClickListener(view -> {
+                binding.buttonStart.setOnClickListener(v -> {
                     Counter counter = new Counter(game, pokemon, platform, method, 0, 1); //starts out as 0 count, with 1 as increment.
                     Date date = new Date();
                     String stringDate = DateFormat.getDateTimeInstance().format(date);
@@ -193,26 +177,25 @@ public class StartHuntFragment extends Fragment {
             //GAME BUTTON
             //Selecting a game which will filter out which pokemon can be caught (it determines
             //the current generation of that game)
-            button_game.setOnClickListener(v -> fm.beginTransaction()
+            binding.buttonSelectgame.setOnClickListener(v -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new GameListFragment()).addToBackStack(null).commit());
 
             //POKEMON BUTTON
             //Main entry in the set. Creates a view of the entire pokemon library where user can
             //select the icon from specific games (or choose default!) for creativity.
-            button_pokemon.setOnClickListener(v -> fm.beginTransaction()
+            binding.buttonSelectpokemon.setOnClickListener(v -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new PokemonListFragment()).addToBackStack(null).commit());
 
 
             //PLATFORM BUTTON
             //Creates a platform image that sits under the pokemon. Just a cosmetic enhancement!
-            button_platform.setOnClickListener(view -> fm.beginTransaction()
+            binding.buttonSelectplatform.setOnClickListener(v -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new PlatformListFragment()).addToBackStack(null).commit());
 
             //METHOD BUTTON
             //A simple list of available methods.
-            button_method.setOnClickListener(view -> fm.beginTransaction()
+            binding.buttonSelectmethod.setOnClickListener(v -> fm.beginTransaction()
                     .replace(R.id.starthunt_fragment_container, new MethodListFragment()).addToBackStack(null).commit());
-
         }
         return view;
     }

@@ -7,8 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larryngo.shinycollector.adapters.HomeListAdapter;
+import com.larryngo.shinycollector.databinding.FragmentHomeGridBinding;
 import com.larryngo.shinycollector.util.Utilities;
 import com.larryngo.shinycollector.viewmodels.CompletedViewModel;
 import com.larryngo.shinycollector.viewmodels.CompletedViewModelFactory;
@@ -19,15 +19,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeCompletedFragment extends Fragment {
+    private FragmentHomeGridBinding binding;
     public HomeListAdapter adapter;
     public static CompletedViewModel completedViewModel;
     private HomeListAdapter.RecyclerViewListener recyclerViewListener;
-
-    private RecyclerView recyclerView;
-    FloatingActionButton fab;
 
     private int oldListSize;
 
@@ -38,11 +35,11 @@ public class HomeCompletedFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_grid, container, false);
-        recyclerView = view.findViewById(R.id.home_recyclerview);
-        fab = view.findViewById(R.id.home_fab);
-        fab.setImageResource(R.drawable.icon_completed);
-        fab.setVisibility(View.GONE);
+        binding = FragmentHomeGridBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        binding.homeFab.setImageResource(R.drawable.icon_completed);
+        binding.homeFab.setVisibility(View.GONE);
 
         setOnClickListener();
         setHasOptionsMenu(true);
@@ -58,7 +55,7 @@ public class HomeCompletedFragment extends Fragment {
         adapter = new HomeListAdapter(this.getContext(), recyclerViewListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        binding.homeRecyclerview.setLayoutManager(layoutManager);
 
         completedViewModel.getCounters().observe(getViewLifecycleOwner(), counters -> {
             if(counters != null) {
@@ -71,7 +68,7 @@ public class HomeCompletedFragment extends Fragment {
 
                 adapter.setCountersList(counters);
 
-                recyclerView.setAdapter(adapter);
+                binding.homeRecyclerview.setAdapter(adapter);
                 oldListSize = size;
             }
         });
@@ -142,5 +139,11 @@ public class HomeCompletedFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.refreshList();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

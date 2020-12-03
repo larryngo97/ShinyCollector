@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.SearchView;
 
 import com.larryngo.shinycollector.adapters.GameListAdapter;
+import com.larryngo.shinycollector.databinding.GameListLayoutBinding;
 import com.larryngo.shinycollector.models.Game;
 import com.larryngo.shinycollector.util.LoadingDialog;
 import com.larryngo.shinycollector.util.Utilities;
@@ -30,12 +30,10 @@ public class GameListFragment extends Fragment {
     private List<String> list_games_names;
     private List<String> list_games_tokens;
 
-    private View view;
-    private SearchView searchView;
-    private GridView gridView;
     private GameListAdapter adapter;
 
     private FragmentGameListener listener;
+    private GameListLayoutBinding binding;
 
     public interface FragmentGameListener {
         void onInputGameSent(Game entry) throws IOException;
@@ -51,29 +49,24 @@ public class GameListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null) {
-            view = inflater.inflate(R.layout.game_list_layout, container, false);
-            searchView = view.findViewById(R.id.game_list_search);
-            gridView = view.findViewById(R.id.game_list_grid);
-            list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names)); //names of the games
-            list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens)); //file names of the games
+        binding = GameListLayoutBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-            init();
-            setupGrid();
-            adapter = new GameListAdapter(this.getContext(), list_games);
-            gridView.setAdapter(adapter);
-        } else {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view);
-            }
-        }
+        list_games_names = Arrays.asList(getResources().getStringArray(R.array.list_games_names)); //names of the games
+        list_games_tokens = Arrays.asList(getResources().getStringArray(R.array.list_games_tokens)); //file names of the games
+
+        init();
+        setupGrid();
+
+        adapter = new GameListAdapter(this.getContext(), list_games);
+        binding.gameListGrid.setAdapter(adapter);
+
         return view;
     }
 
     public void init() {
         //gridview clicks
-        gridView.setOnItemClickListener((parent, view, position, id) -> {
+        binding.gameListGrid.setOnItemClickListener((parent, view, position, id) -> {
             try {
                 listener.onInputGameSent(adapter.getList().get(position)); //sends the game to the main hunt menu
                 Utilities.closeKeyboard(getActivity());
@@ -83,7 +76,7 @@ public class GameListFragment extends Fragment {
             }
         });
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.gameListSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -142,5 +135,11 @@ public class GameListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

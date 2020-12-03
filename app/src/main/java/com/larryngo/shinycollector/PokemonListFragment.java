@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import com.larryngo.shinycollector.PokeAPI.PokeAPIService;
 import com.larryngo.shinycollector.adapters.PokemonListAdapter;
+import com.larryngo.shinycollector.databinding.PokemonListLayoutBinding;
 import com.larryngo.shinycollector.models.PokemonList;
 import com.larryngo.shinycollector.util.LoadingDialog;
 import com.larryngo.shinycollector.util.Utilities;
@@ -21,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,13 +32,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PokemonListFragment extends Fragment {
-    private final String TAG = "ShinyHunter";
+    private PokemonListLayoutBinding binding;
+    private final String TAG = "ShinyCollector";
 
     private PokeAPIService service;
-
-    private View view;
-    private SearchView searchView;
-    private RecyclerView recyclerView;
 
     private ArrayList<PokemonList> pokemonList = new ArrayList<>();
     private PokemonListAdapter adapter;
@@ -54,49 +51,44 @@ public class PokemonListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null) {
-            view = inflater.inflate(R.layout.pokemon_list_layout, container, false);
-            recyclerView = view.findViewById(R.id.pokemon_list_recycler);
-            searchView = view.findViewById(R.id.pokemon_list_search);
+        binding = PokemonListLayoutBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-            setOnClickListener();
-            setupAdapter();
+        setOnClickListener();
+        setupAdapter();
+        OkHttpClient client = new OkHttpClient
+                .Builder()
+                .cache(new Cache(getActivity().getCacheDir(), 25 * 1024 * 1024)) // 25 MB
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    if (Utilities.isOnline(getActivity())) {
+                        request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
+                    } else {
+                        request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
+                    }
+                    return chain.proceed(request);
+                })
+                .build();
 
-            OkHttpClient client = new OkHttpClient
-                    .Builder()
-                    .cache(new Cache(getActivity().getCacheDir(), 25 * 1024 * 1024)) // 25 MB
-                    .addInterceptor(chain -> {
-                        Request request = chain.request();
-                        if (Utilities.isOnline(getActivity())) {
-                            request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
-                        } else {
-                            request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
-                        }
-                        return chain.proceed(request);
-                    })
-                    .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(PokeAPIService.baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        service = retrofit.create(PokeAPIService.class);
 
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(PokeAPIService.baseURL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .build();
-            service = retrofit.create(PokeAPIService.class);
-
-            obtainData();
-
-        }
+        obtainData();
         return view;
     }
 
     public void setupAdapter() {
         adapter = new PokemonListAdapter(this.getContext(), pokemonList, listener);
         adapter.setItemCount(totalPokemonLimit);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
 
         final GridLayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.pokemonListRecycler.setLayoutManager(layoutManager);
+        binding.pokemonListRecycler.setHasFixedSize(true);
+        binding.pokemonListRecycler.setAdapter(adapter);
     }
 
     public void setOnClickListener() {
@@ -105,7 +97,7 @@ public class PokemonListFragment extends Fragment {
             Utilities.closeKeyboard(getActivity());
         };
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.pokemonListSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -168,5 +160,11 @@ public class PokemonListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

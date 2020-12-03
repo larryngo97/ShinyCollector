@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.larryngo.shinycollector.adapters.PlatformListAdapter;
+import com.larryngo.shinycollector.databinding.PlatformListLayoutBinding;
 import com.larryngo.shinycollector.models.Platform;
 import com.larryngo.shinycollector.util.LoadingDialog;
 import com.larryngo.shinycollector.util.Utilities;
@@ -22,13 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.larryngo.shinycollector.StartHuntActivity.fm;
 
 public class PlatformListFragment extends Fragment {
-    private View view;
-    private SearchView searchView;
+    private PlatformListLayoutBinding binding;
 
     private PlatformListAdapter adapter;
     private final ArrayList<Platform> list_platforms = new ArrayList<>();
@@ -51,29 +50,22 @@ public class PlatformListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(view == null) {
-            view = inflater.inflate(R.layout.platform_list_layout, container, false);
-            RecyclerView recyclerView = view.findViewById(R.id.platform_list_recycler);
-            searchView = view.findViewById(R.id.platform_list_search);
+        binding = PlatformListLayoutBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-            list_platforms_names = Arrays.asList(getResources().getStringArray(R.array.list_platforms_names));
-            list_platforms_tokens = Arrays.asList(getResources().getStringArray(R.array.list_platforms_tokens));
+        list_platforms_names = Arrays.asList(getResources().getStringArray(R.array.list_platforms_names));
+        list_platforms_tokens = Arrays.asList(getResources().getStringArray(R.array.list_platforms_tokens));
 
-            init();
+        init();
 
-            final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-            recyclerView.setLayoutManager(layoutManager);
+        final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        binding.platformListRecycler.setLayoutManager(layoutManager);
 
-            adapter = new PlatformListAdapter(getContext(), new ArrayList<>(), rv_listener);
-            recyclerView.setAdapter(adapter);
+        adapter = new PlatformListAdapter(getContext(), new ArrayList<>(), rv_listener);
+        binding.platformListRecycler.setAdapter(adapter);
 
-            collectData();
-        } else {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view);
-            }
-        }
+        collectData();
+
         return view;
     }
 
@@ -88,7 +80,7 @@ public class PlatformListFragment extends Fragment {
             }
         };
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.platformListSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -146,5 +138,11 @@ public class PlatformListFragment extends Fragment {
         super.onDetach();
         fragment_listener = null;
         rv_listener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

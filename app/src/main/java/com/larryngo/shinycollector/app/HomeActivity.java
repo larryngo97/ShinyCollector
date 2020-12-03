@@ -5,13 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.tabs.TabLayout;
 import com.larryngo.shinycollector.HomeCompletedFragment;
 import com.larryngo.shinycollector.HomeHuntingFragment;
 import com.larryngo.shinycollector.HomeStatisticsFragment;
@@ -29,14 +28,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
+import com.larryngo.shinycollector.databinding.ActivityMainBinding;
 
 
 public class HomeActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +47,9 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
             setTheme(R.style.HomeTheme);
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        tabLayout = findViewById(R.id.home_tabLayout);
-        viewPager = findViewById(R.id.home_viewPager);
-
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -62,9 +58,8 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
             }
         });
 
-        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        binding.adView.loadAd(adRequest);
 
 
         Toolbar toolbar = findViewById(R.id.home_toolbar);
@@ -78,22 +73,22 @@ public class HomeActivity extends AppCompatActivity implements SharedPreferences
         HomeCompletedFragment homeCompletedFragment = HomeCompletedFragment.newInstance();
         HomeStatisticsFragment homeStatisticsFragment = HomeStatisticsFragment.newInstance();
 
-        tabLayout.setupWithViewPager(viewPager);
+        binding.homeTabLayout.setupWithViewPager(binding.homeViewPager);
 
         SectionsPageAdapter viewPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerAdapter.addFragment(homeHuntingFragment, getResources().getString(R.string.home_hunting_title));
         viewPagerAdapter.addFragment(homeCompletedFragment, getResources().getString(R.string.home_completed_title));
         viewPagerAdapter.addFragment(homeStatisticsFragment, getResources().getString(R.string.home_statistics_title));
-        viewPager.setAdapter(viewPagerAdapter);
+        binding.homeViewPager.setAdapter(viewPagerAdapter);
 
-        if(tabLayout.getTabAt(0) != null) {
-            tabLayout.getTabAt(0).setIcon(R.drawable.icon_hunting);
+        if(binding.homeTabLayout.getTabAt(0) != null) {
+            binding.homeTabLayout.getTabAt(0).setIcon(R.drawable.icon_hunting);
         }
-        if(tabLayout.getTabAt(1) != null) {
-            tabLayout.getTabAt(1).setIcon(R.drawable.icon_completed);
+        if(binding.homeTabLayout.getTabAt(1) != null) {
+            binding.homeTabLayout.getTabAt(1).setIcon(R.drawable.icon_completed);
         }
-        if(tabLayout.getTabAt(2) != null) {
-            tabLayout.getTabAt(2).setIcon(R.drawable.icon_statistics);
+        if(binding.homeTabLayout.getTabAt(2) != null) {
+            binding.homeTabLayout.getTabAt(2).setIcon(R.drawable.icon_statistics);
         }
 
     }
