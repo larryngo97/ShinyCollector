@@ -1,4 +1,4 @@
-# PokéHunter
+# Shiny Collector
 
 <img src="https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/app_feature_graphic.png"/>
 
