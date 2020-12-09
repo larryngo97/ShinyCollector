@@ -2,6 +2,8 @@
 
 <img src="https://github.com/larryngo97/PokeShinyHunter/blob/master/demo/app_feature_graphic.png"/>
 
+Get it here: https://play.google.com/store/apps/details?id=com.larryngo.shinycollector
+
 ## Overview
 
 An upcoming android app to keep track of all your shiny hunts in pokemon games! You can individually select what icon you want 
