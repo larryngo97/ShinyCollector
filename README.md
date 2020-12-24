@@ -6,7 +6,7 @@ Get it here: https://play.google.com/store/apps/details?id=com.larryngo.shinycol
 
 ## Overview
 
-An upcoming android app to keep track of all your shiny hunts in pokemon games! You can individually select what icon you want 
+Keep track of all your shiny hunts in pokemon games! You can individually select what icon you want 
 for your pokemon as well as give it a platform for color!
 
 This application uses an API called PokeAPI. Learn more about it here: https://pokeapi.co/
