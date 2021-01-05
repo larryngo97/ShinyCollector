@@ -95,6 +95,8 @@ public class MethodListFragment extends Fragment {
             Method method = new Method(i, list_methods_names.get(i)); //creates the method based on the names and assigns them an id
             list_methods.add(method);
         }
+        Method otherMethod = new Method (100, "Other");
+        list_methods.add(otherMethod);
 
         loadingDialog.dismissDialog();
     }

@@ -120,11 +120,11 @@ public class Settings extends AppCompatActivity {
 
         //sort by newest first
         if(!countersList.isEmpty()) {
-            if(countersList.get(0).getDateFinished() != null) { //checks the first index to see if it is completed or not
+            if(countersList.get(0).getDateFinished().equals("")) { //checks the first index to see if it is completed or not
+                countersList.sort(Counter.COMPARE_BY_DATE_STARTED_DESC);
+            } else {
                 isCompleted = true;
                 countersList.sort(Counter.COMPARE_BY_DATE_FINISHED_DESC);
-            } else {
-                countersList.sort(Counter.COMPARE_BY_DATE_STARTED_DESC);
             }
         }
         switch(sortKey) {

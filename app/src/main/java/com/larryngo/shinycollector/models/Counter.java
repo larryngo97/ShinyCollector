@@ -3,6 +3,7 @@ package com.larryngo.shinycollector.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -53,16 +54,16 @@ public class Counter implements Parcelable {
     }
 
     public static Comparator<Counter> COMPARE_BY_DATE_STARTED_DESC = (obj1, obj2) ->
-            obj2.dateCreated.compareTo(obj1.dateCreated);
+            obj2.getDateCreated().compareTo(obj1.getDateCreated());
 
     public static Comparator<Counter> COMPARE_BY_DATE_STARTED_ASC = (obj1, obj2) ->
-            obj1.dateCreated.compareTo(obj2.dateCreated);
+            obj1.getDateCreated().compareTo(obj2.getDateCreated());
 
     public static Comparator<Counter> COMPARE_BY_DATE_FINISHED_DESC = (obj1, obj2) ->
-            obj2.dateFinished.compareTo(obj1.dateFinished);
+            obj2.getDateFinished().compareTo(obj1.getDateFinished());
 
     public static Comparator<Counter> COMPARE_BY_DATE_FINISHED_ASC = (obj1, obj2) ->
-            obj1.dateFinished.compareTo(obj2.dateFinished);
+            obj1.getDateFinished().compareTo(obj2.getDateFinished());
 
     public static Comparator<Counter> COMPARE_BY_GAME_DESC = (obj1, obj2) ->
             obj2.getGame().getId() - obj1.getGame().getId();
@@ -98,7 +99,7 @@ public class Counter implements Parcelable {
     }
 
     public String timeElapsed() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a", Locale.US);
+        DateFormat DFormat = DateFormat.getDateTimeInstance();
         if(dateCreated != null) {
             long secondsInMilli = 1000;
             long minutesInMilli = secondsInMilli * 60;
@@ -110,7 +111,7 @@ public class Counter implements Parcelable {
             Date date2 = new Date();
 
             try {
-                date1 = simpleDateFormat.parse(dateCreated); //get start date
+                date1 = DFormat.parse(dateCreated);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -118,7 +119,7 @@ public class Counter implements Parcelable {
 
             if(dateFinished != null) {
                 try {
-                    date2 = simpleDateFormat.parse(dateFinished); //get captured date
+                    date2 = DFormat.parse(dateFinished);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -152,8 +153,24 @@ public class Counter implements Parcelable {
         this.id = id;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getDateCreated(){
+        if(dateCreated == null || dateCreated.equals("")){
+            return "";
+        } else {
+            DateFormat DFormat = DateFormat.getDateTimeInstance();
+            Date date = new Date();
+            try {
+                date = DFormat.parse(dateCreated);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if(date != null) {
+                return DateFormat.getDateTimeInstance().format(date);
+            } else {
+                return null;
+            }
+        }
     }
 
     public void setDateCreated(String dateCreated) {
@@ -161,7 +178,23 @@ public class Counter implements Parcelable {
     }
 
     public String getDateFinished() {
-        return dateFinished;
+        if(dateFinished == null || dateFinished.equals("")){
+            return "";
+        } else {
+            DateFormat DFormat = DateFormat.getDateTimeInstance();
+            Date date = new Date();
+            try {
+                date = DFormat.parse(dateFinished);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if(date != null) {
+                return DateFormat.getDateTimeInstance().format(date);
+            } else {
+                return null;
+            }
+        }
     }
 
     public void setDateFinished(String dateFinished) {

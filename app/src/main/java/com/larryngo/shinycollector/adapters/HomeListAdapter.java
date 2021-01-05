@@ -136,7 +136,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage(mContext.getResources().getString(R.string.dialog_deleteconfirmation))
                 .setPositiveButton(mContext.getResources().getString(R.string.dialog_yes), (dialog, which) -> {
-                    if(counters.get(position).getDateFinished() == null) { //hasn't been finished and therefore is in the hunting list
+                    if(counters.get(position).getDateFinished().equals("") || counters.get(position).getDateFinished() == null) { //hasn't been finished and therefore is in the hunting list
                         huntingViewModel.deleteCounter(counters.get(position));
                     } else {
                         completedViewModel.deleteCounter(counters.get(position)); //there is a finished date and therefore is completed

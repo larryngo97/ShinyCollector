@@ -1,5 +1,7 @@
 package com.larryngo.shinycollector.models;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class PokemonList {

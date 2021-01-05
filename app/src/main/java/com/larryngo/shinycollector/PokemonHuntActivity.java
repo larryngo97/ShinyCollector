@@ -254,6 +254,11 @@ public class PokemonHuntActivity extends AppCompatActivity {
     }
 
     public void editCounter(int step) {
+        int value = counter.getCount() + step; //value when clicked
+        if(value < 0) { //cannot go below 0
+            value = 0;
+        }
+
         if(Settings.isAnimModeOn()) {
             long duration = abs(step * 100); // 0.1 second per step
             if (duration > COUNTER_ANIMATION_DURATION) {
@@ -267,12 +272,13 @@ public class PokemonHuntActivity extends AppCompatActivity {
             numberSizeAnimation.setDuration(duration);
             numberSizeAnimation.start();
 
-            ValueAnimator numberChangeAnimation = ValueAnimator.ofInt(counter.getCount(), counter.getCount() + step);
+            ValueAnimator numberChangeAnimation = ValueAnimator.ofInt(counter.getCount(), value);
             numberChangeAnimation.setDuration(duration);
             numberChangeAnimation.addUpdateListener(animation -> binding.countPokemon.setText(numberChangeAnimation.getAnimatedValue().toString()));
             numberChangeAnimation.start();
         } else {
-            binding.countPokemon.setText(String.valueOf(counter.getCount() + step));
+
+            binding.countPokemon.setText(String.valueOf(value));
         }
 
         counter.add(step);

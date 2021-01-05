@@ -1,6 +1,10 @@
 package com.larryngo.shinycollector.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +14,40 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.Target;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.larryngo.shinycollector.R;
+import com.larryngo.shinycollector.models.Pokemon;
+import com.larryngo.shinycollector.models.PokemonGameIcon;
 import com.larryngo.shinycollector.models.PokemonList;
 import com.larryngo.shinycollector.util.Settings;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,11 +82,9 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         if(Settings.isAnimModeOn()) {
             holder.container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.list_anim_grow_right));
         }
-
-        String name = pokemon.getName().substring(0, 1).toUpperCase() + pokemon.getName().substring(1); //capitalize first letter of word
-        holder.name.setText(name);
-
+        holder.name.setText(Pokemon.getDisplayName(pokemon.getId(), pokemon.getName()));
         int index = pokemon.getId();
+
         String index_number;
         if(index < 10) {
             index_number = "#00" + index;
@@ -76,10 +102,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         Glide.with(mContext)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.getId() + ".png")
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.missingno)
                 .into(holder.image);
-
     }
 
     public List<PokemonList> getList() {
@@ -116,7 +140,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
             } else {
                 for (PokemonList entry : data_all) {
                     //System.out.println(game.getName() + constraint.toString().toLowerCase());
-                    if (entry.getName().toLowerCase().contains(constraint.toString().toLowerCase()) || //search by name
+                    if (Pokemon.getDisplayName(entry.getId(), entry.getName()).toLowerCase().contains(constraint.toString().toLowerCase()) || //search by name
                             String.valueOf(entry.getId()).toLowerCase().startsWith(constraint.toString().toLowerCase())) { //search by ID
                         filteredList.add(entry);
                     }

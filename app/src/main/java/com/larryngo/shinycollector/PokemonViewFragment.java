@@ -64,10 +64,9 @@ public class PokemonViewFragment extends Fragment {
     //Receives the index from the PokemonListFragment class.
     //This helps create the pokemon class and find information based on that.
     public void receiveIndex(PokemonList pokemonList) {
-        String name = pokemonList.getName();
-        name = name.substring(0, 1).toUpperCase() + name.substring(1); //Uppercase the first letter
-
         int id = pokemonList.getId();
+        String name = pokemonList.getName();
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
         String image_url = PokeAPIService.baseURL_shiny + id + ".png"; //Image for the DEFAULT shiny.
 
@@ -256,7 +255,7 @@ public class PokemonViewFragment extends Fragment {
             binding.pokemonViewId.setText(index_number);
         }
 
-        binding.pokemonViewName.setText(pokemon.getName());
+        binding.pokemonViewName.setText(Pokemon.getDisplayName(pokemon.getId(), pokemon.getName()));
 
         //Both types are invisible until their types are revealed.
         binding.pokemonViewType1.setVisibility(View.INVISIBLE);
