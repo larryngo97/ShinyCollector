@@ -28,6 +28,7 @@ This application uses an API called PokeAPI. Learn more about it here: https://p
 * Redo a count, set up your own increment number per click, editing pokemon mid-hunt, and options!
 * Night mode! Save battery while hunting!
 
-## TO-DO LIST
+## PRIVACY POLICY
 
-* Edit Completed Hunts
+https://github.com/larryngo97/ShinyCollector/blob/master/shiny_collector-privacy-policy.pdf
+
